@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Card,Typography,Button,CardActions,CardContent,Tab,Tabs,AppBar} from '@mui/material';
 import ContractInformationForm from './ContractInformation';
-
 function CustCategoryForm() {
     const [value,setValue]=React.useState(0);
     const handleTabs=(e,val)=>{

@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { Card, Grid, Typography,Button,CardActions,CardContent,TextField, List,ListItem,Stack } from '@mui/material';
-import BasicSelectSex from './materialui/selectors/BasicSelectSex';
-import BasicSelectfpc from './materialui/selectors/FpcSelect';
-import BasicSelectspc from './materialui/selectors/SpcSelect';
-import BasicSelectCustGroup from './materialui/selectors/CustGroupSelect';
-import BasicSelectProjectGroup from   './materialui/selectors/ProjectGroupSelect';
+import BasicSelectSex from '../materialui/selectors/BasicSelectSex';
+import BasicSelectfpc from '../materialui/selectors/FpcSelect';
+import BasicSelectspc from '../materialui/selectors/SpcSelect';
+import BasicSelectCustGroup from '../materialui/selectors/CustGroupSelect';
+import BasicSelectProjectGroup from   '../materialui/selectors/ProjectGroupSelect';
 import { Box, Container } from '@mui/system';
 import DeleteIcon from '@mui/icons-material/Delete';
 
