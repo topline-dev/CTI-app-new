@@ -37,7 +37,7 @@ function App() {
       <>
       <Router>
         <Routes>
-            <Route path="/src/" element={<Home/>}/>
+            <Route path="/" element={<Home/>}/>
             <Route path="/new" element={<NewCustomerScreenIndex/>}/>
             <Route path="/cust" element={<CustomerSearchScreenIndex/>}/>
             <Route path="*" element={<ButtonAppBar title="Error not found"/>}/>            
