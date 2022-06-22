@@ -1,19 +1,51 @@
 import './App.css';
 import React from 'react';
+import { ThemeProvider,colors} from '@mui/material';
+import { createTheme } from '@mui/material';
 // import ReactDOM from 'react-dom/client';
-// import ButtonAppBar from './components/Appbar';
-// import TemporaryDrawer from './components/SideNav';
-// import CustForm from './components/CustForm';
-// import CustCategoryForm from './components/CustCategoryForm';
-// import { Button, Grid, Stack, Typography,} from '@mui/material';
-import NewCustomerScreenIndex from './components/newcustomer';
-import CustForm from './components/newcustomer/CustForm';
+import NewCustomerScreenIndex from './components/newcustomer/NewCustomerIndex';
+import CustomerSearchScreenIndex from './components/customer_search/CustomerSearchIndex';
+import Home from './components/home/Home';
+import ButtonAppBar from './components/newcustomer/Appbar';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link
+} from "react-router-dom";
+
+
+const themex = createTheme({
+  palette: {
+    primary:{
+      main:"#07a74a",
+      light:"#07a74a42",
+      dark: colors.green[800],
+      
+    },
+    secondary: {
+      main: "#00b0ff",
+      light: "#33bfff",
+      dark:"#007bb2"
+    },
+  },
+})
 
 function App() {
   return (
-    <>
-      <NewCustomerScreenIndex/>
-    </>
+    <ThemeProvider theme={themex}>
+      <>
+      <Router>
+        <Routes>
+            <Route path="/" element={<Home/>}/>
+            <Route path="/new" element={<NewCustomerScreenIndex/>}/>
+            <Route path="/cust" element={<CustomerSearchScreenIndex/>}/>
+            <Route path="*" element={<ButtonAppBar title="Error not found"/>}/>            
+         </Routes>
+      </Router>    
+      </>
+    </ThemeProvider>
+   
   );
 }
 

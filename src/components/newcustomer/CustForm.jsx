@@ -1,17 +1,16 @@
 import * as React from 'react';
-import { Card, Grid, Typography,Button,CardActions,CardContent,TextField, List,ListItem,Stack } from '@mui/material';
+import { Card, Grid, Typography,Button,CardContent,TextField,Stack } from '@mui/material';
 import BasicSelectSex from '../materialui/selectors/BasicSelectSex';
 import BasicSelectfpc from '../materialui/selectors/FpcSelect';
 import BasicSelectspc from '../materialui/selectors/SpcSelect';
 import BasicSelectCustGroup from '../materialui/selectors/CustGroupSelect';
 import BasicSelectProjectGroup from   '../materialui/selectors/ProjectGroupSelect';
-import { Box, Container } from '@mui/system';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 function CustForm() {
     const [userTel,setUserTel]=React.useState([{num:""}])
     const [userEmail,setUserEmail]=React.useState([{email:""}])
-    const [userFirstName,setUserFirstName]=React.useState([{firstname:""}])
+    // const [userFirstName,setUserFirstName]=React.useState([{firstname:""}])
     const userTemplate={
         firstname:"",lastname:"",kanafirstname:"",kanalastname:"",
         address1:"",postalcode:"",address2:"",address3:"",address4:"",
@@ -171,7 +170,7 @@ function handleChangeUserInput(event,att){
                                 </Grid>    
                                 )
                             )}
-                        <Button onClick={addStack} variant="contained" style={{backgroundColor:"#07a74a"}}>ADD</Button>
+                        <Button onClick={addStack} variant="contained">ADD</Button>
                       </Stack>
                   </Grid>
                   <Grid item xs={12}>
@@ -217,7 +216,7 @@ function handleChangeUserInput(event,att){
                                 </Grid>
                                 )
                             )}
-                        <Button onClick={addStackEmail} variant="contained" style={{backgroundColor:"#07a74a"}}>ADD</Button>
+                        <Button onClick={addStackEmail} variant="contained" >ADD</Button>
                       </Stack>
                   </Grid>
                   <Grid item xs={7}>

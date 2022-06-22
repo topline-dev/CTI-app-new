@@ -1,7 +1,6 @@
 import '../../App.css';
 import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { Button, Grid, Stack, Typography,} from '@mui/material';
+import { Button, Grid, Stack,} from '@mui/material';
 import ButtonAppBar from './Appbar';
 import TemporaryDrawer from './SideNav';
 import CustForm from './CustForm';
@@ -13,16 +12,16 @@ export default function NewCustomerScreenIndex() {
       <ButtonAppBar title="New Customer"/>
       <TemporaryDrawer/>
       <Grid container spacing={2} justifyContent={"center"}>
-        <Grid item xs={12} md={5.6}>
+        <Grid item xs={12} md={5.5}>
           <CustForm/>
         </Grid>
-        <Grid item xs={12} md={5.6}>
+        <Grid item xs={12} md={5.5}>
           <CustCategoryForm />
           <br/>
           <Stack direction="row" spacing={2} >
-            <Button variant='contained' style={{backgroundColor:"#07a74a"}} size="large" fullWidth>Button 1</Button>
-            <Button variant='contained' style={{backgroundColor:"#07a74a"}} size="large" fullWidth>Save</Button>
-            <Button variant='contained' style={{backgroundColor:"red"}} size="large" fullWidth>Cancel</Button>
+            <Button variant='contained'  size="large" fullWidth>Button 1</Button>
+            <Button variant='contained'  size="large" fullWidth>Save</Button>
+            <Button variant='contained' sx={{backgroundColor:"error.light"}} color="error" size="large" fullWidth>Cancel</Button>
           </Stack>
         </Grid>
       </Grid>

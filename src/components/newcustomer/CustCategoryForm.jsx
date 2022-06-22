@@ -1,11 +1,18 @@
 import * as React from 'react';
-import { Card,Typography,Button,CardActions,CardContent,Tab,Tabs,AppBar} from '@mui/material';
+import { Card,Typography,CardContent,Tab,Tabs,AppBar} from '@mui/material';
 import ContractInformationForm from './ContractInformation';
 function CustCategoryForm() {
     const [value,setValue]=React.useState(0);
     const handleTabs=(e,val)=>{
         setValue(val);
     }
+    // function hht(e){
+    //     console.log(e);
+    //     setValue(e.target.value);
+    // }
+    const tabtitle=["Contract Information","Call Log history","test","d"];
+    const tabpanel=[<ContractInformationForm/>,'xx','yy','ww'];
+    // const [alltabs,setalltabs]=React.useState([{""}])
     return(
         <>
             <Card sx={{ minWidth: 275 }} elevation="4">
@@ -14,16 +21,24 @@ function CustCategoryForm() {
                   Customized Category Information
                 </Typography>
             <div>
-                <AppBar position='static' style={{background:"#07a74a42"}} colo>
-                    <Tabs variant='fullWidth' onChange={handleTabs} value={value}>
-                        <Tab label="Contract Information"/>
+                <AppBar position='static' sx={{backgroundColor:"primary.light"}} color="primary">
+                    <Tabs variant='fullWidth'  value={value} onChange={handleTabs}>
+                        {tabtitle.map((tt,index)=>(
+                            <Tab label={tt} key={index} />
+                            )
+                        )}
+                        {/* <Tab label="Contract Information" />
                         <Tab label="Call Log history"/>
-                        <Tab label="Test"/>
+                        <Tab label="Test"/> */}
                     </Tabs>
                 </AppBar>
-                <TabPanel value={value} index={0}><ContractInformationForm/></TabPanel>
+                {tabpanel.map((tp,index)=>(
+                            <TabPanel value={value} index={index}>{tp}</TabPanel>
+                            )
+                        )}
+                {/* <TabPanel value={value} index={0}><ContractInformationForm/></TabPanel>
                 <TabPanel  value={value} index={1}>Item 2</TabPanel>
-                <TabPanel  value={value} index={2}>Item 3</TabPanel>
+                <TabPanel  value={value} index={2}>Item 3</TabPanel> */}
             </div>
               </CardContent>
               {/* <CardActions>
