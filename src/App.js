@@ -35,14 +35,15 @@ function App() {
   return (
     <ThemeProvider theme={themex}>
       <>
-      <Router>
+      <CustomerSearchScreenIndex/>
+      {/* <Router>
         <Routes>
             <Route path="/" element={<Home/>}/>
             <Route path="/new" element={<NewCustomerScreenIndex/>}/>
             <Route path="/cust" element={<CustomerSearchScreenIndex/>}/>
             <Route path="*" element={<ButtonAppBar title="Error not found"/>}/>            
          </Routes>
-      </Router>    
+      </Router>     */}
       </>
     </ThemeProvider>
    
