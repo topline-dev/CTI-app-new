@@ -8,7 +8,7 @@ import CustomerSearchScreenIndex from './components/customer_search/CustomerSear
 import Home from './components/home/Home';
 import ButtonAppBar from './components/newcustomer/Appbar';
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Routes,
   Route,
   Link
@@ -37,9 +37,9 @@ function App() {
       <>
       <Router>
         <Routes>
-            <Route path="/cti-app" element={<Home/>}/>
-            <Route path="/cti-app/new" element={<NewCustomerScreenIndex/>}/>
-            <Route path="/cti-app/cust" element={<CustomerSearchScreenIndex/>}/>
+            <Route path="/" element={<Home/>}/>
+            <Route path="/new" element={<NewCustomerScreenIndex/>}/>
+            <Route path="/cust" element={<CustomerSearchScreenIndex/>}/>
             <Route path="*" element={<ButtonAppBar title="Error not found"/>}/>            
          </Routes>
       </Router>    
