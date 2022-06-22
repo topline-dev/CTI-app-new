@@ -36,9 +36,9 @@ function App() {
     <ThemeProvider theme={themex}>
       <>
         <Routes>
-            <Route path="/" element={<Home/>}/>
-            <Route path="/new" element={<NewCustomerScreenIndex/>}/>
-            <Route path="/cust" element={<CustomerSearchScreenIndex/>}/>
+            <Route exact path="/" element={<Home/>}/>
+            <Route exact path="/new" element={<NewCustomerScreenIndex/>}/>
+            <Route exact path="/cust" element={<CustomerSearchScreenIndex/>}/>
             <Route path="*" element={<ButtonAppBar title="Error not found"/>}/>            
          </Routes>
       </>
