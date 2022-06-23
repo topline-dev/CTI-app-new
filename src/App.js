@@ -8,10 +8,8 @@ import CustomerSearchScreenIndex from './components/customer_search/CustomerSear
 import Home from './components/home/Home';
 import ButtonAppBar from './components/newcustomer/Appbar';
 import {
-  HashRouter as Router,
   Routes,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
 
 
