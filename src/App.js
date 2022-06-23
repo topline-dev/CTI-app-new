@@ -39,8 +39,7 @@ function App() {
             <Route exact path="/home" element={<Home/>}/>
             <Route exact path="/new" element={<NewCustomerScreenIndex/>}/>
             <Route exact path="/cust" element={<CustomerSearchScreenIndex/>}/>
-            <Route path="/" element={<ButtonAppBar title="Home"/>}/>            
-            <Route path="*" element={<ButtonAppBar title="Error!  Page not found"/>}/>            
+            <Route path="*" element={<ButtonAppBar title="Error! Page not found"/>}/>            
          </Routes>
       </>
     </ThemeProvider>
