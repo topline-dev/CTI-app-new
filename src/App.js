@@ -36,9 +36,10 @@ function App() {
     <ThemeProvider theme={themex}>
       <>
         <Routes>
-            <Route exact path="/" element={<Home/>}/>
+            <Route exact path="/home" element={<Home/>}/>
             <Route exact path="/new" element={<NewCustomerScreenIndex/>}/>
             <Route exact path="/cust" element={<CustomerSearchScreenIndex/>}/>
+            <Route exact path="/" element={<ButtonAppBar title="overall home"/>}/>
             <Route path="*" element={<ButtonAppBar title="Error not found"/>}/>            
          </Routes>
       </>
