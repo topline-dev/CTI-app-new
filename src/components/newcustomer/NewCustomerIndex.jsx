@@ -19,7 +19,7 @@ export default function NewCustomerScreenIndex() {
           <CustCategoryForm />
           <br/>
           <Stack direction="row" spacing={2} >
-            <Button variant='contained'  size="large" fullWidth>Button 1</Button>
+            <Button variant='contained'  size="large" fullWidth>Button 11</Button>
             <Button variant='contained'  size="large" fullWidth>Save</Button>
             <Button variant='contained' sx={{backgroundColor:"error.light"}} color="error" size="large" fullWidth>Cancel</Button>
           </Stack>
