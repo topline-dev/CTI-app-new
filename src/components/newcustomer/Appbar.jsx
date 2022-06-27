@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -8,10 +8,10 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Link } from 'react-router-dom';
 
-export default function ButtonAppBar(props) {
-    console.log(props);
+const ButtonAppBar = (props) => {
+    console.log(props);  //We will use redux in place of props
   return (
-    <Box sx={{ flexGrow: 1 }} >
+    <Box sx={{ flexGrow: 1 }} >  
       <AppBar position="static">
         <Toolbar >
           <IconButton
@@ -34,3 +34,5 @@ export default function ButtonAppBar(props) {
     </Box>
   );
 }
+
+export default ButtonAppBar;
