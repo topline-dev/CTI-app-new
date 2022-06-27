@@ -2,7 +2,7 @@ import '../../App.css';
 import React from 'react';
 import ButtonAppBar from '../newcustomer/Appbar';
 import TemporaryDrawer from '../newcustomer/SideNav';
-import { Grid,Card,CardContent,Button, Stack, TextField } from '@mui/material';
+import { Grid,Card,CardContent,Button, Stack, TextField,Box } from '@mui/material';
 import BasicSelectCustGroup from '../materialui/selectors/CustGroupSelect';
 import BasicSelectProjectGroup from '../materialui/selectors/ProjectGroupSelect';
 import {Tab,Tabs,AppBar} from '@mui/material';
@@ -20,20 +20,20 @@ export default function CustomerSearchScreenIndex() {
         <TemporaryDrawer/>
         <Grid container spacing={2} justifyContent={"center"} alignItems="stretch" direction="row">
             <Grid item  xs={12} md={3.5}>
-                <Card elevation="4" >
+                <Card elevation={4} >
                     <CardContent>
                         <Stack spacing={4}>
                                    {/* <item><Container sx={{backgroundColor:"primary.light",minHeight:"50px",justifyContent:"center"}}><h3>Information</h3></Container></item> */}
-                            <item><TextField type="number" variant='outlined' fullWidth label="Telephone number" /></item>
-                            <item><BasicSelectCustGroup/></item>
-                            <item><BasicSelectProjectGroup/></item>
-                            <item><Button variant="contained" fullWidth>Search</Button></item>
+                            <Box><TextField type="number" variant='outlined' fullWidth label="Telephone number" /></Box>
+                            <Box><BasicSelectCustGroup/></Box>
+                            <Box><BasicSelectProjectGroup/></Box>
+                            <Box><Button variant="contained" fullWidth>Search</Button></Box>
                             </Stack>
                     </CardContent>
                 </Card>
             </Grid>
             <Grid item xs={12} md={7.5}>
-                <Card  elevation="4">
+                <Card  elevation={4}>
                     <CardContent>
                         <div>
                             <AppBar position='static' sx={{backgroundColor:"primary.light"}} color="primary">

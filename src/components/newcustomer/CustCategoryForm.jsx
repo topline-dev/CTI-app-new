@@ -15,7 +15,7 @@ function CustCategoryForm() {
     // const [alltabs,setalltabs]=React.useState([{""}])
     return(
         <>
-            <Card sx={{ minWidth: 275 }} elevation="4">
+            <Card sx={{ minWidth: 275 }} elevation={4}>
               <CardContent>
                 <Typography sx={{ fontSize: 15 }} color="black" style={{fontWeight:"bold"}} align="center" gutterBottom>
                   Customized Category Information
@@ -33,7 +33,7 @@ function CustCategoryForm() {
                     </Tabs>
                 </AppBar>
                 {tabpanel.map((tp,index)=>(
-                            <TabPanel value={value} index={index}>{tp}</TabPanel>
+                            <TabPanel value={value} index={index} key={index}>{tp}</TabPanel>
                             )
                         )}
                 {/* <TabPanel value={value} index={0}><ContractInformationForm/></TabPanel>
