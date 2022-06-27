@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Card, Grid, Typography,Button,CardContent,TextField,Stack } from '@mui/material';
+import { Card, Grid, Typography,Button,CardContent,TextField,Stack,} from '@mui/material';
 import BasicSelectSex from '../materialui/selectors/BasicSelectSex';
 import BasicSelectfpc from '../materialui/selectors/FpcSelect';
 import BasicSelectspc from '../materialui/selectors/SpcSelect';
@@ -59,10 +59,17 @@ function handleChangeUserInput(event,att){
     arr[0]=temp;
     setUserInput(arr);
 }
+const handleSubmit =(e) =>{
+  e.preventDefault();
+  console.log("formm submitted");
+  const data={userEmail,userTel,userTemplate};
+  console.log(data);
+};
 
     return(
         <>
-            <Card sx={{ minWidth: 275 }} elevation="4" >
+          <form onSubmit={handleSubmit}>
+            <Card sx={{ minWidth: 275 }} elevation={4} >
               <CardContent >
                 <Typography sx={{ fontSize: 15 }} color="black" style={{fontWeight:"bold"}} align="center" gutterBottom>
                   Customer Information
@@ -317,8 +324,8 @@ function handleChangeUserInput(event,att){
                     />
                   </Grid>
                   <Grid item xs={6}>
-                    <TextField i
-                        d="outlined-basic" 
+                    <TextField 
+                        id="outlined-basic" 
                         label="Note 2" 
                         variant="outlined" 
                         fullWidth
@@ -327,11 +334,13 @@ function handleChangeUserInput(event,att){
                     />
                   </Grid>
                 </Grid>
+                <Button type='submit'> submit</Button>
               </CardContent>
               {/* <CardActions>
                 <Button size="small">Learn More</Button>
               </CardActions> */}
           </Card>
+          </form>
         </>
     ); 
 }
