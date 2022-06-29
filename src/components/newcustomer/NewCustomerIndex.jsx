@@ -7,13 +7,16 @@ import CustForm from './CustForm';
 import CustCategoryForm from './CustCategoryForm';
 
 export default function NewCustomerScreenIndex() {
+// const [custGroup, setCustGroup]=useState(['aa','bb','cc','dd','xx']);
+//  const [isSubmit,setIsSubmit]=useState('fasle');
+
   return (
     <>
       <ButtonAppBar title="New Customer"/>
       <TemporaryDrawer/>
       <Grid container spacing={2} justifyContent={"center"}>
         <Grid item xs={12} md={5.5}>
-          <CustForm/>
+          <CustForm />
         </Grid>
         <Grid item xs={12} md={5.5}>
           <CustCategoryForm />

@@ -1,18 +1,14 @@
 import * as React from 'react';
 import { Card,Typography,CardContent,Tab,Tabs,AppBar} from '@mui/material';
 import ContractInformationForm from './ContractInformation';
-function CustCategoryForm() {
+function CustCategoryForm(props) {
     const [value,setValue]=React.useState(0);
     const handleTabs=(e,val)=>{
         setValue(val);
     }
-    // function hht(e){
-    //     console.log(e);
-    //     setValue(e.target.value);
-    // }
     const tabtitle=["Contract Information","Call Log history","test","d"];
     const tabpanel=[<ContractInformationForm/>,'xx','yy','ww'];
-    // const [alltabs,setalltabs]=React.useState([{""}])
+    
     return(
         <>
             <Card sx={{ minWidth: 275 }} elevation={4}>

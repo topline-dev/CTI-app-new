@@ -29,7 +29,6 @@ const themex = createTheme({
 function App() {
   return (
     <ThemeProvider theme={themex}>
-      <ButtonAppBar />
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route exact path="/new" element={<NewCustomerScreenIndex />} />
