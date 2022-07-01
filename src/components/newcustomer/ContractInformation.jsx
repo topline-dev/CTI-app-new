@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import { Grid,TextField, } from '@mui/material';
+import { Button, Grid,TextField, } from '@mui/material';
 import BasicSelect from './inputs/BasicSelect';
 
 export default function ContractInformationForm(){
@@ -7,14 +7,22 @@ export default function ContractInformationForm(){
         contractmanagernum:"",contractperiod :"",
         orderdate:"",contractstartdate:"",
         initialcost:"",commission:"",insurancepremium:"",note:"",
+        contractInformation:"",insuranceCompany:"",productName:"",
+        contractStatus:"",paymentMethod:"",howToPay:"",
     }
     const [userContractInput,setUserContractInput]=useState([userContractTemplate]);
-    const [contractInformation,setContractInformation]=useState({list:['valid','invalid','other'],val:""});
-    const [insuranceCompany,setInsuranceCompany]=useState({list:['one','two','three'],val:""});
-    const [productName,setProductName]=useState({list:['p1','p2','p3','p4'],val:""});
-    const [contractStatus,setContractStatus]=useState({list:['normal','expired','cancel'],val:""});
-    const [paymentMethod,setPaymentMethod]=useState({list:['credit card','account transfer','other'],val:""});
-    const [howToPay,setHowToPay]=useState({list:['anual payment','monthly payment','other'],val:""});
+    // const [contractInformation,setContractInformation]=useState({list:['valid','invalid','other'],val:""});
+    // const [insuranceCompany,setInsuranceCompany]=useState({list:['one','two','three'],val:""});
+    // const [productName,setProductName]=useState({list:['p1','p2','p3','p4'],val:""});
+    // const [contractStatus,setContractStatus]=useState({list:['normal','expired','cancel'],val:""});
+    // const [paymentMethod,setPaymentMethod]=useState({list:['credit card','account transfer','other'],val:""});
+    // const [howToPay,setHowToPay]=useState({list:['anual payment','monthly payment','other'],val:""});
+    const contractInformationList=['male', 'female', 'other'];
+    const insuranceCompanyList=['aaa', 'bbb', 'ccc'];
+    const productNameList=['111', '222', '333'];
+    const contractStatusList=['grp1', 'grp2', 'grp3'];
+    const paymentMethodList=['prj1', 'prj2', 'prj3'];
+    const howToPayList=['prj1', 'prj2', 'prj3'];
 
     const handleContractTemplate = (e) => {
         let name=e.target.name;
@@ -25,11 +33,27 @@ export default function ContractInformationForm(){
         setUserContractInput(arr);
     }
 
+    const handleForm = (e) =>{
+        e.preventDefault();
+        // let alldata=(
+        //     [userContractInput,contractInformation,insuranceCompany,
+        //     productName,contractStatus,paymentMethod,howToPay]
+        // );
+        console.log("submitted contract form");
+    }
+
     return(
     <>
+        <form onSubmit={handleForm}>
         <Grid container columnSpacing={1} rowSpacing={1} >
             <Grid item xs={6}>
-                <BasicSelect data={contractInformation} label='Contract Information' name='contractInformation' onChange={e => setContractInformation({...contractInformation,val:e.target.value})} />
+                <BasicSelect 
+                  value={userContractInput[0].contractInformation} 
+                  list={contractInformationList} 
+                  label='Contract Information' 
+                  name='contractInformation' 
+                  onChange={e=>handleContractTemplate(e,"contractInformation")}
+                />
             </Grid>
             <Grid item xs={6}>
                 <TextField 
@@ -42,7 +66,7 @@ export default function ContractInformationForm(){
                     onChange={e=>handleContractTemplate(e)}
                 />
             </Grid>
-            <Grid item xs={6}>
+            {/* <Grid item xs={6}>
                 <BasicSelect data={insuranceCompany} label='Insurance company name' name='InsuranceCompany' onChange={e => setInsuranceCompany({...insuranceCompany,val:e.target.value})}  />
             </Grid>
             <Grid item xs={6}>
@@ -53,7 +77,7 @@ export default function ContractInformationForm(){
             </Grid>
             <Grid item xs={6}>
                 <BasicSelect data={productName} label='Product Name' name='productname' onChange={e => setProductName({...productName,val:e.target.value})}  />                  
-            </Grid>
+            </Grid> */}
             <Grid item xs={12}>
                 <TextField 
                     id="outlined-basic" 
@@ -94,7 +118,7 @@ export default function ContractInformationForm(){
                 />
             </Grid> 
             <Grid item xs={6}>
-                <BasicSelect data={howToPay} label='How To Pay' name='howtopay' onChange={e => setHowToPay({...howToPay ,val:e.target.value})}  />                  
+                {/* <BasicSelect data={howToPay} label='How To Pay' name='howtopay' onChange={e => setHowToPay({...howToPay ,val:e.target.value})}  />                   */}
             </Grid>
             <Grid item xs={6}>
                 <TextField 
@@ -116,7 +140,8 @@ export default function ContractInformationForm(){
                     fullWidth 
                     value={userContractInput.commission}
                     onChange={e=>handleContractTemplate(e)}
-                />            </Grid>
+                />           
+            </Grid>
             <Grid item xs={6}>
                 <TextField 
                     id="outlined-basic" 
@@ -140,6 +165,8 @@ export default function ContractInformationForm(){
                 />           
              </Grid>
         </Grid>
+        <Button type='submit'>submit</Button>
+        </form>
     </>
     )
 }

@@ -8,7 +8,8 @@ import Select from '@mui/material/Select';
 export default function BasicSelect(props) {
     //console.log('in basic select');
     //console.log(props);
-    let datalist=props.data.list;
+    let datalist=props.list;
+    //console.log(datalist);
   return (
     <Box sx={{ minWidth: 120 }}>
       <FormControl fullWidth>
@@ -16,13 +17,12 @@ export default function BasicSelect(props) {
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          name={props.name}
-          value={props.data.val}
+          value={props.value}
           label={props.label}
           onChange={e => props.onChange(e)}
         >
         { datalist.map((data,index) => (
-            <MenuItem value={index} key={index} name={data}>{data}</MenuItem>
+            <MenuItem value={data} key={index}>{data}</MenuItem>
         )
         )}
         </Select>
