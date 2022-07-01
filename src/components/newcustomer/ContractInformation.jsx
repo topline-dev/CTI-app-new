@@ -1,148 +1,172 @@
-import * as React from 'react';
-import { Grid,TextField,MenuItem,InputLabel,Select, FormControl } from '@mui/material';
+import React,{useState} from 'react';
+import { Button, Grid,TextField, } from '@mui/material';
+import BasicSelect from './inputs/BasicSelect';
 
 export default function ContractInformationForm(){
-    const [ci,setCI]=React.useState('');
-    const handleci=(e)=>{
-        setCI(e.target.value)
-    };
-    const [icn,seticn]=React.useState('');
-    const handleicn=(e)=>{
-        seticn(e.target.value)
-    };
-    const [cs,setcs]=React.useState('');
-    const handlecs=(e)=>{
-        setcs(e.target.value)
-    };
-    const [pm,setpm]=React.useState('');
-    const handlepm=(e)=>{
-        setpm(e.target.value)
-    };
+    const userContractTemplate={
+        contractmanagernum:"",contractperiod :"",
+        orderdate:"",contractstartdate:"",
+        initialcost:"",commission:"",insurancepremium:"",note:"",
+        contractInformation:"",insuranceCompany:"",productName:"",
+        contractStatus:"",paymentMethod:"",howToPay:"",
+    }
+    const [userContractInput,setUserContractInput]=useState([userContractTemplate]);
+    // const [contractInformation,setContractInformation]=useState({list:['valid','invalid','other'],val:""});
+    // const [insuranceCompany,setInsuranceCompany]=useState({list:['one','two','three'],val:""});
+    // const [productName,setProductName]=useState({list:['p1','p2','p3','p4'],val:""});
+    // const [contractStatus,setContractStatus]=useState({list:['normal','expired','cancel'],val:""});
+    // const [paymentMethod,setPaymentMethod]=useState({list:['credit card','account transfer','other'],val:""});
+    // const [howToPay,setHowToPay]=useState({list:['anual payment','monthly payment','other'],val:""});
+    const contractInformationList=['male', 'female', 'other'];
+    const insuranceCompanyList=['aaa', 'bbb', 'ccc'];
+    const productNameList=['111', '222', '333'];
+    const contractStatusList=['grp1', 'grp2', 'grp3'];
+    const paymentMethodList=['prj1', 'prj2', 'prj3'];
+    const howToPayList=['prj1', 'prj2', 'prj3'];
+
+    const handleContractTemplate = (e) => {
+        let name=e.target.name;
+        let arr=[...userContractInput];
+        let temp=arr[0];
+        temp[name]=e.target.value;
+        arr[0]=temp;
+        setUserContractInput(arr);
+    }
+
+    const handleForm = (e) =>{
+        e.preventDefault();
+        // let alldata=(
+        //     [userContractInput,contractInformation,insuranceCompany,
+        //     productName,contractStatus,paymentMethod,howToPay]
+        // );
+        console.log("submitted contract form");
+    }
 
     return(
-        <>
-            <div>
-                <Grid container columnSpacing={1} rowSpacing={1} >
-                    <Grid item xs={6}>
-                        <FormControl fullWidth>
-                            <InputLabel id='ci-label'>Contract Information</InputLabel>
-                            <Select
-                            labelId='ci-label'
-                            id="contractinfo-select"
-                            value={ci}
-                            label="Contract Information"
-                            onChange={handleci}
-                            >
-                                <MenuItem value={1}>male</MenuItem>
-                                <MenuItem value={2}>female</MenuItem>
-                                <MenuItem value={3}>others</MenuItem>
-                            </Select>
-                        </FormControl>
-                    </Grid>
-                    <Grid item xs={6}>
-                        <FormControl fullWidth>
-                            <InputLabel id='icn-label'>Insurance company name</InputLabel>
-                            <Select
-                            labelId='icn-label'
-                            id="insurancename-select"
-                            value={icn}
-                            label="Insurance company name"
-                            onChange={handleicn}
-                            >
-                                <MenuItem value={1}>test1</MenuItem>
-                                <MenuItem value={2}>test2</MenuItem>
-                                <MenuItem value={3}>test3</MenuItem>
-                            </Select>
-                        </FormControl>
-                    </Grid>
-                    <Grid item xs={6}>
-                        <FormControl fullWidth>
-                            <InputLabel id='cs-label'>Contract status</InputLabel>
-                            <Select
-                            labelId='cs-label'
-                            id="contractstatus-select"
-                            value={cs}
-                            label="Contract Status"
-                            onChange={handlecs}
-                            >
-                                <MenuItem value={1}>m</MenuItem>
-                                <MenuItem value={2}>f</MenuItem>
-                                <MenuItem value={3}>o</MenuItem>
-                            </Select>
-                        </FormControl>
-                    </Grid>
-                    <Grid item xs={6}>
-                        <FormControl fullWidth>
-                            <InputLabel id='pm-label'>Payment Method</InputLabel>
-                            <Select
-                            labelId='pm-label'
-                            id="paymentmethod-select"
-                            value={pm}
-                            label="Payment Method"
-                            onChange={handlepm}
-                            >
-                                <MenuItem value={1}>Credit card</MenuItem>
-                                <MenuItem value={2}>Account transfer</MenuItem>
-                                <MenuItem value={3}>o</MenuItem>
-                            </Select>
-                        </FormControl>                   
-                    </Grid>
-                    <Grid item xs={6}>
-                        <TextField id="outlined-basic" label="Contract manager number" variant="outlined" fullWidth />
-                    </Grid>
-                    <Grid item xs={6}>
-                        <TextField id="outlined-basic" label="Product name" variant="outlined" fullWidth />
-                    </Grid>
-                    <Grid item xs={6}>
-                        <TextField
-                            id="date"
-                            label="Birthday"
-                            type="date"
-                            defaultValue=""
-                            fullWidth
-                            InputLabelProps={{
-                            shrink: true,
-                            }}
-                        />
-                    </Grid>
-                    <Grid item xs={7}>
-                        <TextField
-                            id="telphone-number"
-                            label="Telephone Number"
-                            type="number"
-                            placeholder='99127909'
-                            fullWidth
-                        />
-                    </Grid>
-                    <Grid item xs={5}>
-                        <TextField
-                                id="email-id"
-                                label="Email"
-                                type="email"
-                                placeholder='abc@gg.com'
-                                fullWidth
-                            />
-                    </Grid>
-                    <Grid item xs={7}>
-                        <TextField id="outlined-basic" label="Address 1" variant="outlined" fullWidth/>
-                    </Grid>
-                    <Grid item xs={5}>
-                        <TextField id="outlined-basic" label="Postal code" variant="outlined" fullWidth type="number" />
-                    </Grid>
-                    <Grid item xs={6}>
-                        <TextField id="outlined-basic" label="Address 2" variant="outlined" fullWidth/>
-                    </Grid>
-                    <Grid item xs={6}>
-                        <TextField id="outlined-basic" label="Address 3" variant="outlined" fullWidth/>
-                    </Grid>
-                    <Grid item xs={7}>
-                        <TextField id="outlined-basic" label="Address 4" variant="outlined" fullWidth/>
-                    </Grid>
-                    <Grid item xs={5}>
-                        <TextField id="outlined-basic" label="Profession" variant="outlined" fullWidth/>
-                    </Grid>
-                </Grid>
-            </div>
-        </>
+    <>
+        <form onSubmit={handleForm}>
+        <Grid container columnSpacing={1} rowSpacing={1} >
+            <Grid item xs={6}>
+                <BasicSelect 
+                  value={userContractInput[0].contractInformation} 
+                  list={contractInformationList} 
+                  label='Contract Information' 
+                  name='contractInformation' 
+                  onChange={e=>handleContractTemplate(e,"contractInformation")}
+                />
+            </Grid>
+            <Grid item xs={6}>
+                <TextField 
+                    id="outlined-basic" 
+                    label="Contract manager number" 
+                    name='contractmanagernum'
+                    variant="outlined" 
+                    fullWidth 
+                    value={userContractInput.contractmanagernum}
+                    onChange={e=>handleContractTemplate(e)}
+                />
+            </Grid>
+            {/* <Grid item xs={6}>
+                <BasicSelect data={insuranceCompany} label='Insurance company name' name='InsuranceCompany' onChange={e => setInsuranceCompany({...insuranceCompany,val:e.target.value})}  />
+            </Grid>
+            <Grid item xs={6}>
+                <BasicSelect data={contractStatus} label='Contract status' name='ContractStatus' onChange={e => setContractStatus({...contractStatus,val:e.target.value})}  />
+            </Grid>
+            <Grid item xs={6}>
+                <BasicSelect data={paymentMethod} label='Payment Method' name='PaymentMethod' onChange={e => setPaymentMethod({...paymentMethod,val:e.target.value})}  />                  
+            </Grid>
+            <Grid item xs={6}>
+                <BasicSelect data={productName} label='Product Name' name='productname' onChange={e => setProductName({...productName,val:e.target.value})}  />                  
+            </Grid> */}
+            <Grid item xs={12}>
+                <TextField 
+                    id="outlined-basic" 
+                    label="Contract Period" 
+                    name='contractperiod'
+                    variant="outlined" 
+                    fullWidth 
+                    value={userContractInput.contractperiod}
+                    onChange={e=>handleContractTemplate(e)}
+                />
+            </Grid>
+            <Grid item xs={6}>
+                <TextField
+                    id="date"
+                    label="Order date"
+                    type="date"
+                    defaultValue=""
+                    fullWidth
+                    value={userContractInput.orderdate}
+                    onChange={e=>handleContractTemplate(e)}
+                    InputLabelProps={{
+                    shrink: true,
+                    }}
+                />
+            </Grid> 
+            <Grid item xs={6}>
+                <TextField
+                    id="date"
+                    label="Contract Start Date"
+                    type="date"
+                    defaultValue=""
+                    fullWidth
+                    value={userContractInput.contractstartdate}
+                    onChange={e=>handleContractTemplate(e)}
+                    InputLabelProps={{
+                    shrink: true,
+                    }}
+                />
+            </Grid> 
+            <Grid item xs={6}>
+                {/* <BasicSelect data={howToPay} label='How To Pay' name='howtopay' onChange={e => setHowToPay({...howToPay ,val:e.target.value})}  />                   */}
+            </Grid>
+            <Grid item xs={6}>
+                <TextField 
+                    id="outlined-basic" 
+                    label="Initial Cost" 
+                    name='initialcost'
+                    variant="outlined" 
+                    fullWidth 
+                    value={userContractInput.initialcost}
+                    onChange={e=>handleContractTemplate(e)}
+                />
+            </Grid>
+            <Grid item xs={6}>
+                <TextField 
+                    id="outlined-basic" 
+                    label="commission" 
+                    name='commission'
+                    variant="outlined" 
+                    fullWidth 
+                    value={userContractInput.commission}
+                    onChange={e=>handleContractTemplate(e)}
+                />           
+            </Grid>
+            <Grid item xs={6}>
+                <TextField 
+                    id="outlined-basic" 
+                    label="Insurance Premium" 
+                    name='insurancepremium'
+                    variant="outlined" 
+                    fullWidth 
+                    value={userContractInput.insurancepremium}
+                    onChange={e=>handleContractTemplate(e)}
+                />            </Grid>
+            <Grid item xs={12}>
+                <TextField 
+                    id="outlined-basic" 
+                    label="Note" 
+                    name='note'
+                    variant="outlined" 
+                    fullWidth 
+                    multiline rows={3}
+                    value={userContractInput.note}
+                    onChange={e=>handleContractTemplate(e)}
+                />           
+             </Grid>
+        </Grid>
+        <Button type='submit'>submit</Button>
+        </form>
+    </>
     )
 }

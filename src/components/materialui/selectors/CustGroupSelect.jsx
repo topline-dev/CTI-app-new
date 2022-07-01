@@ -5,16 +5,18 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-export default function BasicSelectCustGroup() {
+export default function CustGroupSelect(props) {
   const [age, setAge] = React.useState('');
 
   const handleChange = (event) => {
     setAge(event.target.value);
+    // props.onChange(event.target);
   };
 
   return (
-    <Box sx={{ minWidth: 120 }}>
-      <FormControl fullWidth>
+    <>
+     <Box sx={{ minWidth: 120 }}>
+       <FormControl fullWidth>
         <InputLabel id="custgrp-label">Customer Group</InputLabel>
         <Select
           labelId="custgrp-label"
@@ -23,11 +25,12 @@ export default function BasicSelectCustGroup() {
           label="customer group"
           onChange={handleChange}
         >
-          <MenuItem value={1}>aa</MenuItem>
-          <MenuItem value={2}>bb</MenuItem>
-          <MenuItem value={3}>cc</MenuItem>
+          <MenuItem value={1} >aa</MenuItem>
+          <MenuItem value={2} >bb</MenuItem>
+          <MenuItem value={3} >cc</MenuItem>
         </Select>
       </FormControl>
     </Box>
+    </>
   );
 }
