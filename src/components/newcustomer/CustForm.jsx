@@ -4,6 +4,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import BasicSelect from './inputs/BasicSelect';
 
 function CustForm(props) {
+    
+    console.log(props.isSubmit);
     const [customerTelephone,setUserTel]=useState([{num:""}]);
     const [customerEmail,setUserEmail]=useState([{email:""}]);
     const userTemplate={
@@ -39,6 +41,7 @@ function CustForm(props) {
         let item={...items[index]};
         item.num=event.target.value;
         items[index]=item;
+        props.ons(true);
         setUserTel(items);
    }
    function deleteEmail(event,index){
@@ -68,10 +71,12 @@ const handleSubmit =(e) =>{
 };
 
 useEffect(()=>{
-    console.log('use-effect!!!');
-    console.log(props.isSubmit);
-    console.log();
-},[])
+    props.formdata(prev => (
+      {
+        ...prev,name:"fwefew"
+      }
+    ))
+},[props.issubmit])
 
     return(
     <>
@@ -204,14 +209,14 @@ useEffect(()=>{
                   </Stack>
               </Grid>
               <Grid item xs={12}>
-              <TextField 
-                    id="outlined-basic" 
-                    name='customerLastRuby' 
-                    label="Email" 
-                    variant="outlined"
-                    value={userInput.customerEmail} 
-                    onChange={e=>handleChangeUserInput(e,"customerEmail")}
-                    fullWidth
+                <TextField 
+                  id="outlined-basic" 
+                  name='customerLastRuby' 
+                  label="Email" 
+                  variant="outlined"
+                  value={userInput.customerEmail} 
+                  onChange={e=>handleChangeUserInput(e,"customerEmail")}
+                  fullWidth
                 />
                 {/* <Stack direction="row" spacing={1}>
                   {customerEmail.map((user,index) => (

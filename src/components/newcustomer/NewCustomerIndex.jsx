@@ -10,6 +10,9 @@ import { useState } from 'react';
 export default function NewCustomerScreenIndex() {
 // const [custGroup, setCustGroup]=useState(['aa','bb','cc','dd','xx']);
  const [isSubmit,setIsSubmit]=useState(false);
+ const [formData,setFormData]=useState({});
+
+ console.log(isSubmit);
   const finalform = (e) =>{
     console.log('finlll form');
   }
@@ -19,10 +22,14 @@ export default function NewCustomerScreenIndex() {
       <TemporaryDrawer/>
       <Grid container spacing={2} justifyContent={"center"}>
         <Grid item xs={12} md={5.5}>
-          <CustForm isSubmit={isSubmit} onChange={finalform} />
+          <form>
+            <CustForm isSubmit={isSubmit} onChange={finalform} ons={(e) => setIsSubmit(e)} formdata={setFormData} />
+            <CustCategoryForm isSubmit={isSubmit} formType='newCustomer' />
+          </form>
+          
         </Grid>
         <Grid item xs={12} md={5.5}>
-          <CustCategoryForm isSubmit={isSubmit} formType='newCustomer' />
+          
           <br/>
           <Stack direction="row" spacing={2} >
             <Button variant='contained'  size="large" fullWidth>Button 11</Button>
