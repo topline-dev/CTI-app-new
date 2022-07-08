@@ -266,7 +266,7 @@ export default function CustForm(props) {
                 />
             </Grid>
             <Grid item xs={6}>
-                <Field 
+                <FastField 
                     name="custForm.customerGroupId" 
                     component={customSelect} 
                     list={customerGroupList} 
