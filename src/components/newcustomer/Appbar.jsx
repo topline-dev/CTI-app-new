@@ -9,7 +9,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { Link } from 'react-router-dom';
 
 const ButtonAppBar = (props) => {
-    console.log(props);  //We will use redux in place of props
+    // console.log(props);  
+    //We will use redux in place of props
   return (
     <Box sx={{ flexGrow: 1 }} >  
       <AppBar position="static">

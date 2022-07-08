@@ -5,21 +5,23 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-export default function BasicSelect(props) {
-    //console.log('in basic select');
-    //console.log(props);
-    let datalist=props.list;
-    //console.log(datalist);
+export default function BasicSelect({form,field,label,list}) {
+    const { name, value } = field;
+     const { setFieldValue } = form;
+    //  console.log(form,field);
+    let datalist=list;
   return (
     <Box sx={{ minWidth: 120 }}>
       <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">{props.label}</InputLabel>
+        <InputLabel id="demo-simple-select-label">{label}</InputLabel>
         <Select
           labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={props.value}
-          label={props.label}
-          onChange={e => props.onChange(e)}
+          name={name}
+          value={value}
+          label={label}
+          onChange={(e) => {
+            setFieldValue(name, e.target.value);
+          }}
         >
         { datalist.map((data,index) => (
             <MenuItem value={data} key={index}>{data}</MenuItem>
