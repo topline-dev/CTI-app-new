@@ -1,44 +1,69 @@
 import '../../App.css';
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Grid, Stack,} from '@mui/material';
 import ButtonAppBar from './Appbar';
 import TemporaryDrawer from './SideNav';
 import CustForm from './CustForm';
 import CustCategoryForm from './CustCategoryForm';
-import { useState } from 'react';
+import { Formik,Form, Field,FastField } from 'formik';
 
-export default function NewCustomerScreenIndex() {
-// const [custGroup, setCustGroup]=useState(['aa','bb','cc','dd','xx']);
- const [isSubmit,setIsSubmit]=useState(false);
- const [formData,setFormData]=useState({});
-
- console.log(isSubmit);
-  const finalform = (e) =>{
-    console.log('finlll form');
+export default function NewCustomerScreenIndex() 
+{
+const initialValues={
+    custForm:{
+      customerFirstName:"",customerLastName:"",customerFirstRuby:"",customerLastRuby:"",customerBirthday:"",customerEmail:[''],
+      customerAddress1:"",customerZipCode:"",customerAddress2:"",customerAddress3:"",customerAddress4:"",
+      customerProfession:"",customerAuthor:"",customerLastUpdate:"",customerMemo1:"",customerMemo2:"", customerSex:"", firstPersonInCharge:"",
+      secondPersonInCharge:"",customerGroupId:"",customerProjectGroup:"",customerTelephone:[''],
+  },
+  contractInformationForm:{
+    contractInformation:"",contractManagerNumber:"",
+    contractPeriod :"",contractOrderDate:"",contractStartDate:"",
+    contractInitialCost:"",contractCommission:"",contractInsurancePremium:"",contractNote:"",
+    contractInsuranceCompany:"",contractProductName:"",
+    contractStatus:"",contractPaymentMethod:"",contractHowToPay:"",
   }
+  }
+  const test4 = (props) =>{
+    
+    return(
+      <>
+        <CustCategoryForm {...props}/>
+      </>
+    )
+  }
+  const[grpTest,setGrpTest]=useState('ppp');
+
   return (
     <>
       <ButtonAppBar title="New Customer"/>
       <TemporaryDrawer/>
+      <Formik
+      initialValues={initialValues}
+      onSubmit={async (values) => {
+        await new Promise((r) => setTimeout(r, 500));
+        alert(JSON.stringify(values, null, 2));
+        console.log(values);
+      }}
+    >
+      <Form>
       <Grid container spacing={2} justifyContent={"center"}>
         <Grid item xs={12} md={5.5}>
-          <form>
-            <CustForm isSubmit={isSubmit} onChange={finalform} ons={(e) => setIsSubmit(e)} formdata={setFormData} />
-            <CustCategoryForm isSubmit={isSubmit} formType='newCustomer' />
-          </form>
-          
+          <CustForm onChange={(e)=>setGrpTest(e.target.value)} grpTest={grpTest}/>
         </Grid>
         <Grid item xs={12} md={5.5}>
-          
+          {/* <Field component={test4} ></Field> */}
+          <CustCategoryForm  /> 
           <br/>
           <Stack direction="row" spacing={2} >
             <Button variant='contained'  size="large" fullWidth>Button 11</Button>
-            <Button variant='contained'  size="large" fullWidth onClick={() => setIsSubmit(true)}>Save</Button>
+            <Button type='submit' variant='contained'  size="large" fullWidth>Save</Button>
             <Button variant='contained' sx={{backgroundColor:"error.light"}} color="error" size="large" fullWidth>Cancel</Button>
           </Stack>
         </Grid>
       </Grid>
-
+      </Form>
+    </Formik>   
     </>
   );
 }
