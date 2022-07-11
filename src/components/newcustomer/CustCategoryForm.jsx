@@ -1,21 +1,11 @@
-import React from 'react';
+import React,{useEffect, useState} from 'react';
 import { Card,Typography,CardContent,Tab,Tabs,AppBar} from '@mui/material';
 import ContractInformationForm from './ContractInformation';
 import { Field,FieldArray,useFormikContext,FastField } from 'formik';
 
 
-function CustCategoryForm({field,form}) {
-    //console.log(field,form);
-    // let value9=form.values.custForm.customerGroupId;
-    let value9='grp1';
-    const testt = (e) =>{
-        console.log('in here',e.onChange);
-        return(
-            <>
-            </>
-        )
-    };
-    
+function CustCategoryForm() {
+    const [valueGrp,setValueGrp]=useState('grp1');
     const [value,setValue]=React.useState(0);
     const handleTabs=(e,val)=>{
         setValue(val);
@@ -33,15 +23,13 @@ function CustCategoryForm({field,form}) {
 
     let tabPanel;
     let tabTitle;
-    tabPanel=tabPanelTable[value9];  
-    tabTitle=tabTitleTable[value9];  
-    if (typeof tabPanelTable[value9] ==='undefined' ) {
+    if (typeof tabPanelTable[valueGrp] ==='undefined' ) {
         tabPanel=['ef','call log history placeholder'];
         tabTitle=['Contract Information','Call log history'];
     }
     else{
-        tabPanel=tabPanelTable[value9];  
-        tabTitle=tabTitleTable[value9];  
+        tabPanel=tabPanelTable[valueGrp];  
+        tabTitle=tabTitleTable[valueGrp];  
     }
     
     
@@ -52,7 +40,13 @@ function CustCategoryForm({field,form}) {
                 <Typography sx={{ fontSize: 15 }} color="black" style={{fontWeight:"bold"}} align="center" gutterBottom>
                   Customized Category Information
                 </Typography>
-                <FastField name='custForm.customerGroupId' as={testt} />
+                <FastField name='custForm.customerGroupId'>
+                {
+                    (props)=>{
+                        setValueGrp(props.field.value);
+                    }
+                }
+                </FastField>
             <div>
                 <AppBar position='static' sx={{backgroundColor:"primary.light"}} color="primary">
                     <Tabs variant='fullWidth'  value={value} onChange={handleTabs}>
