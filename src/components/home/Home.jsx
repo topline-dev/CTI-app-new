@@ -11,6 +11,9 @@ export default function Home(){
             <Stack>
                 <Link to="/new">new customer screen</Link>
                 <Link to="/cust">customer search screen</Link>
+                <Link to="/customizeCategory">customize category</Link>
+                <Link to="/newCategoryitem">New Category Item</Link>
+
             </Stack>
         </>
     )

@@ -4,8 +4,9 @@ import ContractInformationForm from './ContractInformation';
 import { Field,FieldArray,useFormikContext,FastField } from 'formik';
 
 
-function CustCategoryForm() {
-    const [valueGrp,setValueGrp]=useState('grp1');
+function CustCategoryForm(props) {
+    //const [valueGrp,setValueGrp]=useState('grp1');
+    const valueGrp=props.data;
     const [value,setValue]=React.useState(0);
     const handleTabs=(e,val)=>{
         setValue(val);
@@ -43,7 +44,7 @@ function CustCategoryForm() {
                 <FastField name='custForm.customerGroupId'>
                 {
                     (props)=>{
-                        setValueGrp(props.field.value);
+                        //setValueGrp(props.field.value);
                     }
                 }
                 </FastField>

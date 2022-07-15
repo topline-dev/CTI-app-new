@@ -10,7 +10,7 @@ export default function CustForm(props) {
     const secondPersonList=['111', '222', '333'];
     const customerGroupList=['grp1', 'grp2', 'grp3'];
     const customerProjectList=['prj1', 'prj2', 'prj3'];
-    console.log(props.grpTest);
+    
     const textField = (props) => {
         return(
             <>
