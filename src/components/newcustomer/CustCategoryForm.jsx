@@ -7,18 +7,7 @@ import CustomizeCategoryDetail from '../customizeCategory/CustomizeCategoryDetai
 
 function CustCategoryForm(props) {
     //const [valueGrp,setValueGrp]=useState('grp1');
-    const obj=[
-        {
-            categoryid:"3",
-            categoryname:"sip",
-            grpid:"1"
-        },
-        {
-            categoryid:"3",
-            categoryname:"wip",
-            grpid:"2"
-        }
-    ]
+    
     const valueGrp=props.data;
     const [value,setValue]=React.useState(0);
     const handleTabs=(e,val)=>{
@@ -30,7 +19,7 @@ function CustCategoryForm(props) {
         grp3:["Contract Information","Call Log history","shipphing box"]
     }
     const tabPanelTable={
-        grp1:[<ContractInformationForm/>,<CustomizeCategoryDetail/>],
+        grp1:[<ContractInformationForm/>,<CustomizeCategoryDetail id=""/>],
         grp2:["Contract Information",<ContractInformationForm/>,"shipphing box","shipphing box","shipphing box","shipphing box"],
         grp3:["Contract Information",<ContractInformationForm/>,"shipphing box"]
     }
@@ -38,7 +27,7 @@ function CustCategoryForm(props) {
     let tabPanel;
     let tabTitle;
     if (typeof tabPanelTable[valueGrp] ==='undefined' ) {
-        tabPanel=['ef','call log history placeholder'];
+        tabPanel=[<CustomizeCategoryDetail />,"23r"];
         tabTitle=['Contract Information','Call log history'];
     }
     else{

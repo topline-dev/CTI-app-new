@@ -1,10 +1,11 @@
 import { Grid, Paper, Typography } from '@mui/material'
 import React from 'react'
 import CustomizeCheckBox from './customizeItems/CustomizeCheckBox'
+import CustomizeDateTime from './customizeItems/CustomizeDateTime'
 import CustomizeSelect from './customizeItems/CustomizeSelect'
 import CustomizeTextField from './customizeItems/CustomizeTextField'
 
-export default function CustomizeCategoryDetail() {
+export default function CustomizeCategoryDetail(props) {
 const data={
     type:"text",
     name:'text1',
@@ -36,9 +37,12 @@ const data5={
     name:'text5',
     label:'texteiwofi',
 }
+const data9={
+    name:'datetime',
+    label:'date time label',
+}
   return (
     <div>
-        <Paper elevation={4} >
             <Grid container spacing={3} justifyContent="center" columns={13}>
                 <Grid item xs={6}>
                     <CustomizeTextField data={data2} multiline rows={4}/>     
@@ -59,15 +63,13 @@ const data5={
                     <CustomizeTextField data={datadate}  InputLabelProps={{shrink: true,}} type="date"/>       
                 </Grid>
                 <Grid item xs={6}>
-                    <CustomizeTextField data={data}/>     
+                    <CustomizeDateTime data={data9}/>   
                 </Grid>
                 <Grid item xs={6}>
                     <CustomizeTextField data={data5}/>     
                 </Grid>
                 
             </Grid>
-        </Paper>
-       
     </div>
   )
 }

@@ -10,7 +10,7 @@ export default function CustomizeTextField(props) {
                 <TextField
                     {...props}
                     variant="outlined"
-                    fullWidth    
+                    fullWidth
                 />
             </>
         )
