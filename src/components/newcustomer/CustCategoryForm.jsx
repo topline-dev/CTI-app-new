@@ -2,10 +2,13 @@ import React,{useEffect, useState} from 'react';
 import { Card,Typography,CardContent,Tab,Tabs,AppBar} from '@mui/material';
 import ContractInformationForm from './ContractInformation';
 import { Field,FieldArray,useFormikContext,FastField } from 'formik';
+import CustomizeCategoryDetail from '../customizeCategory/CustomizeCategoryDetail';
 
 
-function CustCategoryForm() {
-    const [valueGrp,setValueGrp]=useState('grp1');
+function CustCategoryForm(props) {
+    //const [valueGrp,setValueGrp]=useState('grp1');
+    
+    const valueGrp=props.data;
     const [value,setValue]=React.useState(0);
     const handleTabs=(e,val)=>{
         setValue(val);
@@ -16,7 +19,7 @@ function CustCategoryForm() {
         grp3:["Contract Information","Call Log history","shipphing box"]
     }
     const tabPanelTable={
-        grp1:[<ContractInformationForm/>,'ewf'],
+        grp1:[<ContractInformationForm/>,<CustomizeCategoryDetail id=""/>],
         grp2:["Contract Information",<ContractInformationForm/>,"shipphing box","shipphing box","shipphing box","shipphing box"],
         grp3:["Contract Information",<ContractInformationForm/>,"shipphing box"]
     }
@@ -24,7 +27,7 @@ function CustCategoryForm() {
     let tabPanel;
     let tabTitle;
     if (typeof tabPanelTable[valueGrp] ==='undefined' ) {
-        tabPanel=['ef','call log history placeholder'];
+        tabPanel=[<CustomizeCategoryDetail />,"23r"];
         tabTitle=['Contract Information','Call log history'];
     }
     else{
@@ -43,7 +46,7 @@ function CustCategoryForm() {
                 <FastField name='custForm.customerGroupId'>
                 {
                     (props)=>{
-                        setValueGrp(props.field.value);
+                        //setValueGrp(props.field.value);
                     }
                 }
                 </FastField>

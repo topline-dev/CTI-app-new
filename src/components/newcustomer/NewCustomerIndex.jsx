@@ -1,11 +1,12 @@
 import '../../App.css';
-import React, { useState } from 'react';
+import React, { useEffect, useState,useRef } from 'react';
 import { Button, Grid, Stack,} from '@mui/material';
 import ButtonAppBar from './Appbar';
 import TemporaryDrawer from './SideNav';
 import CustForm from './CustForm';
 import CustCategoryForm from './CustCategoryForm';
-import { Formik,Form, Field,FastField } from 'formik';
+import { Formik,Form, Field,FastField, useFormikContext } from 'formik';
+import CustomizeCategoryDetail from '../customizeCategory/CustomizeCategoryDetail';
 
 export default function NewCustomerScreenIndex() 
 {
@@ -32,13 +33,24 @@ const initialValues={
       </>
     )
   }
-  const[grpTest,setGrpTest]=useState('ppp');
+  const [grpTest,setGrpTest]=useState();
+  const FormObserver = () => {
+    const { values } = useFormikContext();
+    useEffect(() => {
+      console.log("FormObserver::values", values);
+      setGrpTest(values.custForm.customerGroupId);
+      console.log(grpTest,'grptest');
+    }, [values.custForm.customerGroupId ]);
+    return null;
+  };
 
+  
   return (
     <>
       <ButtonAppBar title="New Customer"/>
       <TemporaryDrawer/>
       <Formik
+      //innerRef={ref}
       initialValues={initialValues}
       onSubmit={async (values) => {
         await new Promise((r) => setTimeout(r, 500));
@@ -47,13 +59,14 @@ const initialValues={
       }}
     >
       <Form>
+        <FormObserver/>
       <Grid container spacing={2} justifyContent={"center"}>
         <Grid item xs={12} md={5.5}>
-          <CustForm onChange={(e)=>setGrpTest(e.target.value)} grpTest={grpTest}/>
+          <CustForm />
         </Grid>
         <Grid item xs={12} md={5.5}>
-          {/* <Field component={test4} ></Field> */}
-          <CustCategoryForm  /> 
+          {/* <CustomizeCategoryDetail/> */}
+          <CustCategoryForm data={grpTest} /> 
           <br/>
           <Stack direction="row" spacing={2} >
             <Button variant='contained'  size="large" fullWidth>Button 11</Button>
