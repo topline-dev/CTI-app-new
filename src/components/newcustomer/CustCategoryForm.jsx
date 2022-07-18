@@ -2,10 +2,23 @@ import React,{useEffect, useState} from 'react';
 import { Card,Typography,CardContent,Tab,Tabs,AppBar} from '@mui/material';
 import ContractInformationForm from './ContractInformation';
 import { Field,FieldArray,useFormikContext,FastField } from 'formik';
+import CustomizeCategoryDetail from '../customizeCategory/CustomizeCategoryDetail';
 
 
 function CustCategoryForm(props) {
     //const [valueGrp,setValueGrp]=useState('grp1');
+    const obj=[
+        {
+            categoryid:"3",
+            categoryname:"sip",
+            grpid:"1"
+        },
+        {
+            categoryid:"3",
+            categoryname:"wip",
+            grpid:"2"
+        }
+    ]
     const valueGrp=props.data;
     const [value,setValue]=React.useState(0);
     const handleTabs=(e,val)=>{
@@ -17,7 +30,7 @@ function CustCategoryForm(props) {
         grp3:["Contract Information","Call Log history","shipphing box"]
     }
     const tabPanelTable={
-        grp1:[<ContractInformationForm/>,'ewf'],
+        grp1:[<ContractInformationForm/>,<CustomizeCategoryDetail/>],
         grp2:["Contract Information",<ContractInformationForm/>,"shipphing box","shipphing box","shipphing box","shipphing box"],
         grp3:["Contract Information",<ContractInformationForm/>,"shipphing box"]
     }

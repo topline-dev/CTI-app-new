@@ -12,6 +12,7 @@ import { Routes, Route } from "react-router-dom";
 import CreateNewCategory from './components/customizeCategory/CreateNewCategory';
 import CustomizeCategory from './components/customizeCategory/CustomizeCategory';
 import CreateNewItem from './components/customizeCategory/CreateNewItem';
+import CustomizeCategoryDetail from './components/customizeCategory/CustomizeCategoryDetail';
 
 
 const themex = createTheme({
@@ -42,6 +43,7 @@ function App() {
         <Route exact path="/newCategoryItem" element={<CreateNewItem/>}/>
         <Route exact path="/sachit" element={<Parent />} />        
         <Route path="*" element={<ButtonAppBar title="Error! Page not found" />} />
+        <Route exact path="/customizeCategoryDetail" element={<CustomizeCategoryDetail/>}/>
       </Routes>
     </ThemeProvider >
    

@@ -28,7 +28,12 @@ export default function CreateNewItem() {
         )
     }
    const initialValues={
-       a:"",
+       categoryName:"",
+       attributeName:"",
+       attributeNameJap:"",
+       tabDisplay:"",
+       displayType:"",
+       attributeMemo:"",
    }
   return (
     <div>
@@ -48,32 +53,32 @@ export default function CreateNewItem() {
             <Card elevation={4}>
                 <CardContent>
                 <Grid container columnSpacing={1} rowSpacing={1}>
-                    <Grid item xs={6}>
+                    {/* <Grid item xs={6}>
                         <Field component={customSelect} name="tabDisplay" label="Group Name" list={["possible","impossible"]} />
+                    </Grid> */}
+                    <Grid item xs={6}>
+                        <Field component={customSelect} name="categoryName" label="Category Name" list={["possible","impossible"]}/>
                     </Grid>
                     <Grid item xs={6}>
-                        <Field component={customSelect} name="tabDisplay" label="Category Name" list={["possible","impossible"]}/>
+                        <Field as={textField} name="attributeName" label="Attribute name" />
                     </Grid>
                     <Grid item xs={6}>
-                        <Field as={textField} name="categoryName" label="Attribute name" />
-                    </Grid>
-                    <Grid item xs={6}>
-                        <Field as={textField} name="categoryName" label="Attribute name (japanese)" />
+                        <Field as={textField} name="attributeNameJap" label="Attribute name (japanese)" />
                     </Grid>
                     <Grid item xs={6}>
                         <Field component={customSelect} name="tabDisplay" label="Display" list={["possible","impossible"]} />
                     </Grid>
                     <Grid item xs={6}>
-                        <Field component={customSelect} name="tabDisplay" label="Display Type" list={["possible","impossible"]}/>
+                        <Field component={customSelect} name="displayType" label="Display Type" list={["text","text box","select","checkbox","radio","date"]}/>
                     </Grid>
-                    <Grid item xs={6}>
+                    {/* <Grid item xs={6}>
                         <Field as={textField} name="categoryName" label="Height" />
                     </Grid>
                     <Grid item xs={6}>
                         <Field as={textField} name="categoryName" label="Width" />
-                    </Grid>
+                    </Grid> */}
                     <Grid item xs={6}>
-                        <Field as={textField} name="categoryRemarks" label="Memo" multiline rows={3}/>                    
+                        <Field as={textField} name="attributeMemo" label="Memo" multiline rows={3}/>                    
                     </Grid>
                     {/* <Grid item xs={12}>
                         <FormControlLabel control={<Checkbox  />} label="Mandatory" />

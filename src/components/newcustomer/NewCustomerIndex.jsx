@@ -6,6 +6,7 @@ import TemporaryDrawer from './SideNav';
 import CustForm from './CustForm';
 import CustCategoryForm from './CustCategoryForm';
 import { Formik,Form, Field,FastField, useFormikContext } from 'formik';
+import CustomizeCategoryDetail from '../customizeCategory/CustomizeCategoryDetail';
 
 export default function NewCustomerScreenIndex() 
 {
@@ -64,6 +65,7 @@ const initialValues={
           <CustForm />
         </Grid>
         <Grid item xs={12} md={5.5}>
+          {/* <CustomizeCategoryDetail/> */}
           <CustCategoryForm data={grpTest} /> 
           <br/>
           <Stack direction="row" spacing={2} >
