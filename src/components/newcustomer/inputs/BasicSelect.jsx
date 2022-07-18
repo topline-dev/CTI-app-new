@@ -17,6 +17,7 @@ export default function BasicSelect({form,field,label,list}) {
         <Select
           labelId="demo-simple-select-label"
           name={name}
+          defaultValue=""
           value={value}
           label={label}
           onChange={(e) => {

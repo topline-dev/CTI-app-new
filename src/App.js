@@ -9,6 +9,10 @@ import Home from './components/home/Home';
 import Form from './components/categoryForm/form.jsx';
 import ButtonAppBar from './components/newcustomer/Appbar';
 import { Routes, Route } from "react-router-dom";
+import CreateNewCategory from './components/customizeCategory/CreateNewCategory';
+import CustomizeCategory from './components/customizeCategory/CustomizeCategory';
+import CreateNewItem from './components/customizeCategory/CreateNewItem';
+import CustomizeCategoryDetail from './components/customizeCategory/CustomizeCategoryDetail';
 
 
 const themex = createTheme({
@@ -35,7 +39,12 @@ function App() {
         <Route exact path="/new" element={<NewCustomerScreenIndex />} />
         <Route exact path="/cust" element={<CustomerSearchScreenIndex />} />
         <Route exact path="/form" element={<Form />} />
+        <Route exact path="/customizeCategory" element={<CustomizeCategory/>}/>
+        <Route exact path="/newCustomizeCategory" element={<CreateNewCategory/>}/>
+        <Route exact path="/newCategoryItem" element={<CreateNewItem/>}/>
+        <Route exact path="/sachit" element={<Parent />} />        
         <Route path="*" element={<ButtonAppBar title="Error! Page not found" />} />
+        <Route exact path="/customizeCategoryDetail" element={<CustomizeCategoryDetail/>}/>
       </Routes>
     </ThemeProvider >
    

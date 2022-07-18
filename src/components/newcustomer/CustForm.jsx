@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, Grid, Typography,Button,CardContent,TextField,Stack} from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { FastField,FieldArray,Field } from 'formik';
+import { Field,FieldArray,FastField } from 'formik';
 import BasicSelect from './inputs/BasicSelect';
 
 export default function CustForm(props) {
@@ -10,7 +10,7 @@ export default function CustForm(props) {
     const secondPersonList=['111', '222', '333'];
     const customerGroupList=['grp1', 'grp2', 'grp3'];
     const customerProjectList=['prj1', 'prj2', 'prj3'];
-    console.log(props.grpTest);
+    
     const textField = (props) => {
         return(
             <>
@@ -54,21 +54,21 @@ export default function CustForm(props) {
         </Typography>
         <Grid container columnSpacing={1} rowSpacing={1}>
             <Grid item xs={4}>
-                <FastField
+                <Field
                     name='custForm.customerLastName'
                     label='Last Name'
                     as={textField}
                 />
             </Grid>
             <Grid item xs={4}>
-                <FastField
+                <Field
                     name='custForm.customerFirstName'
                     label='First Name'
                     as={textField}
                 />
             </Grid>
             <Grid item xs={4}>
-                <FastField 
+                <Field 
                     name="custForm.customerSex" 
                     component={customSelect} 
                     list={sexList} 
@@ -76,21 +76,21 @@ export default function CustForm(props) {
                 />
             </Grid>
             <Grid item xs={3}>
-                <FastField
+                <Field
                     name='custForm.customerLastRuby'
                     label='Last Kana Name'
                     as={textField}
                 />
             </Grid>
             <Grid item xs={3}>
-                <FastField
+                <Field
                     name='custForm.customerFirstRuby'
                     label='First Kana Name'
                     as={textField}
                 />
             </Grid>
             <Grid item xs={6}>
-            <FastField
+            <Field
                 name='custForm.customerBirthday'
                 label="Birthday"
                 type="date"
@@ -118,7 +118,7 @@ export default function CustForm(props) {
                                             {index===0 && (
                                                 <Grid container columnSpacing={0}>
                                                     <Grid  item xs={12}>
-                                                        <FastField
+                                                        <Field
                                                             name={`custForm.customerTelephone[${index}]`}
                                                             label="Telephone Number "
                                                             type="number"
@@ -131,7 +131,7 @@ export default function CustForm(props) {
                                             {index!==0 && (
                                                     <Grid container columnSpacing={0}>
                                                     <Grid  item xs={11}>
-                                                        <FastField
+                                                        <Field
                                                             name={`custForm.customerTelephone[${index}]`}
                                                             label="Telephone Number "
                                                             type="number"
@@ -177,7 +177,7 @@ export default function CustForm(props) {
                                         <div key={index}>
                                             <Grid container columnSpacing={0} key={index}>
                                                 <Grid  item xs={11}>
-                                                    <FastField
+                                                    <Field
                                                         name={`custForm.customerEmail[${index}]`}
                                                         label={"Email "}
                                                         type="email"
@@ -207,14 +207,14 @@ export default function CustForm(props) {
              </Stack>
             </Grid>
             <Grid item xs={7}>
-            <FastField 
+            <Field 
                 name='custForm.customerAddress1' 
                 label="Address 1" 
                 as={textField}
             />
             </Grid>
             <Grid item xs={5}>
-            <FastField 
+            <Field 
                 name='custForm.customerZipCode' 
                 label="Postal code" 
                 type="number" 
@@ -222,35 +222,35 @@ export default function CustForm(props) {
             />
             </Grid>
             <Grid item xs={6}>
-            <FastField 
+            <Field 
                 name='custForm.customerAddress2' 
                 label="Address 2" 
                 as={textField}
             />
             </Grid>
             <Grid item xs={6}>
-            <FastField 
+            <Field 
                 name='custForm.customerAddress3' 
                 label="Address 3" 
                 as={textField}
             />                  
             </Grid>
             <Grid item xs={7}>
-            <FastField 
+            <Field 
                 name='custForm.customerAddress4' 
                 label="Address 4" 
                 as={textField}
             />
             </Grid>
             <Grid item xs={5}>
-            <FastField 
+            <Field 
                 name='custForm.customerProfession' 
                 label="Profession"
                 as={textField}
             />
             </Grid>
             <Grid item xs={6}>
-                <FastField 
+                <Field 
                     name="custForm.firstPersonInCharge" 
                     component={customSelect} 
                     list={firstPersonList} 
@@ -258,7 +258,7 @@ export default function CustForm(props) {
                 />
             </Grid>
             <Grid item xs={6}>
-                <FastField 
+                <Field 
                     name="custForm.secondPersonInCharge" 
                     component={customSelect} 
                     list={secondPersonList} 
@@ -266,7 +266,7 @@ export default function CustForm(props) {
                 />
             </Grid>
             <Grid item xs={6}>
-                <FastField 
+                <Field 
                     name="custForm.customerGroupId" 
                     component={customSelect} 
                     list={customerGroupList} 
@@ -274,7 +274,7 @@ export default function CustForm(props) {
                 />
             </Grid>
             <Grid item xs={6}>
-                <FastField 
+                <Field 
                     name="custForm.customerProjectGroup" 
                     component={customSelect} 
                     list={customerProjectList} 
@@ -282,21 +282,21 @@ export default function CustForm(props) {
                 />
             </Grid>
             <Grid item xs={6}>
-            <FastField 
+            <Field 
                 name='custForm.customerAuthor' 
                 label="Author" 
                 as={textField}
             />
             </Grid>
             <Grid item xs={6}>
-            <FastField 
+            <Field 
                 name='custForm.customerLastUpdate' 
                 label="Last Updated" 
                 as={textField}
             />
             </Grid>
             <Grid item xs={6}>
-            <FastField 
+            <Field 
                 name='custForm.customerMemo1' 
                 label="Note 1" 
                 as={textField}
@@ -304,7 +304,7 @@ export default function CustForm(props) {
             />
             </Grid>
             <Grid item xs={6}>
-            <FastField 
+            <Field 
                 name='custForm.customerMemo2' 
                 label="Note 2" 
                 as={textField}
