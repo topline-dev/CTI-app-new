@@ -65,9 +65,6 @@ function CustCategoryForm(props) {
                 )}
             </div>
               </CardContent>
-              {/* <CardActions>
-                <Button size="small">Learn More</Button>
-              </CardActions> */}
           </Card>
         </>
     ); 

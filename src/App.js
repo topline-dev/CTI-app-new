@@ -6,7 +6,7 @@ import { createTheme } from '@mui/material';
 import NewCustomerScreenIndex from './components/newcustomer/NewCustomerIndex';
 import CustomerSearchScreenIndex from './components/customer_search/CustomerSearchIndex';
 import Home from './components/home/Home';
-import Form from './components/categoryForm/form.jsx';
+import CategoryForm from './components/categoryForm/categoryForm.jsx';
 import ButtonAppBar from './components/newcustomer/Appbar';
 import { Routes, Route } from "react-router-dom";
 import CreateNewCategory from './components/customizeCategory/CreateNewCategory';
@@ -38,13 +38,12 @@ function App() {
         <Route exact path="/" element={<Home />} />
         <Route exact path="/new" element={<NewCustomerScreenIndex />} />
         <Route exact path="/cust" element={<CustomerSearchScreenIndex />} />
-        <Route exact path="/form" element={<Form />} />
+        <Route exact path="/form" element={<CategoryForm />} />
         <Route exact path="/customizeCategory" element={<CustomizeCategory/>}/>
         <Route exact path="/newCustomizeCategory" element={<CreateNewCategory/>}/>
         <Route exact path="/newCategoryItem" element={<CreateNewItem/>}/>
-        <Route exact path="/sachit" element={<Parent />} />        
-        <Route path="*" element={<ButtonAppBar title="Error! Page not found" />} />
         <Route exact path="/customizeCategoryDetail" element={<CustomizeCategoryDetail/>}/>
+        <Route path="*" element={<ButtonAppBar title="Error! Page not found" />} />
       </Routes>
     </ThemeProvider >
    

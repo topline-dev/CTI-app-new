@@ -1,32 +1,37 @@
 import React from 'react'
+import {Grid} from '@mui/material'
+import { Formik, Form, useFormikContext } from 'formik';
+
+import CustomTextfield from './categoryItems/customTextfield'
+
 
 const categoryItems = [
 	{
 		itemId: 1,
 		itemName: "Name",
 		categoryId: 1,
-		itemType: "text",
+		itemType: 1,
 		itemMandatory: 1,
 	},
 	{
 		itemId: 2,
 		itemName: "Mob",
 		categoryId: 1,
-		itemType: "text",
+		itemType: 2,
 		itemMandatory: 1,
 	},
 	{
 		itemId: 3,
 		itemName: "Name Last",
 		categoryId: 1,
-		itemType: "text",
+		itemType: 3,
 		itemMandatory: 1,
 	},
 	{
 		itemId: 4,
-		itemName: "Dated on",
+		itemName: "Dated",
 		categoryId: 1,
-		itemType: "date",
+		itemType: 4,
 		itemMandatory: 1,
 	}
 ]
@@ -35,45 +40,49 @@ function renderItem(item) {
 	switch (item.itemType) {
 		case 1:
 			{
-				<TextItem item />
+				return <CustomTextfield data={item} />
 			}
 		case 2:
 			{
-				<TextItem item />
+				return <CustomTextfield data={item} />
 			}
 			break;
 		case 3:
 			{
-				<TextItem item />
+				return <CustomTextfield data={item} />
 			}
 			break;
 		case 4:
 			{
-				<TextItem item />
+				return <CustomTextfield data={item} />
 			}
 			break;
 		case 5:
 			{
-				<TextItem item />
+				return <CustomTextfield data={item} />
 			}
 			break;
 		case 6:
 			{
-				<TextItem item />
+				return <CustomTextfield data={item} />
 			}
 			break;
 
 		default:
+			return "Hello"
 			break;
 	}
 }
 
-const items = categoryItems.map((item) => { renderItem({ item }) })
+const items = categoryItems.map((item) =>  
+	<Grid item xs={6}>{renderItem(item)}</Grid> )
 
 function categoryData(props) {
-	console.log(props)
 	return (
-		<div>{items}</div>
+		<Grid container columnSpacing={1} rowSpacing={1} >
+			{items}
+		</Grid>
+		
 	)
 }
 
