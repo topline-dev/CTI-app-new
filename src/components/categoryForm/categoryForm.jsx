@@ -1,72 +1,48 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import FormikTextField from './formikTextField'
 import { Card, CardContent, Tabs, Tab, AppBar } from '@mui/material'
 import CategoryData from './categoryData'
-
-const categoryArray = [
-    {
-        categoryId: 1,
-        categoryName: "Shipping Box",
-    },
-    {
-        categoryId: 2,
-        categoryName: "Box",
-    },
-    {
-        categoryId: 3,
-        categoryName: "Ping Box",
-    }
-]
-
-function allProps(index) {
-    return categoryArray[index];
-}
-
-function TabPanel(props) {
-    const { children, value, index, ...other } = props;
-
-    return (
-
-        <div
-            role="tabpanel"
-            hidden={value !== index}
-            id={`simple-tabpanel-${index}`}
-            aria-labelledby={`simple-tab-${index}`}
-            {...other}
-        >
-            {value === index && (
-                <CategoryData {...allProps(index)} />
-            )}
-        </div>
-    );
-}
-
+import axios from 'axios'
 
 function categoryForm() {
-    const [tabValue, setValue] = React.useState(0);
+    const [tabValue, setValue] = useState(0);
 
-//     const [error, setError] = useState(null);
-//   const [isLoaded, setIsLoaded] = useState(false);
-//   const [items, setItems] = useState([]);
+    const [error, setError] = useState(null);
+    const [isLoaded, setIsLoaded] = useState(false);
+    const [categoryArray, setCategoryArray] = useState([]);
 
-//   //This will work like componentDidMount
-//   useEffect(() => {
-//     fetch("https://api.example.com/items")
-//       .then(res => res.json())
-//       .then(
-//         (result) => {
-//           setIsLoaded(true);
-//           setItems(result);
-//         },
-//         // Note: it's important to handle errors here
-//         // instead of a catch() block so that we don't swallow
-//         // exceptions from actual bugs in components.
-//         (error) => {
-//           setIsLoaded(true);
-//           setError(error);
-//         }
-//       )
-//   }, [])
+    function allProps(index) {
+        return categoryArray[index];
+    }
+
+    function TabPanel(props) {
+        const { children, value, index, ...other } = props;
+    
+        return (
+    
+            <div
+                role="tabpanel"
+                hidden={value !== index}
+                id={`simple-tabpanel-${index}`}
+                aria-labelledby={`simple-tab-${index}`}
+                {...other}
+            >
+                {value === index && (
+                    <CategoryData {...allProps(index)} />
+                )}
+            </div>
+        );
+    }
+
+    const baseURL = "http://localhost:8083/categories"
+
+    //This will work like componentDidMount
+    useEffect(() => {
+        axios.get(baseURL)
+        .then((response) => {
+            setCategoryArray(response.data);
+        })
+    }, [])
 
 
     const handleChange = (event, newValue) => {

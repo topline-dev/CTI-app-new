@@ -1,88 +1,58 @@
-import React from 'react'
-import {Grid} from '@mui/material'
+import React, { useState, useEffect } from 'react'
+import { Grid } from '@mui/material'
 import { Formik, Form, useFormikContext } from 'formik';
+import axios from 'axios'
 
 import CustomTextfield from './categoryItems/customTextfield'
+import CustomDateTime from './categoryItems/customDateTime'
+import CustomSelect from './categoryItems/customSelect'
 
 
-const categoryItems = [
-	{
-		itemId: 1,
-		itemName: "Name",
-		categoryId: 1,
-		itemType: 1,
-		itemMandatory: 1,
-	},
-	{
-		itemId: 2,
-		itemName: "Mob",
-		categoryId: 1,
-		itemType: 2,
-		itemMandatory: 1,
-	},
-	{
-		itemId: 3,
-		itemName: "Name Last",
-		categoryId: 1,
-		itemType: 3,
-		itemMandatory: 1,
-	},
-	{
-		itemId: 4,
-		itemName: "Dated",
-		categoryId: 1,
-		itemType: 4,
-		itemMandatory: 1,
-	}
-]
-
-function renderItem(item) {
-	switch (item.itemType) {
-		case 1:
-			{
-				return <CustomTextfield data={item} />
-			}
-		case 2:
-			{
-				return <CustomTextfield data={item} />
-			}
-			break;
-		case 3:
-			{
-				return <CustomTextfield data={item} />
-			}
-			break;
-		case 4:
-			{
-				return <CustomTextfield data={item} />
-			}
-			break;
-		case 5:
-			{
-				return <CustomTextfield data={item} />
-			}
-			break;
-		case 6:
-			{
-				return <CustomTextfield data={item} />
-			}
-			break;
-
-		default:
-			return "Hello"
-			break;
-	}
-}
-
-const items = categoryItems.map((item) =>  
-	<Grid item xs={6}>{renderItem(item)}</Grid> )
 
 function categoryData(props) {
+
+	const baseURL = "http://localhost:8083/categoryItems/" + props.categoryId
+
+	const [categoryItems, setCategoryItems] = useState([]);
+
+	useEffect(() => {
+		axios.get(baseURL)
+			.then((response) => {
+				setCategoryItems(response.data);
+			})
+	}, [])
+
+	function renderItem(item) {
+		switch (item.itemType) {
+			case "text":
+				{
+					return <CustomTextfield data={item} />
+				}
+				break;
+			case "date":
+				{
+					return <CustomDateTime data={item} />
+				}
+				break;
+			case "select":
+				{
+					return <CustomSelect data={item} />
+				}
+				break;
+			default:
+				return "Hello"
+				break;
+		}
+	}
+
+	const items = categoryItems.map((item) =>
+		<Grid item xs={6}>{renderItem(item)}</Grid>)
+
 	return (
 		<Grid container columnSpacing={1} rowSpacing={1} >
 			{items}
 		</Grid>
-		
+
 	)
 }
 
