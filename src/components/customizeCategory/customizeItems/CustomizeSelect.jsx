@@ -1,5 +1,5 @@
 import React from 'react'
-import { FastField } from 'formik';
+import { Field } from 'formik';
 import { Typography } from '@mui/material';
 import BasicSelect from '../../newcustomer/inputs/BasicSelect';
 
@@ -17,7 +17,7 @@ const customSelect =(props) =>{
   return (
     <div>
         {/* <Typography variant='h4'>{data.label}</Typography> */}
-        <FastField 
+        <Field 
             name={data.name} 
             component={customSelect} 
             list={data.list} 
