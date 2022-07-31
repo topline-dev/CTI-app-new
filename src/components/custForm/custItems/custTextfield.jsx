@@ -4,7 +4,7 @@ import { Field, FastField } from 'formik';
 import { Category } from '@mui/icons-material';
 
 
-export default function customTextField(props) {
+export default function custTextField(props) {
     const textField = (props) => {
         return (
             <>
@@ -21,8 +21,8 @@ export default function customTextField(props) {
         <div>
             <Field
                 // name = {` ${data.categoryId}.${data.itemId} `}
-                name = {`categoryData.${data.itemId}`}
-                label={data.itemName}
+                name = {`custData.${data.name}`}
+                label={data.label}
                 as={textField}
                 {...props}
             />
