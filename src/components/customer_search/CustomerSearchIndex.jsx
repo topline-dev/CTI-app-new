@@ -11,16 +11,12 @@ import {
   TextField,
   Box,
 } from "@mui/material";
-import BasicSelectCustGroup from "../materialui/selectors/CustGroupSelect";
-import BasicSelectProjectGroup from "../materialui/selectors/ProjectGroupSelect";
-import { Tab, Tabs, AppBar } from "@mui/material";
-import BasicInformation from "./BasicInformation";
-import ContractInformationForm from "../newcustomer/ContractInformation";
 import CustomerSearchTable from "./CustomerSearchTable";
 import { Formik, Form, Field, FastField, useFormikContext } from "formik";
 import BasicSelect from "../newcustomer/inputs/BasicSelect";
-import ServerPaginationGrid from "./PaginationTest";
-import Test from "./Test";
+import CustFormLite from "./CustFormLite";
+import CategoryForm from "../categoryForm/categoryForm";
+
 
 export default function CustomerSearchScreenIndex() {
     const textField = (props) => {
@@ -113,18 +109,15 @@ export default function CustomerSearchScreenIndex() {
             <Grid item xs={12} md={7.5}>
               <Card elevation={4}>
                 <CardContent>
-                  <div>
-                   gdfuiaegi
-                  </div>
+                 <CustFormLite/>
+                 {/* <CategoryForm/> */}
                 </CardContent>
               </Card>
             </Grid>
             <Grid item xs={12} md={11}>
               <Card elevation={4} sx={{ minHeight: 300 }}>
                 <CardContent>
-                  {/* <CustomerSearchTable  formData={formData} /> */}
-                  {/* <ServerPaginationGrid/> */}
-                  <Test/>
+                  <CustomerSearchTable  formData={formData} />
                 </CardContent>
               </Card>
             </Grid>
