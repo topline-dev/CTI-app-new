@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import FormikTextField from './formikTextField'
 import { Card, CardContent, Tabs, Tab, AppBar } from '@mui/material'
 import CategoryData from './categoryData'
 import axios from 'axios'
 
-function categoryForm() {
+function categoryForm(props) {
     const [tabValue, setValue] = useState(0);
 
     const [error, setError] = useState(null);
@@ -34,7 +33,7 @@ function categoryForm() {
         );
     }
 
-    const baseURL = "http://localhost:8083/categories"
+    const baseURL = "http://topline-cti.com:8083/categories/1"
 
     //This will work like componentDidMount
     useEffect(() => {
@@ -60,8 +59,9 @@ function categoryForm() {
         </div>
     )
     return (
+        
         <Card sx={{ minWidth: 275 }} elevation={4}>
-            <CardContent>
+              <CardContent>
                 <div>
                     <AppBar position='static' sx={{ backgroundColor: "primary.light" }} color="primary">
                         <Tabs value={tabValue} onChange={handleChange} scrollButtons="auto" aria-label="scrollable auto tabs example" centered>

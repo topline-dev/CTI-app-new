@@ -11,7 +11,7 @@ import CustomSelect from './categoryItems/customSelect'
 
 function categoryData(props) {
 
-	const baseURL = "http://localhost:8083/categoryItems/" + props.categoryId
+	const baseURL = "http://topline-cti.com:8083/categoryItems/" + props.categoryId
 
 	const [categoryItems, setCategoryItems] = useState([]);
 
@@ -34,11 +34,11 @@ function categoryData(props) {
 					return <CustomDateTime data={item} />
 				}
 				break;
-			case "select":
-				{
-					return <CustomSelect data={item} />
-				}
-				break;
+			// case "select":
+			// 	{
+			// 		return <CustomSelect data={item} />
+			// 	}
+			// 	break;
 			default:
 				return "Hello"
 				break;
