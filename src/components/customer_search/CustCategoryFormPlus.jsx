@@ -1,25 +1,35 @@
 import React, { useState, useEffect } from 'react'
 import { Card, CardContent, Tabs, Tab, AppBar } from '@mui/material'
-import CategoryData from './categoryData'
+import CategoryData from '../categoryForm/categoryData';
 import axios from 'axios'
+import CustFormLite from "./CustFormLite";
 
-function categoryForm(props) {
+function CustCategoryFormPlus(props) {
     const [tabValue, setValue] = useState(0);
 
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [categoryArray, setCategoryArray] = useState([]);
     
-    if (props.check==="true") {
-        setCategoryArray()
-    }
-
+   
     function allProps(index) {
         return categoryArray[index];
     }
 
     function TabPanel(props) {
         const { children, value, index, ...other } = props;
+        if(props.check==="true")
+        {
+            return(
+                <div>
+                {
+                    value===index && (
+                        <h1>{children}</h1>
+                    )
+                }   
+            </div>    
+            );
+        }
     
         return (
     
@@ -31,7 +41,7 @@ function categoryForm(props) {
                 {...other}
             >
                 {value === index && (
-                    <CategoryData {...allProps(index)} />
+                    <CategoryData {...allProps(index-1)} />
                 )}
             </div>
         );
@@ -44,7 +54,6 @@ function categoryForm(props) {
         axios.get(baseURL)
         .then((response) => {
             setCategoryArray(response.data);
-            console.log(response);
         })
     }, [])
 
@@ -58,9 +67,10 @@ function categoryForm(props) {
     )
     const tabContent = categoryArray.map((category, index) =>
         <div>
-            <TabPanel value={tabValue} index={index}>
+            <TabPanel value={tabValue} index={1+index}>
                 {category.categoryName}
             </TabPanel>
+            
         </div>
     )
     return (
@@ -70,9 +80,13 @@ function categoryForm(props) {
                 <div>
                     <AppBar position='static' sx={{ backgroundColor: "primary.light" }} color="primary">
                         <Tabs value={tabValue} onChange={handleChange} scrollButtons="auto" aria-label="scrollable auto tabs example" centered>
+                            <Tab label="Customer Information" wrapped/>
                             {tabHead}
                         </Tabs>
                     </AppBar>
+                    <TabPanel value={tabValue} index={0} check="true">
+                    <CustFormLite/>
+                    </TabPanel>
                     {tabContent}
                 </div>
             </CardContent>
@@ -80,4 +94,4 @@ function categoryForm(props) {
     )
 }
 
-export default categoryForm
+export default CustCategoryFormPlus
