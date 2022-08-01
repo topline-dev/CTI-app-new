@@ -8,8 +8,8 @@ const cw = 100;
 const tt = new Date().toLocaleString().replace(",", "");
 const columns = [
   { field: "id", headerName: "ID", width: 40 },
-  { field: "firstName", headerName: "First name", width: 90 },
-  { field: "lastName", headerName: "Last name", width: 90 },
+  { field: "customerFirstName", headerName: "First name", width: 90 },
+  { field: "customerLastName", headerName: "Last name", width: 90 },
   {
     field: "phone",
     headerName: "Phone Number",
@@ -17,20 +17,20 @@ const columns = [
     width: 120,
   },
   {
-    field: "nextdate",
+    field: "customerNextCallDateTime",
     headerName: "Next Date",
     type: "date",
     width: 110,
   },
   {
-    field: "lastup",
+    field: "customerModifyDateTime",
     headerName: "last updated",
     type: "datetime",
     width: cw,
   },
-  { field: "adrress1", headerName: "Address 1", width: 120 },
-  { field: "adrress2", headerName: "Address 2", width: cw },
-  { field: "custgrp", headerName: "Customer group", width: 120 },
+  { field: "customerAddress1", headerName: "Address 1", width: 120 },
+  { field: "customerAddress2", headerName: "Address 2", width: cw },
+  { field: "id", headerName: "Customer group", width: 120 },
   { field: "prjgrp", headerName: "project group", width: cw },
   {
     field: "edit",
@@ -51,9 +51,9 @@ const columns = [
       const onClick = (e) => {
         e.stopPropagation(); // don't select this row after clicking
       };
-      return <Button onClick={onClick} >delete</Button>;
+      return <Button onClick={onClick}>delete</Button>;
     },
-    width:90,
+    width: 90,
   },
 ];
 
@@ -63,75 +63,101 @@ export default function CustomerSearchTable(props) {
   const rows = [
     {
       id: 1,
-      lastName: "Snow",
-      firstName: "Jon",
+      customerLastName: "Snow",
+      customerFirstName: "Jon",
       phone: 3276784,
-      nextdate: tt,
+      customerNextCallDateTime: tt,
       lastup: tt,
-      adrress1: "werr2323f",
-      adrress2: "fw2efwefwe",
-      custgrp: "sa",
+      customerAddress1: "werr2323f",
+      customerAddress2: "fw2efwefwe",
+      id: "sa",
       prjgrp: "project 99",
     },
     {
       id: 2,
-      lastName: "user",
-      firstName: "kana",
+      customerLastName: "user",
+      customerFirstName: "kana",
       phone: 6776784,
-      nextdate: tt,
+      customerNextCallDateTime: tt,
       lastup: tt,
-      adrress1: "test address here",
-      adrress2: "address 2",
-      custgrp: "spa",
+      customerAddress1: "test address here",
+      customerAddress2: "address 2",
+      id: "spa",
       prjgrp: "project 100",
     },
     {
-        id: 3,
-        lastName: "test2",
-        firstName: "kana",
-        phone: 6776784,
-        nextdate: tt,
-        lastup: tt,
-        adrress1: "test address here",
-        adrress2: "addrress 2",
-        custgrp: "spa",
-        prjgrp: "project 100",
-      },
-      {
-        id: 4,
-        lastName: "test2",
-        firstName: "kana",
-        phone: 6776784,
-        nextdate: tt,
-        lastup: tt,
-        adrress1: "test address here",
-        adrress2: "addrress 2",
-        custgrp: "spa",
-        prjgrp: "project 100",
-      },
-      {
-        id: 200,
-        lastName: "test2",
-        firstName: "kana",
-        phone: 6776784,
-        nextdate: tt,
-        lastup: tt,
-        adrress1: "test address here",
-        adrress2: "addrress 2",
-        custgrp: "spa",
-        prjgrp: "project 100",
-      },
+      id: 3,
+      customerLastName: "test2",
+      customerFirstName: "kana",
+      phone: 6776784,
+      customerNextCallDateTime: tt,
+      lastup: tt,
+      customerAddress1: "test address here",
+      customerAddress2: "addrress 2",
+      id: "spa",
+      prjgrp: "project 100",
+    },
+    {
+      id: 4,
+      customerLastName: "test2",
+      customerFirstName: "kana",
+      phone: 6776784,
+      customerNextCallDateTime: tt,
+      lastup: tt,
+      customerAddress1: "test address here",
+      customerAddress2: "addrress 2",
+      id: "spa",
+      prjgrp: "project 100",
+    },
+    {
+      id: 200,
+      customerLastName: "test2",
+      customerFirstName: "kana",
+      phone: 6776784,
+      customerNextCallDateTime: tt,
+      lastup: tt,
+      customerAddress1: "test address here",
+      customerAddress2: "addrress 2",
+      id: "spa",
+      prjgrp: "project 100",
+    },
+    {
+      id: 201,
+      customerLastName: "test2",
+      customerFirstName: "kana",
+      phone: 6776784,
+      customerNextCallDateTime: tt,
+      lastup: tt,
+      customerAddress1: "test address here",
+      customerAddress2: "addrress 2",
+      id: "spa",
+      prjgrp: "project 100",
+    },
+    {
+      id: 202,
+      customerLastName: "test2",
+
+      phone: 6776784,
+      customerNextCallDateTime: tt,
+      lastup: tt,
+      customerAddress1: "test address here",
+      customerAddress2: "addrress 2",
+      id: "spa",
+      prjgrp: "project 100",
+      customerFirstName: "testt",
+    },
   ];
   return (
-    <div style={{ height: 400, width: "100%" }}>
-      <div>{formData[0].phoneNumber}</div>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
-        checkboxSelection
-      />
-    </div>
+    <>
+      <div style={{ height: 500, width: "100%" }}>
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          pageSize={20}
+          rowsPerPageOptions={[5]}
+          checkboxSelection
+        />
+      </div>
+    </>
   );
 }

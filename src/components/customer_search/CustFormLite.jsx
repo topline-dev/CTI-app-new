@@ -32,15 +32,7 @@ export default function CustForm(props) {
 
   return (
     <>
-      <Typography
-        sx={{ fontSize: 15 }}
-        color="black"
-        style={{ fontWeight: "bold" }}
-        align="center"
-        gutterBottom
-      >
-        Customer Information
-      </Typography>
+
       <Grid container columnSpacing={1} rowSpacing={1}>
         <Grid item xs={4}>
           <CustTextField

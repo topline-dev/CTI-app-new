@@ -14,36 +14,26 @@ import {
 import CustomerSearchTable from "./CustomerSearchTable";
 import { Formik, Form, Field, FastField, useFormikContext } from "formik";
 import BasicSelect from "../newcustomer/inputs/BasicSelect";
-import CustFormLite from "./CustFormLite";
-import CategoryForm from "../categoryForm/categoryForm";
-
+import CustCategoryFormPlus from "./CustCategoryFormPlus";
 
 export default function CustomerSearchScreenIndex() {
-    const textField = (props) => {
-        return(
-            <>
-                <TextField
-                    {...props}
-                    variant="outlined"
-                    fullWidth    
-                />
-            </>
-        )
-    }
-    
+  const textField = (props) => {
+    return (
+      <>
+        <TextField {...props} variant="outlined" fullWidth />
+      </>
+    );
+  };
 
-    const customSelect =(props) =>{
-        return(
-            <>
-                <BasicSelect
-                    {...props}
-                />
-            </>
-        )
-    }
-  const[formData,setFormData]=useState([{phoneNumber:""}]);
-  const testlist=["option1","option2","option3"];
-  
+  const customSelect = (props) => {
+    return (
+      <>
+        <BasicSelect {...props} />
+      </>
+    );
+  };
+  const [formData, setFormData] = useState([{ phoneNumber: "" }]);
+  const testlist = ["option1", "option2", "option3"];
 
   return (
     <>
@@ -51,7 +41,7 @@ export default function CustomerSearchScreenIndex() {
       <TemporaryDrawer />
       <Formik
         //innerRef={ref}
-        initialValues={{phoneNumber:"",}}
+        initialValues={{ phoneNumber: "" }}
         onSubmit={async (values) => {
           await new Promise((r) => setTimeout(r, 500));
           alert(JSON.stringify(values, null, 2));
@@ -82,20 +72,20 @@ export default function CustomerSearchScreenIndex() {
                       />
                     </Box>
                     <Box>
-                        <Field 
-                        name="customerGroup" 
-                        component={customSelect} 
-                        list={testlist} 
+                      <Field
+                        name="customerGroup"
+                        component={customSelect}
+                        list={testlist}
                         label="Customer Group"
-                        />
+                      />
                     </Box>
                     <Box>
-                      <Field 
-                        name="projectGroup" 
-                        component={customSelect} 
-                        list={testlist} 
+                      <Field
+                        name="projectGroup"
+                        component={customSelect}
+                        list={testlist}
                         label="Project Group"
-                        />
+                      />
                     </Box>
                     <Box>
                       <Button variant="contained" fullWidth type="submit">
@@ -107,17 +97,12 @@ export default function CustomerSearchScreenIndex() {
               </Card>
             </Grid>
             <Grid item xs={12} md={7.5}>
-              <Card elevation={4}>
-                <CardContent>
-                 <CustFormLite/>
-                 {/* <CategoryForm/> */}
-                </CardContent>
-              </Card>
+              <CustCategoryFormPlus />
             </Grid>
             <Grid item xs={12} md={11}>
-              <Card elevation={4} sx={{ minHeight: 300 }}>
+              <Card elevation={4} sx={{ minHeight: 500 }}>
                 <CardContent>
-                  <CustomerSearchTable  formData={formData} />
+                  <CustomerSearchTable formData={formData} />
                 </CardContent>
               </Card>
             </Grid>
