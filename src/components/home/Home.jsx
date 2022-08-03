@@ -13,6 +13,7 @@ export default function Home(){
                 <Link to="/cust">customer search screen</Link>
                 <Link to="/customizeCategory">customize category</Link>
                 <Link to="/newCategoryitem">New Category Item</Link>
+                <Link to="/customerDistribution">customer distribution</Link>
             </Stack>
         </>
     )
