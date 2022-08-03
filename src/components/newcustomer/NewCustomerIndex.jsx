@@ -16,7 +16,7 @@ export default function NewCustomerScreenIndex() {
 	const axiosClient = axios.create({
 		baseURL: "http://topline-cti.com:8083",
 		headers: {
-			"Content-Type": "applcation/json"
+			"Content-Type": "application/json"
 		}
 	});
 
@@ -47,10 +47,10 @@ export default function NewCustomerScreenIndex() {
 				initialValues={initialValues}
 				onSubmit={async (values) => {
 					await new Promise((r) => setTimeout(r, 500));
+					console.log(values);
 					handleSubmit(values);
 					// alert(JSON.stringify(values, null, 2));
-
-					// console.log(values);
+					
 				}}
 			>
 				<Form>
