@@ -30,7 +30,7 @@ const columns = [
   },
   { field: "customerAddress1", headerName: "Address 1", width: 120 },
   { field: "customerAddress2", headerName: "Address 2", width: cw },
-  { field: "id", headerName: "Customer group", width: 120 },
+  { field: "customerGroupId", headerName: "Customer group", width: 120 },
   { field: "prjgrp", headerName: "project group", width: cw },
   {
     field: "edit",
@@ -70,7 +70,7 @@ export default function CustomerSearchTable(props) {
       lastup: tt,
       customerAddress1: "werr2323f",
       customerAddress2: "fw2efwefwe",
-      id: "sa",
+      customerGroupId: "sa",
       prjgrp: "project 99",
     },
     {
@@ -82,7 +82,7 @@ export default function CustomerSearchTable(props) {
       lastup: tt,
       customerAddress1: "test address here",
       customerAddress2: "address 2",
-      id: "spa",
+      customerGroupId: "spa",
       prjgrp: "project 100",
     },
     {
@@ -94,7 +94,7 @@ export default function CustomerSearchTable(props) {
       lastup: tt,
       customerAddress1: "test address here",
       customerAddress2: "addrress 2",
-      id: "spa",
+      customerGroupId: "spa",
       prjgrp: "project 100",
     },
     {
@@ -106,7 +106,7 @@ export default function CustomerSearchTable(props) {
       lastup: tt,
       customerAddress1: "test address here",
       customerAddress2: "addrress 2",
-      id: "spa",
+      customerGroupId: "spa",
       prjgrp: "project 100",
     },
     {
@@ -118,7 +118,7 @@ export default function CustomerSearchTable(props) {
       lastup: tt,
       customerAddress1: "test address here",
       customerAddress2: "addrress 2",
-      id: "spa",
+      customerGroupId: "spa",
       prjgrp: "project 100",
     },
     {
@@ -130,7 +130,7 @@ export default function CustomerSearchTable(props) {
       lastup: tt,
       customerAddress1: "test address here",
       customerAddress2: "addrress 2",
-      id: "spa",
+      customerGroupId: "spa",
       prjgrp: "project 100",
     },
     {
@@ -142,7 +142,7 @@ export default function CustomerSearchTable(props) {
       lastup: tt,
       customerAddress1: "test address here",
       customerAddress2: "addrress 2",
-      id: "spa",
+      customerGroupId: "spa",
       prjgrp: "project 100",
       customerFirstName: "testt",
     },
