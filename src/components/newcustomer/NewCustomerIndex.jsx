@@ -16,25 +16,25 @@ export default function NewCustomerScreenIndex() {
 	const axiosClient = axios.create({
 		baseURL: "http://topline-cti.com:8083",
 		headers: {
-			"Content-Type": "applcation/json"
+			"Content-Type": "application/json"
 		}
 	});
 
-	const FormObserver = () => {
-		const { values } = useFormikContext();
-		useEffect(() => {
-			setgroupId(values.custForm.customerGroupId);
-		}, [values.custForm.customerGroupId]);
-		return null;
-	};
+	// const FormObserver = () => {
+	// 	const { values } = useFormikContext();
+	// 	useEffect(() => {
+	// 		setgroupId(values?.custData.customerGroupId);
+	// 	}, [values.custData.customerGroupId]);
+	// 	return null;
+	// };
 
 	async function handleSubmit(values){
 		alert("Saving Customer");
-		// const {categoryData, custData} = values;
-		// console.log(custData);
-		// const custData1 = JSON.stringify(custData);
-		// const custResponse = await axiosClient.post('/customers', custData1);
-		// console.log(custResponse);
+		const {categoryData, custData} = values;
+		console.log(custData);
+		const custData1 = JSON.stringify(custData);
+		const custResponse = await axiosClient.post('/customers', custData1);
+		console.log(custResponse);
 		
 	}
 
