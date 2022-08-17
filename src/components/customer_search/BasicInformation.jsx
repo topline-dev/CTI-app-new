@@ -1,7 +1,9 @@
 import '../../App.css';
 import React from 'react';
 import { Grid,TextField } from '@mui/material';
-export default function BasicInformation(){
+
+
+function BasicInformation(){
 return(
     <>
         <Grid container spacing={2}>
@@ -125,3 +127,5 @@ return(
     </>
 )
 }
+
+export default BasicInformation;
