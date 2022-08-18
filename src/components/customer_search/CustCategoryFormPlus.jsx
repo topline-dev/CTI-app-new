@@ -47,7 +47,7 @@ function CustCategoryFormPlus(props) {
         );
     }
 
-    const baseURL = "http://topline-cti.com:8083/categories/1"
+    const baseURL = "http://topline-cti.com:8083/category/1"
 
     //This will work like componentDidMount
     useEffect(() => {

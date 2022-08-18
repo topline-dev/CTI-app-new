@@ -398,6 +398,66 @@ const handleSubmit =(e) =>{
                 />
               </Grid>
             </Grid>
+            {/* <Grid item xs={12}>
+                            <FieldArray name='custForm.customerTelephone'>
+                                {
+                                    (props) => {
+                                        //console.log(props);
+                                        const { push, remove, form } = props;
+                                        const { values } = form;
+                                        const { custForm } = values;
+                                        const { customerTelephone } = custForm;
+                                        //console.log(customerTelephone);
+                                        return (
+                                            <Stack direction="row" spacing={0}>
+                                                {
+                                                    customerTelephone.map((number, index) => (
+                                                        <div key={index}>
+                                                            {index === 0 && (
+                                                                <Grid container columnSpacing={0}>
+                                                                    <Grid item xs={12}>
+                                                                        <Field
+                                                                            name={`custForm.customerTelephone[${index}]`}
+                                                                            label="Telephone Number "
+                                                                            type="number"
+                                                                            as={textField}
+                                                                        />
+                                                                        <Button variant="contained" onClick={() => push('')}>ADD</Button>
+                                                                    </Grid>
+                                                                </Grid>
+                                                            )}
+                                                            {index !== 0 && (
+                                                                <Grid container columnSpacing={0}>
+                                                                    <Grid item xs={11}>
+                                                                        <Field
+                                                                            name={`custForm.customerTelephone[${index}]`}
+                                                                            label="Telephone Number "
+                                                                            type="number"
+                                                                            as={textField}
+                                                                        />
+                                                                    </Grid>
+                                                                    <Grid item xs={1}>
+                                                                        <Button
+                                                                            variant='contained'
+                                                                            size='small'
+                                                                            onClick={() => remove(index)}
+                                                                            style={{ minWidth: "1px", minHeight: "1px", backgroundColor: "red", padding: "2px" }}
+                                                                        >
+                                                                            <DeleteIcon fontSize="small" />
+                                                                        </Button>
+                                                                    </Grid>
+                                                                </Grid>
+                                                            )}
+                                                        </div>
+                                                    ))
+                                                }
+
+                                            </Stack>
+                                        )
+                                    }
+                                }
+                            </FieldArray>
+                        </Grid>*/}
             {/* <Button type='submit'> submit</Button> */}
           </CardContent>
           {/* <CardActions>

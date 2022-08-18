@@ -11,6 +11,10 @@ import CustomSelect from './categoryItems/customSelect'
 
 function categoryData(props) {
 
+	console.log(props,"cdataaa");
+	const mode=props.mode;
+	const customerId=props.customerId;
+
 	const baseURL = "http://topline-cti.com:8083/categoryItems/" + props.categoryId
 
 	const [categoryItems, setCategoryItems] = useState([]);
@@ -26,12 +30,12 @@ function categoryData(props) {
 		switch (item.itemType) {
 			case "text":
 				{
-					return <CustomTextfield data={item} />
+					return <CustomTextfield data={item} mode={mode} customerId={customerId}/>
 				}
 				break;
 			case "date":
 				{
-					return <CustomDateTime data={item} />
+					return <CustomDateTime data={item} mode={mode} customerId={customerId}/>
 				}
 				break;
 			// case "select":

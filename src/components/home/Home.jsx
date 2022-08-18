@@ -14,6 +14,8 @@ export default function Home(){
                 <Link to="/customizeCategory">customize category</Link>
                 <Link to="/newCategoryitem">New Category Item</Link>
                 <Link to="/customerDistribution">customer distribution</Link>
+                <Link to="/customerDetails">customer details</Link>
+                <Link to="/customerEdit">customer Edit</Link>
                 <Link to="/testPage">Test Page</Link>
             </Stack>
         </>

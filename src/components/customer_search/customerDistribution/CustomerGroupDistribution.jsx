@@ -124,7 +124,7 @@ export default function CustomerGroupDistribution() {
               </Card>
             </Grid>
             <Grid item xs={12} md={12}>
-              {/* <CustomerSearchTable formData="dummy" /> */}
+              <CustomerSearchTable formData="dummy" />
             </Grid>
           </Grid>
         </Form>
