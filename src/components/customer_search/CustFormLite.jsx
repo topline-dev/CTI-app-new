@@ -16,11 +16,11 @@ import CustTextField from "../custForm/custItems/custTextfield";
 import CustomerGroupSelect from "../custForm/custItems/customerGroupSelect";
 
 export default function CustForm(props) {
-  const sexList = ["male", "female", "other"];
-  const firstPersonList = ["aaa", "bbb", "ccc"];
-  const secondPersonList = ["111", "222", "333"];
-  const customerGroupList = [1, 2, 3];
-  const customerProjectList = ["prj1", "prj2", "prj3"];
+  // const sexList = ["male", "female", "other"];
+  // const firstPersonList = ["aaa", "bbb", "ccc"];
+  // const secondPersonList = ["111", "222", "333"];
+  // const customerGroupList = [1, 2, 3];
+  // const customerProjectList = ["prj1", "prj2", "prj3"];
 
   const customSelect = (props) => {
     return (

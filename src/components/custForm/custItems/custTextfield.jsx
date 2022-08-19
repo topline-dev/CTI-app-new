@@ -31,6 +31,7 @@ export default function custTextField(props) {
             <Field
                 // name = {` ${data.categoryId}.${data.itemId} `}
                 name = {`custData.${data.name}`}
+                defaultValue = ""
                 label={data.label}
                 as={textField}
                 {...props}

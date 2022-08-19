@@ -1,114 +1,149 @@
 import "../../App.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ButtonAppBar from "../newcustomer/Appbar";
 import TemporaryDrawer from "../newcustomer/SideNav";
 import {
-  Grid,
-  Card,
-  CardContent,
-  Button,
-  Stack,
-  TextField,
-  Box,
+	Grid,
+	Card,
+	CardContent,
+	Button,
+	Stack,
+	TextField,
+	Box,
 } from "@mui/material";
 import CustomerSearchTable from "./CustomerSearchTable";
-import { Formik, Form, Field, FastField, useFormikContext } from "formik";
+import { Formik, Form, Field, useFormikContext } from "formik";
 import BasicSelect from "../newcustomer/inputs/BasicSelect";
 import CustCategoryFormPlus from "./CustCategoryFormPlus";
+import axios from 'axios';
 
 export default function CustomerSearchScreenIndex() {
-  const textField = (props) => {
-    return (
-      <>
-        <TextField {...props} variant="outlined" fullWidth />
-      </>
-    );
-  };
 
-  const customSelect = (props) => {
-    return (
-      <>
-        <BasicSelect {...props} />
-      </>
-    );
-  };
-  const [formData, setFormData] = useState([{ phoneNumber: "" }]);
-  const testlist = ["option1", "option2", "option3"];
+	const initialValues = {
+		custData:{
+			customerGroupId:"1"
+		},
+		phoneNumber:"",
+		project:[]
+	}
 
-  return (
-    <>
-      <ButtonAppBar title="Customer Search" />
-      <TemporaryDrawer />
-      <Formik
-        //innerRef={ref}
-        initialValues={{ phoneNumber: "" }}
-        onSubmit={async (values) => {
-          await new Promise((r) => setTimeout(r, 500));
-          alert(JSON.stringify(values, null, 2));
-          console.log(values);
-          setFormData([values]);
-        }}
-      >
-        <Form>
-          <Grid
-            container
-            spacing={2}
-            justifyContent={"center"}
-            alignItems="stretch"
-            direction="row"
-          >
-            <Grid item xs={12} md={3.5}>
-              <Card elevation={4}>
-                <CardContent>
-                  <Stack spacing={4}>
-                    {/* <item><Container sx={{backgroundColor:"primary.light",minHeight:"50px",justifyContent:"center"}}><h3>Information</h3></Container></item> */}
-                    <Box>
-                      <Field
-                        type="number"
-                        name="phoneNumber"
-                        label="Phone number"
-                        defaultValue=""
-                        as={textField}
-                      />
-                    </Box>
-                    <Box>
-                      <Field
-                        name="customerGroup"
-                        component={customSelect}
-                        list={testlist}
-                        label="Customer Group"
-                      />
-                    </Box>
-                    <Box>
-                      <Field
-                        name="projectGroup"
-                        component={customSelect}
-                        list={testlist}
-                        label="Project Group"
-                      />
-                    </Box>
-                    <Box>
-                      <Button variant="contained" fullWidth type="submit">
-                        Search
-                      </Button>
-                    </Box>
-                  </Stack>
-                </CardContent>
-              </Card>
-            </Grid>
-            <Grid item xs={12} md={7.5}>
-              <CustCategoryFormPlus />
-            </Grid>
-            <Grid item xs={12} md={11}>
-              <Card elevation={4} sx={{ minHeight: 500 }}>
-                <CardContent>
-                  <CustomerSearchTable formData={formData} />
-                </CardContent>
-              </Card>
-            </Grid>
-          </Grid>
-        </Form>
-      </Formik>
-    </>
-  );
+	const [groupId, setgroupId] = useState(1);
+	const [custInformation, setcustInformation] = useState([]);
+
+	const axiosClient = axios.create({
+		baseURL: "http://topline-cti.com:8083",
+		headers: {
+			"Content-Type": "application/json"
+		}
+	});
+
+	async function handleSubmit(values) {
+		console.log(values);
+		const { categoryData, custData } = values;
+
+		const custResponse = await axiosClient.post('/customerList', JSON.stringify(custData));
+
+		if(custResponse.status = 200){
+			console.log(custResponse.data);
+			setcustInformation(custResponse.data);
+		}
+
+		
+		
+	}
+
+	const FormObserver = () => {
+		const { values } = useFormikContext();
+		useEffect(() => {
+			// console.log(values.custData.customerGroupId);
+			setgroupId(values.custData.customerGroupId || "");
+		}, [values.custData.customerGroupId]);
+		return null;
+	};
+
+	const textField = (props) => {
+		return (
+			<>
+				<TextField {...props} variant="outlined" fullWidth />
+			</>
+		);
+	};
+
+	const customSelect = (props) => {
+		return (
+			<>
+				<BasicSelect {...props} />
+			</>
+		);
+	};
+
+	return (
+		<>
+			<ButtonAppBar title="Customer Search" />
+			<TemporaryDrawer />
+			<Formik
+				initialValues={initialValues}
+				onSubmit={handleSubmit}
+			>
+				<Form>
+					<FormObserver/>
+					<Grid
+						container
+						spacing={2}
+						justifyContent={"center"}
+						alignItems="stretch"
+						direction="row"
+					>
+						<Grid item xs={12} md={3.5}>
+							<Card elevation={4}>
+								<CardContent>
+									<Stack spacing={4}>
+										<Box>
+											<Field
+												type="number"
+												name="phoneNumber"
+												label="Phone number"
+												defaultValue=""
+												as={textField}
+											/>
+										</Box>
+										<Box>
+											<Field
+												name="custData.customerGroupId"
+												component={customSelect}
+												label="Customer Group"
+											/>
+										</Box>
+										<Box>
+											{/* <Field
+												name="projectGroup"
+												component={customSelect}
+												list={testlist}
+												label="Project Group"
+											/> */}
+										</Box>
+										<Box>
+											<Button variant="contained" fullWidth type="submit">
+												Search
+											</Button>
+										</Box>
+									</Stack>
+								</CardContent>
+							</Card>
+						</Grid>
+						<Grid item xs={12} md={7.5}>
+							<CustCategoryFormPlus groupId = {groupId}/>
+						</Grid>
+						<Grid item xs={12} md={11}>
+							<Card elevation={4} sx={{ minHeight: 500 }}>
+								<CardContent>
+									<CustomerSearchTable rows = {custInformation}/>
+								</CardContent>
+							</Card>
+						</Grid>
+					</Grid>
+				</Form>
+			</Formik>
+		</>
+	);
 }
