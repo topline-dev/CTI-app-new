@@ -1,18 +1,46 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect,useMemo } from 'react'
 import { Card, CardContent, Tabs, Tab, AppBar } from '@mui/material'
 import CategoryData from './categoryData'
 import axios from 'axios'
 
 function categoryForm(props) {
-    const [tabValue, setValue] = useState(0);
+    console.log("in category form");
+    console.log(props,"propss areeee");
+    const groupId=props.groupId;
+    const customerId=props.customerId;
+    const mode=props.mode;
 
+
+    const [tabValue, setValue] = useState(0);
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [categoryArray, setCategoryArray] = useState([]);
+    
+    const baseURL = `http://topline-cti.com:8083/category/${groupId}`
 
-    if (props.check === "true") {
-        setCategoryArray()
-    }
+    //This will work like componentDidMount
+    useMemo(() => {
+        axios.get(baseURL)
+        .then((response) => {
+            setCategoryArray(response.data);
+            console.log(response);
+        })
+    }, [])
+
+    //if (props.check === "true") {
+    //    setCategoryArray()
+    //}
+    
+    //This will work like componentDidMount
+    //useEffect(() => {
+    //    if (props.groupId && props.groupId > 0) {
+    //        const baseURL = `http://topline-cti.com:8083/category/${props.groupId}`
+    //        axios.get(baseURL)
+    //            .then((response) => {
+    //                setCategoryArray(response.data);
+    //            })
+    //    }
+    //}, [props.groupId])
 
     function allProps(index) {
         return categoryArray[index];
@@ -31,26 +59,11 @@ function categoryForm(props) {
                 {...other}
             >
                 {value === index && (
-                    <CategoryData {...allProps(index)} />
+                    <CategoryData {...allProps(index)} mode={mode} customerId={customerId}/>
                 )}
             </div>
         );
     }
-
-
-
-    //This will work like componentDidMount
-    useEffect(() => {
-        if (props.groupId && props.groupId > 0) {
-            const baseURL = `http://topline-cti.com:8083/category/${props.groupId}`
-            axios.get(baseURL)
-                .then((response) => {
-                    setCategoryArray(response.data);
-                })
-        }
-
-    }, [props.groupId])
-
 
     const handleChange = (event, newValue) => {
         setValue(newValue);

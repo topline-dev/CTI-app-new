@@ -15,6 +15,9 @@ import CreateNewItem from './components/customizeCategory/CreateNewItem';
 import CustomizeCategoryDetail from './components/customizeCategory/CustomizeCategoryDetail';
 import CustomerGroupDistribution from './components/customer_search/customerDistribution/CustomerGroupDistribution';
 import TestFile from './components/testFolder/TestFile';
+import CustomerDetails from './components/customerDetail/CustomerDetails';
+import Test2 from './components/testFolder/Test2';
+import CustomerEdit from './components/customerEdit/customerEdit';
 
 
 const themex = createTheme({
@@ -46,8 +49,11 @@ function App() {
         <Route exact path="/newCategoryItem" element={<CreateNewItem/>}/>
         <Route exact path="/customizeCategoryDetail" element={<CustomizeCategoryDetail/>}/>
         <Route exact path="/customerDistribution" element={<CustomerGroupDistribution/>}/>
+        <Route exact path="/CustomerDetails" element={<CustomerDetails/>}/>
+        <Route exact path="/CustomerEdit" element={<CustomerEdit/>}/>
         <Route path="*" element={<ButtonAppBar title="Error! Page not found" />} />
-        <Route exact path="/testPage" element={<TestFile/>}/>
+        <Route exact path="/testPage" element={<Test2/>}/>
+        
       </Routes>
     </ThemeProvider >
    

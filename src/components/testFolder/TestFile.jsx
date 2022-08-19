@@ -18,8 +18,11 @@ export default function TestFile() {
                     label={props.label}
                     variant="outlined"
                     {...props}
+                    select
                     error={meta.error && meta.touched}
-                    helperText={meta.error}
+                    helperText={meta.error && meta.touched ? (
+                        <div>{meta.error}</div>
+                      ) : null}
                 />
                 {/* {meta.error && meta.touched ? (
              <div>{meta.error}</div>

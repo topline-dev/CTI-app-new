@@ -47,8 +47,6 @@ function CustCategoryFormPlus(props) {
         );
     }
 
-
-
     //This will work like componentDidMount
     useEffect(() => {
         if (props.groupId && props.groupId>0) {
