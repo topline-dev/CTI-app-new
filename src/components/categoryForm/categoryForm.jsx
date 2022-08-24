@@ -20,7 +20,7 @@ function categoryForm(props) {
     const baseURL = `http://topline-cti.com:8083/category/${groupId}`
 
     //This will work like componentDidMount
-    useMemo(() => {
+    useEffect(() => {
         axios.get(baseURL)
         .then((response) => {
             setCategoryArray(response.data);
@@ -50,9 +50,6 @@ function categoryForm(props) {
             </div>
         );
     }
-
-    
-
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
