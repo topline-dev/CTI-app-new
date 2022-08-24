@@ -9,7 +9,7 @@ import { useField } from 'formik';
 // props=(mode:"read",data:{{name:"namehere",label:"labelhere"}})
 // for text area add props=( multiline, rows={3})
 //for date add props=(type="date", InputLabelProps={{shrink: true,}})
-//other types=datetime-local,date,month
+//other types=datetime-local,date,month,number,email,password,time
 
 
 export default function CustomTextfield(props) {
