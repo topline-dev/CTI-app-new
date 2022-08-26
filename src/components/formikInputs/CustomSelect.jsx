@@ -13,12 +13,8 @@ export default function CustomSelect(props) {
   const defaultValue = props.defaultValue || "";
   //console.log(defaultValue);
 
-  let readMode;
-  if (mode === "read") {
-    readMode = true;
-  } else {
-    readMode = false;
-  }
+  let readMode = mode ? true : false;
+
   const CustomizedSelectForFormik = ({ children, form, field, ...props }) => {
     const { name, value } = field;
     const { setFieldValue } = form;
@@ -27,7 +23,7 @@ export default function CustomSelect(props) {
           setFieldValue(name, defaultValue);
         }
       }, []);
-    //console.log(props);
+    console.log(props);
     return (
       <>
         {value && (

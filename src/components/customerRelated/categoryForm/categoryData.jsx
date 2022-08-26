@@ -11,7 +11,6 @@ import CustomSelect from './categoryItems/customSelect'
 
 function categoryData(props) {
 
-	console.log(props,"cdataaa");
 	const mode=props.mode;
 	const customerId=props.customerId;
 

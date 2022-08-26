@@ -1,36 +1,13 @@
 import React from "react";
-import {
-	Card,
-	Grid,
-	Typography,
-	Button,
-	CardContent,
-	TextField,
-	Stack,
-} from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
-import { Field, FieldArray, FastField } from "formik";
-// import BasicSelect from "../newcustomer/inputs/BasicSelect";
-
-import { useField } from "formik";
-import CustTextField from "./custItems/custTextfield";
+import { Card, Grid, Typography, CardContent, } from "@mui/material";
 import CustomerGroupSelect from "./custItems/customerGroupSelect";
 import CustomTextField from '../../formikInputs/CustomTextField';
+import CustomSelect from '../../formikInputs/CustomSelect';
+import groupWrapper from "./custItems/GroupWrapper";
+// import GroupWrapper from "./custItems/GroupWrapper";
 
 export default function CustForm(props) {
-	let readMode;
-	if (props.mode === "read") {
-		readMode = true;
-	} else {
-		readMode = false;
-	}
-	// const customSelect = (props) => {
-	// 	return (
-	// 		<>
-	// 			<BasicSelect {...props} />
-	// 		</>
-	// 	);
-	// };
+	let readMode = props.mode === "read" ? true : false;
 
 	return (
 		<>
@@ -47,196 +24,110 @@ export default function CustForm(props) {
 					</Typography>
 					<Grid container columnSpacing={1} rowSpacing={1}>
 						<Grid item xs={4}>
-						<CustomTextField data={{ name: "custData.customerLastName", label: "Last Name" }} />
-							{/* <CustTextField
-								data={{ name: "customerLastName", label: "Last Name" }}
-								InputProps={{
-									readOnly: readMode,
-								}}
-							/> */}
+							<CustomTextField mode={readMode} data={{ name: "custData.customerLastName", label: "Last Name" }} />
 						</Grid>
 						<Grid item xs={4}>
-							<CustTextField
-								InputProps={{
-									readOnly: readMode,
-								}}
-								data={{ name: "customerFirstName", label: "First Name" }}
-							/>
-							{/* <Field name="custData.customerFirstName" label="First Nameeee" as={textField} /> */}
+							<CustomTextField mode={readMode} data={{ name: "custData.customerFirstName", label: "First Name" }} />
 						</Grid>
 						<Grid item xs={4}>
-							<CustTextField
-								data={{ name: "customerSex", label: "Sex" }}
-								InputProps={{
-									readOnly: readMode,
-								}}
-							/>
-						</Grid>
-						<Grid item xs={4}>
-							<CustTextField
-								InputProps={{
-									readOnly: readMode,
-								}}
-								data={{ name: "customerLastRuby", label: "Last Kana Name" }}
-							/>
-						</Grid>
-						<Grid item xs={4}>
-							<CustTextField
-								InputProps={{
-									readOnly: readMode,
-								}}
-								data={{ name: "customerFirstRuby", label: "First Kana Name" }}
-							/>
-						</Grid>
-						<Grid item xs={4}>
-							<CustTextField
-								InputProps={{
-									readOnly: readMode,
-								}}
-								data={{ name: "customerBirthday", label: "Birthday" }}
-							/>
-							{/* <Field
-                                name='custForm.customerBirthday'
-                                label="Birthday"
-                                type="date"
-                                as={textField}
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
-                            /> */}
-						</Grid>
-
-						<Grid item xs={6}>
-							<CustTextField
-								InputProps={{
-									readOnly: readMode,
-								}}
-								data={{ name: "telephone", label: "Telephone" }}
-								type="number"
-							/>
-						</Grid>
-						<Grid item xs={6}>
-							<CustTextField
-								InputProps={{
-									readOnly: readMode,
-								}}
-								data={{ name: "customerEmail", label: "Email" }}
-								type="email"
-							/>
-						</Grid>
-						<Grid item xs={7}>
-							<CustTextField
-								InputProps={{
-									readOnly: readMode,
-								}}
-								data={{ name: "customerAddress1", label: "Address 1" }}
-							/>
-						</Grid>
-						<Grid item xs={5}>
-							<CustTextField
-								InputProps={{
-									readOnly: readMode,
-								}}
-								data={{ name: "customerZipCode", label: "Zipcode" }}
-								type="number"
-							/>
-						</Grid>
-						<Grid item xs={6}>
-							<CustTextField
-								InputProps={{
-									readOnly: readMode,
-								}}
-								data={{ name: "customerAddress2", label: "Address 2" }}
-							/>
-						</Grid>
-						<Grid item xs={6}>
-							<CustTextField
-								InputProps={{
-									readOnly: readMode,
-								}}
-								data={{ name: "customerAddress3", label: "Address 3" }}
-							/>
-						</Grid>
-						<Grid item xs={7}>
-							<CustTextField
-								InputProps={{
-									readOnly: readMode,
-								}}
-								data={{ name: "customerAddress4", label: "Address 4" }}
-							/>
-						</Grid>
-						<Grid item xs={5}>
-							<CustTextField
-								InputProps={{
-									readOnly: readMode,
-								}}
-								data={{ name: "customerBusinessType", label: "Profession" }}
-							/>
-						</Grid>
-						{/* <Grid item xs={6}>
-							<Field
-
-								name="custData.customerGroupId"
-								component={customSelect}
-								label="Customer Group"
-							/>
-						</Grid>
-						<Grid item xs={6}>
-							<Field
-
-								name="custData.customerProjectGroup"
-								component={customSelect}
-								label="Project Group"
-							/>
-						</Grid> */}
-						<Grid item xs={6}>
-							<CustTextField
-								InputProps={{
-									readOnly: readMode,
-								}}
-								data={{ name: "customerRegisterUserId", label: "Author" }}
-								value="3603"
-								disabled
-							/>
-						</Grid>
-						<Grid item xs={6}>
-							<CustTextField
-								InputProps={{
-									readOnly: readMode,
-								}}
+							<CustomSelect
+								mode={readMode}
+								defaultValue={["Male"]}
 								data={{
-									name: "customerModifyUserId",
-									label: "Last Updated by",
-								}}
-								value="3603"
-								disabled
+									name: "custData.customerSex",
+									label: "Sex",
+									list:
+										[
+											{ value: "Male", name: "Male" },
+											{ value: "Female", name: "Female" },
+											{ value: "Other", name: "Other" }
+										]
+								}} />
+						</Grid>
+						<Grid item xs={4}>
+							<CustomTextField mode={readMode} data={{ name: "custData.customerLastRuby", label: "Last Ruby" }} />
+						</Grid>
+						<Grid item xs={4}>
+							<CustomTextField mode={readMode} data={{ name: "custData.customerFirstRuby", label: "First Ruby" }} />
+						</Grid>
+						<Grid item xs={4}>
+							<CustomTextField mode={readMode} type="date"
+								InputLabelProps={{ shrink: true }}
+								data={{ name: "custdata.customerBirthday", label: "Birthday" }}
 							/>
 						</Grid>
 						<Grid item xs={6}>
-							<CustTextField
-								InputProps={{
-									readOnly: readMode,
-								}}
-								data={{ name: "customerMemo1", label: "Memo 1" }}
-								multiline
-								rows={3}
-							/>
+							<CustomTextField mode={readMode} type="number" data={{ name: "telephone", label: "Telephone" }} />
 						</Grid>
 						<Grid item xs={6}>
-							<CustTextField
-								InputProps={{
-									readOnly: readMode,
-								}}
-								data={{ name: "customerMemo2", label: "Memo 2" }}
-								multiline
-								rows={3}
-							/>
+							<CustomTextField mode={readMode} type="email" data={{ name: "custData.customerEmail", label: "Email" }} />
+						</Grid>
+						<Grid item xs={7}>
+							<CustomTextField mode={readMode} data={{ name: "custData.customerAddress1", label: "Address 1" }} />
+						</Grid>
+						<Grid item xs={5}>
+							<CustomTextField mode={readMode} type="number" data={{ name: "custData.customerZipCode", label: "ZipCode" }} />
+						</Grid>
+						<Grid item xs={6}>
+							<CustomTextField mode={readMode} data={{ name: "custData.customerAddress2", label: "Address 2" }} />
+						</Grid>
+						<Grid item xs={6}>
+							<CustomTextField mode={readMode} data={{ name: "custData.customerAddress3", label: "Address 3" }} />
+						</Grid>
+						<Grid item xs={7}>
+							<CustomTextField mode={readMode} data={{ name: "custData.customerAddress4", label: "Address 4" }} />
+						</Grid>
+						<Grid item xs={5}>
+							<CustomTextField mode={readMode} data={{ name: "custData.customerBusinessType", label: "Profession" }} />
+						</Grid>
+						<Grid item xs={6}>
+						<CustomSelect
+								mode={readMode}
+								defaultValue={[1]}
+								data={{
+									name: "custData.customerGroupId",
+									label: "Group",
+									list:
+										[
+											{ value: 1, name: "Getter" },
+											{ value: 2, name: "Setter" },
+											{ value: 3, name: "Better" }
+										]
+								}} />
+						</Grid>
+						<Grid item xs={6}>
+							<CustomSelect
+								mode={readMode}
+								defaultValue={[1]}
+								data={{
+									name: "project",
+									label: "Project",
+									list:
+										[
+											{ value: 1, name: "Project 1" },
+											{ value: 2, name: "Project 2" },
+											{ value: 3, name: "Project 3" }
+										]
+								}} />
+						</Grid>
+						<Grid item xs={6}>
+							<CustomTextField mode={readMode} value="3603" disabled
+								data={{ name: "custData.customerRegisterUserId", label: "Author" }} />
+						</Grid>
+						<Grid item xs={6}>
+						<CustomTextField mode={readMode} value="0000" disabled
+								data={{ name: "customerModifyUserId", label: "Last Updated by" }} />
+						</Grid>
+						<Grid item xs={6}>
+						<CustomTextField mode={readMode} multiline rows={3}
+							data={{ name: "custData.customerMemo1", label: "Memo 1" }} />
+						</Grid>
+						<Grid item xs={6}>
+						<CustomTextField mode={readMode} multiline rows={3}
+							data={{ name: "custData.customerMemo2", label: "Memo 2" }} />
 						</Grid>
 					</Grid>
 				</CardContent>
-				{/* <CardActions>
-        <Button size="small">Learn More</Button>
-        </CardActions>*/}
 			</Card>
 		</>
 	);

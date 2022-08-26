@@ -6,7 +6,7 @@ import { useField } from 'formik';
 
 
 //HELPER TEXT FOR PROPS
-// props=(mode:"read",data:{{name:"namehere",label:"labelhere"}})
+// props=(mode:true,data:{{name:"namehere",label:"labelhere"}})
 // for text area add props=( multiline, rows={3})
 //for date add props=(type="date", InputLabelProps={{shrink: true,}})
 //other types=datetime-local,date,month,number,email,password,time
@@ -14,12 +14,8 @@ import { useField } from 'formik';
 
 export default function CustomTextfield(props) {
     // const mode=props.mode;
-    const readMode = props.mode === "read" ? true : false;
-    // if (props.mode === "read") {
-    //   readMode = true;
-    // } else {
-    //   readMode = false;
-    // }
+    const readMode = props.mode ? true : false;
+
     const textField = (props) => {
         const [field,meta,helpers]=useField(props.name);
         return (
