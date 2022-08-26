@@ -13,16 +13,15 @@ import { useField } from 'formik';
 
 
 export default function CustomTextfield(props) {
-    const mode=props.mode;
-    let readMode;
-    if (props.mode === "read") {
-      readMode = true;
-    } else {
-      readMode = false;
-    }
+    // const mode=props.mode;
+    const readMode = props.mode === "read" ? true : false;
+    // if (props.mode === "read") {
+    //   readMode = true;
+    // } else {
+    //   readMode = false;
+    // }
     const textField = (props) => {
         const [field,meta,helpers]=useField(props.name);
-        //console.log(field);
         return (
             <>
                 <TextField 
@@ -42,7 +41,6 @@ export default function CustomTextfield(props) {
     return (
         <div>
             <Field
-                // name = {` ${data.categoryId}.${data.itemId} `}
                 name = {data.name}
                 label={data.label}
                 as={textField}

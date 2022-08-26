@@ -15,7 +15,7 @@ function categoryData(props) {
 	const mode=props.mode;
 	const customerId=props.customerId;
 
-	const baseURL = "http://topline-cti.com:8083/categoryItems/" + props.categoryId
+	const baseURL = "http://localhost:8083/categoryItems/" + props.categoryId
 
 	const [categoryItems, setCategoryItems] = useState([]);
 

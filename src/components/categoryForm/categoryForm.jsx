@@ -16,7 +16,7 @@ function categoryForm(props) {
     const [isLoaded, setIsLoaded] = useState(false);
     const [categoryArray, setCategoryArray] = useState([]);
     
-    const baseURL = `http://topline-cti.com:8083/category/${groupId}`
+    const baseURL = `http://localhost:8083/category/${groupId}`
 
     //This will work like componentDidMount
     useEffect(() => {

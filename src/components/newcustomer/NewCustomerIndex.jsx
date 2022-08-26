@@ -3,7 +3,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { Button, Grid, Stack } from "@mui/material";
 import ButtonAppBar from "./Appbar";
 import TemporaryDrawer from "./SideNav";
-import CustForm from "../custForm/CustForm";
+import CustForm from "../customerRelated/custForm/CustForm";
 import { Formik, Form, useFormikContext } from "formik";
 import CategoryForm from "../categoryForm/categoryForm";
 import axios from "axios";
