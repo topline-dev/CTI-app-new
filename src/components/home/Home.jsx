@@ -17,6 +17,7 @@ export default function Home(){
                 <Link to="/customerDetails">customer details</Link>
                 <Link to="/customerEdit">customer Edit</Link>
                 <Link to="/testPage">Test Page</Link>
+                <Link to="/login">Login Page</Link>
             </Stack>
         </>
     )

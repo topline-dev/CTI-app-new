@@ -18,6 +18,7 @@ import TestFile from './components/testFolder/TestFile';
 import CustomerDetails from './components/customerDetail/CustomerDetails';
 import Test2 from './components/testFolder/Test2';
 import CustomerEdit from './components/customerEdit/customerEdit';
+import LoginIndex from './components/login/LoginIndex';
 
 
 const themex = createTheme({
@@ -51,6 +52,7 @@ function App() {
         <Route exact path="/customerDistribution" element={<CustomerGroupDistribution/>}/>
         <Route exact path="/CustomerDetails" element={<CustomerDetails/>}/>
         <Route exact path="/CustomerEdit" element={<CustomerEdit/>}/>
+        <Route exact path="/login" element={<LoginIndex/>}/>
         <Route path="*" element={<ButtonAppBar title="Error! Page not found" />} />
         <Route exact path="/testPage" element={<Test2/>}/>
         

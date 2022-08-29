@@ -57,24 +57,21 @@ export default function Test2() {
           <br />
           <br />
           <CustomSelect
-            data={{ name: "namess", label: "select", list: list }}
-            mode="readd"
-            defaultValue={[20]}
+            data={{ name: "basicSelect", label: "select", list: list }}
           />
           <br />
           <br />
           <br />
           <CustomMultiSelect
             data={{ name: "multiname", label: "multiselect", list: list2 }}
-            mode="readd"
-            defaultValue={[109,108,104]}
+            
           />
           <br />
           <br />
-          <CustomTextfield
-            data={{ name: "name22", label: "text area" }}
-            multiline
-            rows={3}
+          <CustomMultiSelectCheck
+            data={{ name: "multiname2", label: "multil select checkbox", list: list2 }}
+            // defaultValue={[102, 104, 106]}
+           
           />
           <br />
           <br />
@@ -84,13 +81,14 @@ export default function Test2() {
             InputLabelProps={{
               shrink: true,
             }}
+            fullWidth={false}
           />
           <br />
           <br />
-          <CustomMultiSelectCheck
-            data={{ name: "multiname2", label: "multil select checkbox", list: list2 }}
-            defaultValue={[102, 104, 106]}
-            mode="readd"
+          <CustomTextfield
+            data={{ name: "name22", label: "text area" }}
+            multiline
+            rows={3}
           />
           <Button type="submit">save</Button>
         </div>
