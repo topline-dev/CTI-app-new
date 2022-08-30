@@ -35,7 +35,7 @@ export default function CustomerDetails() {
   // console.log(initialValues,"iiiii");
   if (isLoading) {
     console.log("isloading is false");
-    return null;
+    return <div><h1>server not connected</h1></div>;
   } else {
     initialValues = { custData: customerData };
     groupId = customerData.customerGroupId;

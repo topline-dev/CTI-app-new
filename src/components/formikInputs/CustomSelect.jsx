@@ -38,7 +38,6 @@ export default function CustomSelect(props) {
             setFieldValue(name, e.target.value);
           }}
           {...props}
-          label={"3rtre"}
         >
           {children}
         </Select>

@@ -8,9 +8,26 @@ import CustomSelect from "../formikInputs/CustomSelect";
 import { Button } from "@mui/material";
 import CustomMultiSelect from "../formikInputs/CustomMultiSelect";
 import CustomMultiSelectCheck from "../formikInputs/CustomMultiSelctCheck";
+import { InputAdornment} from "@mui/material";
+import { Visibility,VisibilityOff } from "@mui/icons-material";
+import { useLocation } from "react-router";
+import { useContext } from "react";
+import LoginContext from "../../context/LoginContext";
+import logo from "./logo.jpg";
 
 export default function Test2() {
-  let pp;
+  const a=useContext(LoginContext);
+  //console.log(a,"context");
+
+  const location = useLocation();
+  console.log(location,"location state of test page");
+
+useEffect(()=>{
+  a.setToken(true);
+},[])
+
+
+  const [toggle_password,settoggle_password]=useState(false);
 
   const [test, setTest] = useState();
   const formValidation = Yup.object().shape({
@@ -50,9 +67,38 @@ export default function Test2() {
       <Form>
         <div>
           <br />
+          <img src={logo} alt="Topline" ></img>
           <br />
           <br />
-          <CustomTextfield data={{ name: "name11", label: "textfield" }} />
+          <CustomTextfield data={{ name: "name11", label: "textfield" }}
+             type = { toggle_password ? "text" : "password" }
+            InputProps = {
+              {
+                endAdornment: ( 
+                <InputAdornment position="end"> {
+                    toggle_password ? ( 
+                    <Visibility className = "cursor_pointer"
+                      onClick = {(e)=>{
+                          settoggle_password(false)
+                      }
+                       
+                      }
+                      />
+                    ) : ( 
+                    <VisibilityOff 
+                    onClick = {(e)=>{
+                      settoggle_password(true)
+                  }
+                   
+                  }
+                      />
+                    )
+                  } 
+                  </InputAdornment>
+                ),
+              }
+            }
+          />
           <br />
           <br />
           <br />

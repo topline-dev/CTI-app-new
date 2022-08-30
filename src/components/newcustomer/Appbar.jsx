@@ -25,7 +25,7 @@ const ButtonAppBar = (props) => {
             <MenuIcon />
           </IconButton>
           {/* <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>Topline</Typography> */}
-          <Link to="/" style={{color:'white',textDecoration:'none',fontSize:'35px',width:'30%'}}>Topline</Link>
+          <Link to="/home" style={{color:'white',textDecoration:'none',fontSize:'35px',width:'30%'}}>Topline</Link>
           <Typography variant="h3" component="div" sx={{ flexGrow: 1 }}>
             {props.title}
           </Typography>
