@@ -25,6 +25,8 @@ import { Navigate } from "react-router";
 import { useNavigate } from "react-router";
 import LoginContext from "../../context/LoginContext";
 import logo from "../testFolder/logo.jpg";
+import * as Yup from "yup";
+
 
 export default function LoginIndex(props) {
   let navigate = useNavigate();
@@ -46,6 +48,14 @@ export default function LoginIndex(props) {
     privilege: "",
   };
 
+  const formValidation = Yup.object().shape({
+    id: Yup.string()
+      .required("Required!")
+      .min(2, "Too Short!")
+      .max(10, "Too Long!"),
+    password: Yup.string().required("Required!"),
+  });
+
   const handleClick = async (values) => {
     await new Promise((r) => setTimeout(r, 500));
     console.log(values);
@@ -59,7 +69,7 @@ export default function LoginIndex(props) {
       <Formik
         enableReinitialize={true}
         initialValues={initialValues}
-        // validationSchema={formValidation}
+        validationSchema={formValidation}
         // onSubmit={async (values) => {
         //   await new Promise((r) => setTimeout(r, 500));
         //   console.log(values);
