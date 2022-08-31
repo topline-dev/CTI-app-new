@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { Card, CardContent, Tabs, Tab, AppBar } from '@mui/material'
-import CategoryData from '../categoryForm/categoryData';
+import CategoryData from '../categoryForm/CategoryData';
 import axios from 'axios'
 import CustFormLite from "./CustFormLite";
 
 function CustCategoryFormPlus(props) {
     const [tabValue, setValue] = useState(0);
 
-    const [error, setError] = useState(null);
-    const [isLoaded, setIsLoaded] = useState(false);
+    // const [error, setError] = useState(null);
+    // const [isLoaded, setIsLoaded] = useState(false);
     const [categoryArray, setCategoryArray] = useState([]);
     // const groupId = props.groupId;
 

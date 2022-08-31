@@ -1,13 +1,12 @@
 import "../../App.css";
-import React, { useEffect, useState, useRef,useMemo } from "react";
+import React, { useEffect, useState,  } from "react";
 import { Button, Grid, Stack } from "@mui/material";
-import ButtonAppBar from "../newcustomer/Appbar";
+import ButtonAppBar from "../customerRelated/Appbar";
 import TemporaryDrawer from "../newcustomer/SideNav";
 import CustForm from "../customerRelated/custForm/CustForm";
-import { Formik, Form, useFormikContext } from "formik";
-import CategoryForm from "../categoryForm/categoryForm";
+import { Formik, Form} from "formik";
+import CategoryForm from "../customerRelated/categoryForm/CategoryForm";
 import axios from "axios";
-import * as Yup from "yup";
 
 export default function CustomerEdit() {
   console.log("in customer detail");

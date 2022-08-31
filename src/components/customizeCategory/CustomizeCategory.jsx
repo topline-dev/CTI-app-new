@@ -1,7 +1,6 @@
 import React from 'react'
-import { Card,CardContent,Typography,CardActions,Button, Grid, Stack, TextField } from '@mui/material';
-import ButtonAppBar from '../newcustomer/Appbar'
-import CreateNewCategory from './CreateNewCategory'
+import { Card,CardContent,Button, Grid } from '@mui/material';
+import ButtonAppBar from '../customerRelated/Appbar';
 import { Container } from '@mui/system';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -14,7 +13,6 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { Link } from 'react-router-dom';
 
 
 export default function CustomizeCategory() {

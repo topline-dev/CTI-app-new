@@ -5,7 +5,9 @@ import { Button, Grid, Stack } from "@mui/material";
 import ButtonAppBar from "./Appbar";
 
 import CustForm from "./custForm/CustForm";
-import CategoryForm from "./categoryForm/categoryForm";
+
+import CategoryForm from "./categoryForm/CategoryForm";
+
 
 import { Formik, Form, useFormikContext } from "formik";
 import axiosClient from "./axios";

@@ -3,25 +3,23 @@ import React from 'react';
 import { ThemeProvider, colors } from '@mui/material';
 import { createTheme } from '@mui/material';
 // import ReactDOM from 'react-dom/client';
-// import NewCustomerScreenIndex from './components/newcustomer/NewCustomerIndex';
-import NewCustomer from './components/customerRelated/NewCustomer';
-import CustomerSearchScreenIndex from './components/customerRelated/customer_search/CustomerSearchIndex';
+import NewCustomerScreenIndex from './components/newcustomer/NewCustomerIndex';
+import CustomizeCategory from "./components/customizeCategory/CustomizeCategory";
+import CreateNewCategory from './components/customizeCategory/CreateNewCategory';
+import CreateNewItem from "./components/customizeCategory/CreateNewItem";
+import CustomizeCategoryDetail from './components/customizeCategory/CustomizeCategoryDetail';
+import CustomerGroupDistribution from "./components/customerRelated/customerSearch/customerDistribution/CustomerGroupDistribution"
+import CategoryForm from './components/customerRelated/categoryForm/CategoryForm';
+
+import CustomerSearchScreenIndex from './components/customerRelated/customerSearch/CustomerSearchIndex';
 import Home from './components/home/Home';
-// import CategoryForm from './components/categoryForm/categoryForm.jsx';
 import ButtonAppBar from './components/customerRelated/Appbar';
 import { Routes, Route } from "react-router-dom";
-// import CreateNewCategory from './components/customizeCategory/CreateNewCategory';
-// import CustomizeCategory from './components/customizeCategory/CustomizeCategory';
-// import CreateNewItem from './components/customizeCategory/CreateNewItem';
-// import CustomizeCategoryDetail from './components/customizeCategory/CustomizeCategoryDetail';
-// import CustomerGroupDistribution from './components/customer_search/customerDistribution/CustomerGroupDistribution';
-// import TestFile from './components/testFolder/TestFile';
 import CustomerDetails from './components/customerRelated/CustomerDetails';
 import Test2 from './components/testFolder/Test2';
-import CustomerEdit from './components/customerEdit/customerEdit';
+import CustomerEdit from './components/customerEdit/CustomerEdit';
 import LoginIndex from './components/login/LoginIndex';
 import PrivateRoutes from './components/routes/PrivateRoutes';
-import { useState } from 'react';
 import LoginState from './context/LoginState';
 
 

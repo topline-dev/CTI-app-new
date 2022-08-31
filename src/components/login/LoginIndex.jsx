@@ -1,32 +1,24 @@
 import React, { useContext } from "react";
 import {
-  TextField,
   Grid,
   Typography,
   Box,
-  Container,
   Button,
   Link,
-  FormControlLabel,
-  Checkbox,
-  Paper,
   Card,
   CardContent,
 } from "@mui/material";
-import ButtonAppBar from "../newcustomer/Appbar";
-import { height } from "@mui/system";
+import ButtonAppBar from "../customerRelated/Appbar";
 import { Formik, Form } from "formik";
 import CustomTextfield from "../formikInputs/CustomTextField";
 import CustomSelect from "../formikInputs/CustomSelect";
 import { InputAdornment } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useState } from "react";
-import { Navigate } from "react-router";
 import { useNavigate } from "react-router";
 import LoginContext from "../../context/LoginContext";
 import logo from "../testFolder/logo.jpg";
 import * as Yup from "yup";
-
 
 export default function LoginIndex(props) {
   let navigate = useNavigate();
@@ -95,12 +87,9 @@ export default function LoginIndex(props) {
                     xs={12}
                     sx={{ display: "flex", justifyContent: "center" }}
                   >
-                    <img src={logo} alt="Topline"  ></img>
+                    <img src={logo} alt="Topline"></img>
                   </Grid>
-                  <Grid
-                    item
-                    xs={12}
-                  >
+                  <Grid item xs={12}>
                     <Typography component="h1" variant="h4" align="center">
                       CTI Log In
                     </Typography>

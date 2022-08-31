@@ -1,7 +1,5 @@
 import React from "react";
-import { Formik, Form, Field } from "formik";
-import { TextField, Autocomplete } from "@mui/material";
-import { Group } from "@mui/icons-material";
+import { Field } from "formik";
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -77,7 +75,7 @@ export default function customerGroupSelect(props) {
 
     const autoComplete = (field, form, label, ...props) => {
         const { name, value } = field;
-        const { setFieldValue, handleChange } = form;
+        const { setFieldValue, } = form;
         return (
             <div>
                 {/* <Autocomplete

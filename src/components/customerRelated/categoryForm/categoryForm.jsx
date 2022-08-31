@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { Card, CardContent, Tabs, Tab, AppBar } from '@mui/material'
-import CategoryData from './categoryData'
+import CategoryData from './CategoryData'
 import axiosClient from '../axios';
 
-function categoryForm(props) {
+function CategoryForm(props) {
     const customerId = props.customerId;
     const mode = props.mode;
 
     const [tabValue, setValue] = useState(0);
-    const [error, setError] = useState(null);
+    // const [error, setError] = useState(null);
     const [isLoading, setisLoading] = useState(true);
     const [categoryArray, setCategoryArray] = useState([]);
 
@@ -18,7 +18,7 @@ function categoryForm(props) {
         async function getData(){
             if (props.groupId && props.groupId > 0) {
                 const response = await axiosClient.get(`/category/${props.groupId}`);
-                if(response.status == 200){
+                if(response.status === 200){
                     setCategoryArray(response.data);
                     setisLoading(false);
                 }
@@ -81,4 +81,4 @@ function categoryForm(props) {
     )
 }
 
-export default categoryForm
+export default CategoryForm

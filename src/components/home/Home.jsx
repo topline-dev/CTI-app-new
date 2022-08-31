@@ -10,11 +10,11 @@ export default function Home() {
             <h1>Home</h1>
             <Stack>
                 <Link to="/new">new customer screen</Link>
-                {/* <Link to="/cust">customer search screen</Link>
+                <Link to="/cust">customer search screen</Link>
                 <Link to="/customizeCategory">customize category</Link>
                 <Link to="/newCategoryitem">New Category Item</Link>
                 <Link to="/customerDistribution">customer distribution</Link>
-                <Link to="/customerEdit">customer Edit</Link> */}
+                <Link to="/customerEdit">customer Edit</Link>
                 <Link to="/customerDetails">customer details</Link>
                 <Link to="/customerEdit">customer Edit</Link>
                 <Link to="/testPage" state={{ from: "occupation" }}>Test Page</Link>

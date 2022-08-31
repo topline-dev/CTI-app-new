@@ -3,21 +3,20 @@ import { Grid } from '@mui/material'
 import axiosClient from '../axios';
 
 import CustomTextField from '../../formikInputs/CustomTextField';
-import CustomSelect from '../../formikInputs/CustomSelect';
-import CustomMultiSelect from '../../formikInputs/CustomMultiSelect';
 
 
-function categoryData(props) {
+
+function CategoryData(props) {
 
 	const readMode = props.mode ? true : false;
-	const customerId = props.customerId;
+	// const customerId = props.customerId;
 
 	const [categoryItems, setCategoryItems] = useState([]);
 
 	useEffect(() => {
 		async function getData() {
 			const response = await axiosClient.get(`/categoryItems/${props.categoryId}`);
-			if (response.status == 200) {
+			if (response.status === 200) {
 				setCategoryItems(response.data);
 			}
 		}
@@ -56,4 +55,4 @@ function categoryData(props) {
 	)
 }
 
-export default categoryData
+export default CategoryData
