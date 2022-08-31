@@ -6,7 +6,7 @@ import { useField } from 'formik';
 
 
 //HELPER TEXT FOR PROPS
-// props=(mode:true,data:{{name:"namehere",label:"labelhere"}})
+// props=(mode="read",data={{name:"namehere",label:"labelhere"}})
 // for text area add props=( multiline, rows={3})
 //for date add props=(type="date", InputLabelProps={{shrink: true,}})
 //other types=datetime-local,date,month,number,email,password,time

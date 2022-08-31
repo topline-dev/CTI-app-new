@@ -11,7 +11,7 @@ export default function CustomSelect(props) {
   const data = props.data;
   const mode = props.mode;
   const defaultValue = props.defaultValue || "";
-  //console.log(defaultValue);
+  //   console.log(defaultValue,);
 
   let readMode = mode ? true : false;
 
@@ -19,27 +19,26 @@ export default function CustomSelect(props) {
     const { name, value } = field;
     const { setFieldValue } = form;
     useEffect(() => {
-        if (typeof value === "undefined") {
-          setFieldValue(name, defaultValue);
-        }
-      }, []);
-    // console.log(props);
-    return (
-      <>
-        {value && (
-          <Select
-            name={name}
-            value={value || defaultValue}
-            onChange={(e) => {
-              setFieldValue(name, e.target.value);
-            }}
-            {...props}
-          >
-            {children}
-          </Select>
-        )}
-      </>
-    );
+      if (typeof value === "undefined") {
+        setFieldValue(name, defaultValue);
+      }
+    }, []);
+    if (typeof value === "undefined") {
+      return null;
+    } else {
+      return (
+        <Select
+          name={name}
+          value={value || defaultValue}
+          onChange={(e) => {
+            setFieldValue(name, e.target.value);
+          }}
+          {...props}
+        >
+          {children}
+        </Select>
+      );
+    }
   };
   return (
     <div>
