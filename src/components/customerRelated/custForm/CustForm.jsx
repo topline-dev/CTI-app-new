@@ -30,7 +30,7 @@ export default function CustForm(props) {
 							<CustomTextField mode={readMode} data={{ name: "custData.customerFirstName", label: "First Name" }} />
 						</Grid>
 						<Grid item xs={4}>
-							<CustomSelect
+							{/* <CustomSelect
 								mode={readMode}
 								defaultValue={["Male"]}
 								data={{
@@ -42,7 +42,7 @@ export default function CustForm(props) {
 											{ value: "Female", name: "Female" },
 											{ value: "Other", name: "Other" }
 										]
-								}} />
+								}} /> */}
 						</Grid>
 						<Grid item xs={4}>
 							<CustomTextField mode={readMode} data={{ name: "custData.customerLastRuby", label: "Last Ruby" }} />
@@ -53,7 +53,7 @@ export default function CustForm(props) {
 						<Grid item xs={4}>
 							<CustomTextField mode={readMode} type="date"
 								InputLabelProps={{ shrink: true }}
-								data={{ name: "custdata.customerBirthday", label: "Birthday" }}
+								data={{ name: "custData.customerBirthday", label: "Birthday" }}
 							/>
 						</Grid>
 						<Grid item xs={6}>

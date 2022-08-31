@@ -12,7 +12,7 @@ import { useField } from 'formik';
 //other types=datetime-local,date,month,number,email,password,time
 
 
-export default function CustomTextfield(props) {
+export default function CustomTextField(props) {
     // const mode=props.mode;
     const readMode = props.mode ? true : false;
 

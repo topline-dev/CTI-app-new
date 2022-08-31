@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Card, CardContent, Tabs, Tab, AppBar } from '@mui/material'
 import CategoryData from './categoryData'
-import axios from 'axios'
+import axiosClient from '../axios';
 
 function categoryForm(props) {
     const customerId = props.customerId;
@@ -15,14 +15,16 @@ function categoryForm(props) {
     //This will work like componentDidMount
     useEffect(() => {
         setisLoading(true);
-        if (props.groupId && props.groupId > 0) {
-            const baseURL = `http://localhost:8083/category/${props.groupId}`
-            axios.get(baseURL)
-                .then((response) => {
+        async function getData(){
+            if (props.groupId && props.groupId > 0) {
+                const response = await axiosClient.get(`/category/${props.groupId}`);
+                if(response.status == 200){
                     setCategoryArray(response.data);
                     setisLoading(false);
-                })
+                }
+            }
         }
+        getData();
     }, [props.groupId])
 
     function allProps(index) {

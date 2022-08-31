@@ -1,49 +1,46 @@
 import React, { useState, useEffect } from 'react'
 import { Grid } from '@mui/material'
-import { Formik, Form, useFormikContext } from 'formik';
-import axios from 'axios'
+import axiosClient from '../axios';
 
-import CustomTextfield from './categoryItems/customTextfield'
-import CustomDateTime from './categoryItems/customDateTime'
-import CustomSelect from './categoryItems/customSelect'
-
+import CustomTextField from '../../formikInputs/CustomTextField';
+import CustomSelect from '../../formikInputs/CustomSelect';
+import CustomMultiSelect from '../../formikInputs/CustomMultiSelect';
 
 
 function categoryData(props) {
 
-	const mode=props.mode;
-	const customerId=props.customerId;
-
-	const baseURL = "http://localhost:8083/categoryItems/" + props.categoryId
+	const readMode = props.mode ? true : false;
+	const customerId = props.customerId;
 
 	const [categoryItems, setCategoryItems] = useState([]);
 
 	useEffect(() => {
-		axios.get(baseURL)
-			.then((response) => {
+		async function getData() {
+			const response = await axiosClient.get(`/categoryItems/${props.categoryId}`);
+			if (response.status == 200) {
 				setCategoryItems(response.data);
-			})
+			}
+		}
+		getData();
+
 	}, [])
 
 	function renderItem(item) {
 		switch (item.itemType) {
 			case "text":
 				{
-					return <CustomTextfield data={item} mode={mode} customerId={customerId}/>
+					return <CustomTextField mode={readMode} data={{ name: `categoryData.${item.itemId}`, label: item.itemName }} />;
 				}
 				break;
 			case "date":
 				{
-					return <CustomDateTime data={item} mode={mode} customerId={customerId}/>
+					return "Hello date";
+					// <CustomDateTime data={item} mode={mode} customerId={customerId}/>
 				}
 				break;
-			// case "select":
-			// 	{
-			// 		return <CustomSelect data={item} />
-			// 	}
-			// 	break;
+			// Add all cases here for the category options.
 			default:
-				return "Hello"
+				return <div></div>
 				break;
 		}
 	}

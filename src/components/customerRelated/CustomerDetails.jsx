@@ -1,24 +1,26 @@
 import "../../App.css";
 import React, { useEffect, useState, useRef, useMemo } from "react";
 import { Button, Grid, Stack } from "@mui/material";
-import ButtonAppBar from "../newcustomer/Appbar";
-import TemporaryDrawer from "../newcustomer/SideNav";
-import CustForm from "../customerRelated/custForm/CustForm";
+// import ButtonAppBar from "../newcustomer/Appbar";
+import ButtonAppBar from "./Appbar";
+// import TemporaryDrawer from "../newcustomer/SideNav";
+import CustForm from "./custForm/CustForm";
 import { Formik, Form, useFormikContext } from "formik";
-import CategoryForm from "../categoryForm/categoryForm";
+// import CategoryForm from "../categoryForm/categoryForm";
+import CategoryForm from "./categoryForm/categoryForm";
 import axios from "axios";
 import * as Yup from "yup";
 import { Link } from "react-router-dom";
 
 export default function CustomerDetails() {
   console.log("in customer detail");
-  const customerId = 10;
+  const customerId = 3;
   let initialValues;
   let groupId;
   const [customerData, setCustomerData] = useState();
   const [isLoading, setIsLoading] = useState(true);
 
-  const baseURL = `http://topline-cti.com:8083/customers/${customerId}`;
+  const baseURL = `http://localhost:8082/customers/${customerId}`;
 
   if (typeof customerData != "undefined" && isLoading === true) {
     setIsLoading(false);
@@ -43,7 +45,7 @@ export default function CustomerDetails() {
     return (
       <>
         <ButtonAppBar title="Customer Detail" />
-        <TemporaryDrawer />
+        {/* <TemporaryDrawer /> */}
         <Formik
           enableReinitialize={true}
           initialValues={initialValues}

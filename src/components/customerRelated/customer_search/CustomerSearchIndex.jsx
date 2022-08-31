@@ -1,7 +1,7 @@
-import "../../App.css";
+import "../../../App.css";
 import React, { useState, useEffect } from "react";
 import ButtonAppBar from "../newcustomer/Appbar";
-import TemporaryDrawer from "../newcustomer/SideNav";
+import TemporaryDrawer from "../../newcustomer/SideNav";
 import {
 	Grid,
 	Card,
@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import CustomerSearchTable from "./CustomerSearchTable";
 import { Formik, Form, Field, useFormikContext } from "formik";
-import BasicSelect from "../newcustomer/inputs/BasicSelect";
+import BasicSelect from "../../newcustomer/inputs/BasicSelect";
 import CustCategoryFormPlus from "./CustCategoryFormPlus";
 import axios from 'axios';
 

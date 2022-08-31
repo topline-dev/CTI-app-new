@@ -2,8 +2,7 @@ import "../../App.css";
 import React, { useEffect, useState, useRef } from "react";
 import { Button, Grid, Stack } from "@mui/material";
 
-// import ButtonAppBar from "./Appbar";
-// import TemporaryDrawer from "./SideNav";
+import ButtonAppBar from "./Appbar";
 
 import CustForm from "./custForm/CustForm";
 import CategoryForm from "./categoryForm/categoryForm";
@@ -12,9 +11,12 @@ import { Formik, Form, useFormikContext } from "formik";
 import axiosClient from "./axios";
 
 import * as Yup from "yup";
+import { useNavigate } from "react-router";
 
 
 function NewCustomer() {
+
+	const navigate = useNavigate();
 
 	const initialValues = {
 		custData: {
@@ -25,13 +27,6 @@ function NewCustomer() {
 	const [groupId, setgroupId] = useState(1);
 	const [submitAction, setsubmitAction] = useState("");
 
-	// const axiosClient = axios.create({
-	// 	baseURL: "http://localhost:8083",
-	// 	headers: {
-	// 		"Content-Type": "application/json",
-	// 	},
-	// });
-
 	const FormObserver = () => {
 		const { values } = useFormikContext();
 		useEffect(() => {
@@ -41,36 +36,37 @@ function NewCustomer() {
 	};
 
 	async function handleSubmit(values) {
-		console.log(values);
+		// console.log(values);
 		const { categoryData, custData } = values;
 		console.log(custData);
 
-		// const custResponse = await axiosClient.post('/customers', JSON.stringify(custData));
+		const custResponse = await axiosClient.post('/customers', JSON.stringify(custData));
 
-		// const customerId = custResponse.data.customerId;
+		const customerId = custResponse.data.customerId;
 
-		// if (categoryData) {
-		// 	let categoryData1 = [];
-		// 	categoryData.forEach((item, index) => {
-		// 		if (item) {
-		// 			let Objj = new Object;
-		// 			Objj.itemId = index;
-		// 			Objj.customerId = customerId;
-		// 			Objj.value = item;
-		// 			categoryData1.push(Objj);
-		// 		}
-		// 	})
-		// 	let categoryData2 = JSON.stringify(categoryData1);
-		// 	const categoryResponse = await axiosClient.post('/categoryData', categoryData2);
-		// 	console.log(categoryResponse);
-		// }
-		// console.log(custResponse);
-		// if (custResponse.status = 200) {
-		// 	alert("Customer saved successfully");
-		// }
-		// else {
-		// 	alert("Something went wrong");
-		// }
+		if (categoryData) {
+			let categoryData1 = [];
+			categoryData.forEach((item, index) => {
+				if (item) {
+					let Objj = new Object;
+					Objj.itemId = index;
+					Objj.customerId = customerId;
+					Objj.value = item;
+					categoryData1.push(Objj);
+				}
+			})
+			let categoryData2 = JSON.stringify(categoryData1);
+			const categoryResponse = await axiosClient.post('/categoryData', categoryData2);
+			console.log(categoryResponse);
+		}
+		console.log(custResponse);
+		if (custResponse.status = 200) {
+			alert(`Customer ${customerId} saved successfully`);
+			navigate('/CustomerDetails');
+		}
+		else {
+			alert("Something went wrong");
+		}
 
 	}
 
@@ -90,12 +86,13 @@ function NewCustomer() {
 
 	return (
 		<>
-			{/* <ButtonAppBar title="New Customer" />
-			<TemporaryDrawer /> */}
+			<ButtonAppBar title="New Customer" />
+			{/* <TemporaryDrawer /> */}
 			<Formik
 				initialValues={initialValues}
 				// validationSchema={formValidation}
 				onSubmit={async (values) => {
+					console.log(values);
 					if (submitAction === "primary") {
 						console.log("Entered primary submit type");
 						handleSubmit(values);
@@ -134,14 +131,14 @@ function NewCustomer() {
 										Save and New
 									</Button>
 									<Button
-										type="button"
+										type="submit"
 										variant="contained"
 										size="large"
 										fullWidth
-										onClick={() => {
-											setsubmitAction("secondary");
-											handleSubmit();
-										}}
+										// onClick={() => {
+										// 	setsubmitAction("secondary");
+										// 	handleSubmit();
+										// }}
 									>
 										Save
 									</Button>

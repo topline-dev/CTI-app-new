@@ -23,7 +23,7 @@ export default function CustomSelect(props) {
           setFieldValue(name, defaultValue);
         }
       }, []);
-    console.log(props);
+    // console.log(props);
     return (
       <>
         {value && (
