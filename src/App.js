@@ -15,7 +15,13 @@ import CustomerSearchScreenIndex from './components/customerRelated/customerSear
 import Home from './components/home/Home';
 import ButtonAppBar from './components/customerRelated/Appbar';
 import { Routes, Route } from "react-router-dom";
-import CustomerDetails from './components/customerRelated/CustomerDetails';
+// import CreateNewCategory from './components/customizeCategory/CreateNewCategory';
+// import CustomizeCategory from './components/customizeCategory/CustomizeCategory';
+// import CreateNewItem from './components/customizeCategory/CreateNewItem';
+// import CustomizeCategoryDetail from './components/customizeCategory/CustomizeCategoryDetail';
+// import CustomerGroupDistribution from './components/customer_search/customerDistribution/CustomerGroupDistribution';
+// import TestFile from './components/testFolder/TestFile';
+import CustomerDetails from './components/customerRelated/customerDetail/CustomerDetails';
 import Test2 from './components/testFolder/Test2';
 import CustomerEdit from './components/customerEdit/CustomerEdit';
 import LoginIndex from './components/login/LoginIndex';
@@ -41,14 +47,14 @@ const themex = createTheme({
 
 function App() {
 
-  
+
   return (
     <LoginState>
     <ThemeProvider theme={themex}>
       <Routes>
-        
+
         <Route exact path="/" element={<LoginIndex />}/>
-        
+
         {/* <Route exact path="/testPage" element={<Test2/>}/> */}
         <Route element={<PrivateRoutes />}>
           <Route exact path="/home" element={<Home />} />
@@ -65,11 +71,11 @@ function App() {
           <Route exact path="/testPage" element={<Test2/>}/>
         </Route>
         <Route path="*" element={<ButtonAppBar title="Error! Page not found" />} />
-        
+
       </Routes>
     </ThemeProvider >
     </LoginState>
-   
+
   );
 }
 

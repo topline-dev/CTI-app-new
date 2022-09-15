@@ -1,21 +1,14 @@
 import "../../../App.css";
 import React, { useState, useEffect } from "react";
-import ButtonAppBar from "../Appbar";
-import TemporaryDrawer from "../../newcustomer/SideNav";
-import {
-	Grid,
-	Card,
-	CardContent,
-	Button,
-	Stack,
-	TextField,
-	Box,
-} from "@mui/material";
+import ButtonAppBar from "../Appbar"
+// import TemporaryDrawer from "../../newcustomer/SideNav";
+import {Grid, Card, CardContent, Button, Stack, TextField, Box} from "@mui/material";
 import CustomerSearchTable from "./CustomerSearchTable";
 import { Formik, Form, Field, useFormikContext } from "formik";
 import BasicSelect from "../../newcustomer/inputs/BasicSelect";
 import CustCategoryFormPlus from "./CustCategoryFormPlus";
-import axios from 'axios';
+
+import axiosClient from "../axios";
 
 export default function CustomerSearchScreenIndex() {
 
@@ -30,26 +23,36 @@ export default function CustomerSearchScreenIndex() {
 	const [groupId, setgroupId] = useState(1);
 	const [custInformation, setcustInformation] = useState([]);
 
-	const axiosClient = axios.create({
-		baseURL: "http://topline-cti.com:8083",
-		headers: {
-			"Content-Type": "application/json"
-		}
-	});
-
-	async function handleSubmit(values) {
+	async function handleSearch(values) {
 		console.log(values);
 		const { categoryData, custData } = values;
+		console.log(categoryData);
+		let categoryDataArray = [];
+		categoryData.forEach((element, index) => {
+			if(element){
+				categoryDataArray.push(
+					{
+						itemId: index,
+						value: element
+					}
+				)
+			}
 
-		const custResponse = await axiosClient.post('/customerList', JSON.stringify(custData));
+		});
+		const customerObject = {
+			customer: custData,
+			categoryData: categoryDataArray
+		}
+
+		const custResponse = await axiosClient.post('/customerList', JSON.stringify(customerObject));
 
 		if(custResponse.status = 200){
 			console.log(custResponse.data);
 			setcustInformation(custResponse.data);
 		}
 
-		
-		
+
+
 	}
 
 	const FormObserver = () => {
@@ -80,10 +83,10 @@ export default function CustomerSearchScreenIndex() {
 	return (
 		<>
 			<ButtonAppBar title="Customer Search" />
-			<TemporaryDrawer />
+			{/* <TemporaryDrawer /> */}
 			<Formik
 				initialValues={initialValues}
-				onSubmit={handleSubmit}
+				onSubmit={handleSearch}
 			>
 				<Form>
 					<FormObserver/>
