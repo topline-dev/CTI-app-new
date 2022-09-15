@@ -7,13 +7,14 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Link } from 'react-router-dom';
+import CustomerDetailButton from './customerDetail/CustomerDetailButton';
+import { Drawer } from '@mui/material';
 
 const ButtonAppBar = (props) => {
-    // console.log(props);  
-    //We will use redux in place of props
   return (
-    <Box sx={{ flexGrow: 1 }} >  
+    <Box sx={{ flexGrow: 1 }} >
       <AppBar position="static">
+
         <Toolbar >
           <IconButton
             size="large"
@@ -26,10 +27,12 @@ const ButtonAppBar = (props) => {
           </IconButton>
           {/* <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>Topline</Typography> */}
           <Link to="/" style={{color:'white',textDecoration:'none',fontSize:'35px',width:'30%'}}>Topline</Link>
-          <Typography variant="h3" component="div" sx={{ flexGrow: 1 }}>
+          <Typography variant="h4" component="div" sx={{ flexGrow: 1 }}>
             {props.title}
           </Typography>
-          <Button color="inherit">Login</Button>
+          {props.customerDetail ? <CustomerDetailButton/> : ""}
+          
+          
         </Toolbar>
       </AppBar>
     </Box>

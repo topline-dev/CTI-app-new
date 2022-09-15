@@ -16,7 +16,7 @@ import { Routes, Route } from "react-router-dom";
 // import CustomizeCategoryDetail from './components/customizeCategory/CustomizeCategoryDetail';
 // import CustomerGroupDistribution from './components/customer_search/customerDistribution/CustomerGroupDistribution';
 // import TestFile from './components/testFolder/TestFile';
-import CustomerDetails from './components/customerRelated/CustomerDetails';
+import CustomerDetails from './components/customerRelated/customerDetail/CustomerDetails';
 import Test2 from './components/testFolder/Test2';
 // import CustomerEdit from './components/customerEdit/customerEdit';
 
@@ -43,7 +43,7 @@ function App() {
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route exact path="/new" element={<NewCustomer />} />
-        <Route exact path="/cust" element={<CustomerSearchScreenIndex />} />
+        <Route exact path="/customer" element={<CustomerSearchScreenIndex />} />
         {/* <Route exact path="/form" element={<CategoryForm />} />
         <Route exact path="/customizeCategory" element={<CustomizeCategory/>}/>
         <Route exact path="/newCustomizeCategory" element={<CreateNewCategory/>}/>
@@ -51,7 +51,7 @@ function App() {
         <Route exact path="/customizeCategoryDetail" element={<CustomizeCategoryDetail/>}/>
         <Route exact path="/customerDistribution" element={<CustomerGroupDistribution/>}/>
         <Route exact path="/CustomerEdit" element={<CustomerEdit/>}/> */}
-        <Route exact path="/CustomerDetails" element={<CustomerDetails/>}/>
+        <Route exact path="/customer/:customerId" element={<CustomerDetails/>}/>
         <Route path="*" element={<ButtonAppBar title="Error! Page not found" />} />
         <Route exact path="/testPage" element={<Test2/>}/>
         
