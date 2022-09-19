@@ -1,11 +1,11 @@
 import "../../App.css";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Grid, Stack } from "@mui/material";
-import ButtonAppBar from "./Appbar";
+import ButtonAppBar from "../customerRelated/Appbar";
 import TemporaryDrawer from "./SideNav";
-import CustForm from "../custForm/CustForm";
+import CustForm from "../customerRelated/custForm/CustForm";
 import { Formik, Form, useFormikContext } from "formik";
-import CategoryForm from "../categoryForm/categoryForm";
+import CategoryForm from "../customerRelated/categoryForm/CategoryForm";
 import axios from "axios";
 import * as Yup from "yup";
 
@@ -58,7 +58,7 @@ export default function NewCustomerScreenIndex() {
 			console.log(categoryResponse);
 		}
 		console.log(custResponse);
-		if (custResponse.status = 200) {
+		if (custResponse.status === 200) {
 			alert("Customer saved successfully");
 		}
 		else {

@@ -1,24 +1,25 @@
 import "../../App.css";
-import React, { useEffect, useState, useRef, useMemo } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Grid, Stack } from "@mui/material";
-import ButtonAppBar from "../newcustomer/Appbar";
-import TemporaryDrawer from "../newcustomer/SideNav";
-import CustForm from "../custForm/CustForm";
-import { Formik, Form, useFormikContext } from "formik";
-import CategoryForm from "../categoryForm/categoryForm";
+import ButtonAppBar from "./Appbar";
+import CustForm from "./custForm/CustForm";
+import { Formik, Form } from "formik";
+import CategoryForm from "./categoryForm/CategoryForm";
 import axios from "axios";
-import * as Yup from "yup";
 import { Link } from "react-router-dom";
+import axiosClient from "./axios";
 
 export default function CustomerDetails() {
   console.log("in customer detail");
-  const customerId = 10;
+  const customerId = 1;
   let initialValues;
+  let categoryobj={};
+  let customerobj={};
   let groupId;
   const [customerData, setCustomerData] = useState();
   const [isLoading, setIsLoading] = useState(true);
 
-  const baseURL = `http://topline-cti.com:8083/customers/${customerId}`;
+  const baseURL = `http://topline-cti.com:8082/customers/${customerId}`;
 
   if (typeof customerData != "undefined" && isLoading === true) {
     setIsLoading(false);
@@ -28,22 +29,29 @@ export default function CustomerDetails() {
   useEffect(() => {
     axios.get(baseURL).then((response) => {
       setCustomerData(response.data);
-      console.log("in memo");
     });
   }, []);
 
-  // console.log(initialValues,"iiiii");
   if (isLoading) {
     console.log("isloading is false");
     return <div><h1>server not connected</h1></div>;
   } else {
-    initialValues = { custData: customerData };
-    groupId = customerData.customerGroupId;
-    console.log("isloading is true");
+    customerData.categoryData.map((data,index)=>{
+      categoryobj[data.itemId]=data.value;
+    })
+    initialValues = { 
+      custData: customerData,
+      categoryData: categoryobj,
+     };
+     groupId=customerData.groupId;
+    //  delete initialValues.custData.categoryData;
+    console.log(groupId,"isloading is true");
+     console.log(customerData,"ccccc");
+     console.log(initialValues,"pppp");
     return (
       <>
         <ButtonAppBar title="Customer Detail" />
-        <TemporaryDrawer />
+        {/* <TemporaryDrawer /> */}
         <Formik
           enableReinitialize={true}
           initialValues={initialValues}

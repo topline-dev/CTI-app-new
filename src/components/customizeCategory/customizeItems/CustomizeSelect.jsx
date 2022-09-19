@@ -1,6 +1,5 @@
 import React from 'react'
 import { Field } from 'formik';
-import { Typography } from '@mui/material';
 import BasicSelect from '../../newcustomer/inputs/BasicSelect';
 
 export default function CustomizeSelect(props) {

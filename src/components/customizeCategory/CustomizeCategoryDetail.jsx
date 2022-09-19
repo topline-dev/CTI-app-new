@@ -1,4 +1,4 @@
-import { Grid, Paper, Typography } from '@mui/material'
+import { Grid } from '@mui/material'
 import React from 'react'
 import CustomizeCheckBox from './customizeItems/CustomizeCheckBox'
 import CustomizeDateTime from './customizeItems/CustomizeDateTime'

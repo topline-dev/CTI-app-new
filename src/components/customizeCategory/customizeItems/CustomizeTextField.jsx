@@ -1,6 +1,6 @@
 import React from 'react'
-import { TextField, Typography } from '@mui/material';
-import { Field,FastField } from 'formik';
+import { TextField} from '@mui/material';
+import { Field } from 'formik';
 
 
 export default function CustomizeTextField(props) {
@@ -19,7 +19,7 @@ export default function CustomizeTextField(props) {
   return (
     <div>
         {/* <Typography variant='h4'>{data.label}</Typography> */}
-        <FastField
+        <Field
             name={data.name}
             label={data.label}
             as={textField}
