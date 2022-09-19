@@ -52,7 +52,7 @@ function NewCustomer() {
 				if (item) {
 					let Objj = new Object;
 					Objj.itemId = index;
-					Objj.customerId = customerId;
+					Objj.customer =  {customerId:customerId};
 					Objj.value = item;
 					categoryData1.push(Objj);
 				}
@@ -64,7 +64,7 @@ function NewCustomer() {
 		console.log(custResponse);
 		if (custResponse.status = 200) {
 			alert(`Customer ${customerId} saved successfully`);
-			navigate('/CustomerDetails');
+			navigate(`/customer/${customerId}`);
 		}
 		else {
 			alert("Something went wrong");
