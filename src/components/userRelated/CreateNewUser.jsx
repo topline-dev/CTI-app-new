@@ -19,12 +19,11 @@ import { useNavigate } from "react-router";
 import LoginContext from "../../context/LoginContext";
 import logo from "../testFolder/logo.jpg";
 import * as Yup from "yup";
+import CustomMultiSelect from "../formikInputs/CustomMultiSelect";
+import CustomMultiSelectCheck from "../formikInputs/CustomMultiSelectCheck";
 
-export default function LoginIndex(props) {
+export default function CreateNewUser(props) {
   let navigate = useNavigate();
-
-  const a = useContext(LoginContext);
-  console.log(a.token, "token");
 
   const [togglePassword, setTogglePassword] = useState(false);
 
@@ -33,49 +32,54 @@ export default function LoginIndex(props) {
     { name: "Role 2", value: 2 },
     { name: "Admin", value: 3 },
   ];
+  const variableList = [
+    { value: 100, name: "Oliver Hansen" },
+    { value: 101, name: "Van Henry" },
+    { value: 102, name: "Oliver Hansen" },
+    { value: 103, name: "Van Henry" },
+    { value: 104, name: "Oliver Hansen" },
+    { value: 105, name: "Van Henry" },
+  ];
 
   const initialValues = {
     id: "",
     password: "",
-    privilege: "",
+    privilege: [],
+    groupId: [],
+    userName: "",
+    firstKana: "",
+    extNumber:"",
   };
 
-  const formValidation = Yup.object().shape({
-    id: Yup.string()
-      .required("Required!")
-      .min(2, "Too Short!")
-      .max(10, "Too Long!"),
-    password: Yup.string().required("Required!"),
-  });
+  //   const formValidation = Yup.object().shape({
+  //     id: Yup.string()
+  //       .required("Required!")
+  //       .min(2, "Too Short!")
+  //       .max(10, "Too Long!"),
+  //     password: Yup.string().required("Required!"),
+  //   });
 
-  const handleClick = async (values) => {
+  const handleSubmit = async (values) => {
     await new Promise((r) => setTimeout(r, 500));
     console.log(values);
-    console.log(typeof(values.privilege),"tttt");
+    console.log(typeof values.privilege, "tttt");
     //alert(JSON.stringify(values, null, 2));
-    a.setToken((prev) => !prev);
     //navigate("/home");
   };
   return (
     <div>
-      <ButtonAppBar title="Login" />
+      <ButtonAppBar title="New User" />
       <Formik
         enableReinitialize={true}
         initialValues={initialValues}
-        validationSchema={formValidation}
-        // onSubmit={async (values) => {
-        //   await new Promise((r) => setTimeout(r, 500));
-        //   console.log(values);
-        //   //handleSubmit(values);
-        //   alert(JSON.stringify(values, null, 2));
-        // }}
-        onSubmit={(e) => handleClick(e)}
+        // validationSchema={formValidation}
+        onSubmit={(e) => handleSubmit(e)}
       >
         <Form>
           <Box
             sx={{
               alignItems: "center",
-              px: "25%",
+              px: "10%",
               py: "5%",
               // background: "red",
             }}
@@ -83,22 +87,32 @@ export default function LoginIndex(props) {
             <Card elevation={4}>
               <CardContent>
                 <Grid container columnSpacing={1} rowSpacing={4}>
-                  <Grid
-                    item
-                    xs={12}
-                    sx={{ display: "flex", justifyContent: "center" }}
-                  >
-                    <img src={logo} alt="Topline"></img>
+                  <Grid item xs={4}>
+                    <CustomTextfield data={{ name: "id", label: "LoginID" }} />
                   </Grid>
-                  <Grid item xs={12}>
-                    <Typography component="h1" variant="h4" align="center">
-                      CTI Log In
-                    </Typography>
+                  <Grid item xs={4}>
+                    <CustomTextfield
+                      data={{ name: "userName", label: "User Name" }}
+                    />
                   </Grid>
-                  <Grid item xs={12}>
-                    <CustomTextfield data={{ name: "id", label: "User ID" }} />
+                  <Grid item xs={4}>
+                    <CustomTextfield
+                      data={{ name: "firstKana", label: "User Kana Name" }}
+                    />
                   </Grid>
-                  <Grid item xs={12}>
+                  <Grid item xs={4}>
+                    <CustomTextfield data={{ name: "extNumber", label: "Extension Number" }} />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <CustomMultiSelectCheck
+                      data={{
+                        name: "privilege",
+                        label: "User Role",
+                        list: variableList,
+                      }}
+                    />
+                  </Grid>
+                  <Grid item xs={4}>
                     <CustomTextfield
                       data={{ name: "password", label: "Password" }}
                       type={togglePassword ? "text" : "password"}
@@ -125,29 +139,39 @@ export default function LoginIndex(props) {
                     />
                   </Grid>
                   <Grid item xs={12}>
-                    <CustomSelect
+                    <CustomMultiSelectCheck
                       data={{
-                        name: "privilege",
-                        label: "Select role",
-                        list: list,
+                        name: "groupId",
+                        label: "SelectGroup",
+                        list: variableList,
                       }}
                     />
                   </Grid>
-                  <Grid item xs={12}>
+                  <Grid item xs={4}>
                     <Button
                       type="submit"
                       variant="contained"
                       size="large"
                       fullWidth
-                      //   onClick={handleClick}
                     >
-                      Log In
+                      Save
                     </Button>
                   </Grid>
-                  <Grid item xs>
-                    <Link href="#" variant="body2">
-                      Forgot password?
-                    </Link>
+                  <Grid item xs={4}>
+                    <Button variant="contained" size="large" fullWidth>
+                      Save and New
+                    </Button>
+                  </Grid>
+                  <Grid item xs={4}>
+                    <Button
+                      variant="contained"
+                      sx={{ backgroundColor: "error.light" }}
+                      color="error"
+                      size="large"
+                      fullWidth
+                    >
+                      Cancel
+                    </Button>
                   </Grid>
                 </Grid>
               </CardContent>

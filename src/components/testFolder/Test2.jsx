@@ -6,7 +6,7 @@ import * as Yup from "yup";
 import CustomSelect from "../formikInputs/CustomSelect";
 import { Button } from "@mui/material";
 import CustomMultiSelect from "../formikInputs/CustomMultiSelect";
-import CustomMultiSelectCheck from "../formikInputs/CustomMultiSelctCheck";
+import CustomMultiSelectCheck from "../formikInputs/CustomMultiSelectCheck";
 import { InputAdornment} from "@mui/material";
 import { Visibility,VisibilityOff } from "@mui/icons-material";
 import { useLocation } from "react-router";

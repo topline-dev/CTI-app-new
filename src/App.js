@@ -21,6 +21,10 @@ import CustomerEdit from './components/customerEdit/CustomerEdit';
 import LoginIndex from './components/login/LoginIndex';
 import PrivateRoutes from './components/routes/PrivateRoutes';
 import LoginState from './context/LoginState';
+import CreateNewUser from './components/userRelated/CreateNewUser';
+import UserSearch from './components/userRelated/UserSearch';
+import CreateNewCustomerGroup from './components/cutomerGroupRelated/CreateNewCustomerGroup';
+import CreateNewCustomerProject from './components/customerProjectRelated/CreateNewCustomerProject';
 
 
 const themex = createTheme({
@@ -62,6 +66,10 @@ function App() {
           <Route exact path="/customerDistribution" element={<CustomerGroupDistribution/>}/>
           <Route exact path="/CustomerDetails" element={<CustomerDetails/>}/>
           <Route exact path="/CustomerEdit" element={<CustomerEdit/>}/>
+          <Route exact path="/newUser" element={<CreateNewUser/>}/>
+          <Route exact path="/userSearch" element={<UserSearch/>}/>
+          <Route exact path="/newCustomerGroup" element={<CreateNewCustomerGroup/>}/>
+          <Route exact path="/newCustomerProject" element={<CreateNewCustomerProject/>}/>
           <Route exact path="/testPage" element={<Test2/>}/>
         </Route>
         <Route path="*" element={<ButtonAppBar title="Error! Page not found" />} />
