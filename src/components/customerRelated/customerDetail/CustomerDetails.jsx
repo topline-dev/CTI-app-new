@@ -5,7 +5,7 @@ import ButtonAppBar from "../Appbar";
 // import TemporaryDrawer from "../newcustomer/SideNav";
 import CustForm from "../custForm/CustForm";
 import { Formik, Form } from "formik";
-import CategoryForm from "../categoryForm/categoryForm";
+import CategoryForm from "../categoryForm/CategoryForm";
 
 import { Link, useParams } from "react-router-dom";
 import axiosClient from "../axios";
