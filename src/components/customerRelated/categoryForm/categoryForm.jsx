@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Card, CardContent, Tabs, Tab, AppBar } from '@mui/material'
-import CategoryData from './categoryData'
+import CategoryData from './CategoryData'
 import axiosClient from '../axios';
 
 function categoryForm(props) {
