@@ -28,17 +28,20 @@ export default function CustomerSearchScreenIndex() {
 		const { categoryData, custData } = values;
 		console.log(categoryData);
 		let categoryDataArray = [];
-		categoryData.forEach((element, index) => {
-			if(element){
-				categoryDataArray.push(
-					{
-						itemId: index,
-						value: element
-					}
-				)
-			}
+		if(categoryData){
+			categoryData.forEach((element, index) => {
+				if(element){
+					categoryDataArray.push(
+						{
+							itemId: index,
+							value: element
+						}
+					)
+				}
 
-		});
+			});
+		}
+
 		const customerObject = {
 			customer: custData,
 			categoryData: categoryDataArray
@@ -50,8 +53,6 @@ export default function CustomerSearchScreenIndex() {
 			console.log(custResponse.data);
 			setcustInformation(custResponse.data);
 		}
-
-
 
 	}
 
