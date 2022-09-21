@@ -6,6 +6,7 @@ import TemporaryDrawer from "../newcustomer/SideNav";
 import CustForm from "../customerRelated/custForm/CustForm";
 import { Formik, Form} from "formik";
 import CategoryForm from "../customerRelated/categoryForm/CategoryForm";
+
 import axios from "axios";
 
 export default function CustomerEdit() {

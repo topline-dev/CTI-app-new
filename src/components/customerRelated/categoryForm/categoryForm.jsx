@@ -3,6 +3,7 @@ import { Card, CardContent, Tabs, Tab, AppBar } from '@mui/material'
 import CategoryData from './CategoryData'
 import axiosClient from '../axios';
 
+
 function CategoryForm(props) {
     const customerId = props.customerId;
     const mode = props.mode;
