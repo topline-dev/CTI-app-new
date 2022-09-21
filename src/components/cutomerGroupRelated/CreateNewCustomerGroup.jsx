@@ -1,50 +1,31 @@
 import React, { useContext } from "react";
-import {
-  Grid,
-  Typography,
-  Box,
-  Button,
-  Link,
-  Card,
-  CardContent,
-} from "@mui/material";
+import { Grid, Box, Button, Card, CardContent } from "@mui/material";
 import ButtonAppBar from "../customerRelated/Appbar";
 import { Formik, Form } from "formik";
 import CustomTextfield from "../formikInputs/CustomTextField";
 import CustomSelect from "../formikInputs/CustomSelect";
-import { InputAdornment } from "@mui/material";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import LoginContext from "../../context/LoginContext";
-import logo from "../testFolder/logo.jpg";
 import * as Yup from "yup";
-import CustomMultiSelect from "../formikInputs/CustomMultiSelect";
-import CustomMultiSelectCheck from "../formikInputs/CustomMultiSelectCheck";
+import axiosClient from "../customerRelated/axios";
 
 export default function CreateNewCustomerGroup(props) {
   let navigate = useNavigate();
 
-  const [togglePassword, setTogglePassword] = useState(false);
-
   const list = [
     { name: "Role 1", value: 1 },
     { name: "Role 2", value: 2 },
-    { name: "Admin", value: 3 },
+    { name: "Admin", value: 101010 },
   ];
-  const variableList = [
-    { value: 100, name: "Oliver Hansen" },
-    { value: 101, name: "Van Henry" },
-    { value: 102, name: "Oliver Hansen" },
-    { value: 103, name: "Van Henry" },
-    { value: 104, name: "Oliver Hansen" },
-    { value: 105, name: "Van Henry" },
+  const statusList = [
+    { name: "active", value: 1 },
+    { name: "inactive", value: 2 },
   ];
 
   const initialValues = {
     parentGroup: "",
     groupName: "",
-    status:"",
+    status: 1,
   };
 
   //   const formValidation = Yup.object().shape({
@@ -58,8 +39,9 @@ export default function CreateNewCustomerGroup(props) {
   const handleSubmit = async (values) => {
     await new Promise((r) => setTimeout(r, 500));
     console.log(values);
-    console.log(typeof values.privilege, "tttt");
-    //alert(JSON.stringify(values, null, 2));
+    alert(JSON.stringify(values, null, 2));
+    const custResponse = await axiosClient.post('/group', JSON.stringify(values));
+    console.log(custResponse);
     //navigate("/home");
   };
   return (
@@ -93,15 +75,19 @@ export default function CreateNewCustomerGroup(props) {
                     />
                   </Grid>
                   <Grid item xs={12}>
-                    <CustomTextfield data={{ name: "groupName", label: "Group Name" }} />
+                    <CustomTextfield
+                      data={{ name: "groupName", label: "Group Name" }}
+                    />
                   </Grid>
                   <Grid item xs={12}>
                     <CustomSelect
                       data={{
                         name: "status",
                         label: "Status",
-                        list: list,
+                        list: statusList,
+                        
                       }}
+                      mode="read"
                     />
                   </Grid>
 

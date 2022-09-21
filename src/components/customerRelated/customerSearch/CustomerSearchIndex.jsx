@@ -7,7 +7,6 @@ import CustomerSearchTable from "./CustomerSearchTable";
 import { Formik, Form, Field, useFormikContext } from "formik";
 import BasicSelect from "../../newcustomer/inputs/BasicSelect";
 import CustCategoryFormPlus from "./CustCategoryFormPlus";
-
 import axiosClient from "../axios";
 
 export default function CustomerSearchScreenIndex() {

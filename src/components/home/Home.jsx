@@ -10,7 +10,7 @@ export default function Home() {
             <h1>Home</h1>
             <Stack>
                 <Link to="/new">new customer screen</Link>
-                <Link to="/customer">customer search screen</Link>
+                <Link to="/customerSearch">customer search screen</Link>
                 <Link to="/customizeCategory">customize category</Link>
                 <Link to="/newCategoryitem">New Category Item</Link>
                 <Link to="/customerDistribution">customer distribution</Link>
@@ -20,6 +20,7 @@ export default function Home() {
                 <Link to="/newUser">New User</Link>
                 <Link to="/userSearch">User Search</Link>
                 <Link to="/newCustomerGroup">New Customer Group</Link>
+                <Link to="/newCustomerProject">New Customer Project</Link>
                 <Link to="/testPage" state={{ from: "occupation" }}>Test Page</Link>
                 <Link to="/">Login Page</Link>
             </Stack>
