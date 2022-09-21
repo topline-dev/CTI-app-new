@@ -1,25 +1,23 @@
-import React, { useContext } from "react";
+import React from "react";
 import {
   Grid,
-  Typography,
+
   Box,
   Button,
-  Link,
   Card,
   CardContent,
 } from "@mui/material";
 import ButtonAppBar from "../customerRelated/Appbar";
 import { Formik, Form } from "formik";
 import CustomTextfield from "../formikInputs/CustomTextField";
-import CustomSelect from "../formikInputs/CustomSelect";
 import { InputAdornment } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import LoginContext from "../../context/LoginContext";
-import logo from "../testFolder/logo.jpg";
+import axiosClient from "../customerRelated/axios";
+
 import * as Yup from "yup";
-import CustomMultiSelect from "../formikInputs/CustomMultiSelect";
+
 import CustomMultiSelectCheck from "../formikInputs/CustomMultiSelectCheck";
 
 export default function CreateNewUser(props) {
@@ -43,12 +41,15 @@ export default function CreateNewUser(props) {
 
   const initialValues = {
     id: "",
+    userName: "",
     password: "",
+    extNumber: "",
+    lastName: "",
+    firstName: "",
+    lastKana: "",
+    firstKana: "",
     privilege: [],
     groupId: [],
-    userName: "",
-    firstKana: "",
-    extNumber:"",
   };
 
   //   const formValidation = Yup.object().shape({
@@ -62,8 +63,9 @@ export default function CreateNewUser(props) {
   const handleSubmit = async (values) => {
     await new Promise((r) => setTimeout(r, 500));
     console.log(values);
-    console.log(typeof values.privilege, "tttt");
-    //alert(JSON.stringify(values, null, 2));
+    alert(JSON.stringify(values, null, 2));
+    const custResponse = await axiosClient.post('/user', JSON.stringify(values));
+    console.log(custResponse);
     //navigate("/home");
   };
   return (
@@ -87,32 +89,18 @@ export default function CreateNewUser(props) {
             <Card elevation={4}>
               <CardContent>
                 <Grid container columnSpacing={1} rowSpacing={4}>
-                  <Grid item xs={4}>
-                    <CustomTextfield data={{ name: "id", label: "LoginID" }} />
+                  <Grid item md={4}>
+                    <CustomTextfield
+                      data={{ name: "id", label: "LoginID" }}
+                      type="number"
+                    />
                   </Grid>
-                  <Grid item xs={4}>
+                  <Grid item md={4}>
                     <CustomTextfield
                       data={{ name: "userName", label: "User Name" }}
                     />
                   </Grid>
-                  <Grid item xs={4}>
-                    <CustomTextfield
-                      data={{ name: "firstKana", label: "User Kana Name" }}
-                    />
-                  </Grid>
-                  <Grid item xs={4}>
-                    <CustomTextfield data={{ name: "extNumber", label: "Extension Number" }} />
-                  </Grid>
-                  <Grid item xs={4}>
-                    <CustomMultiSelectCheck
-                      data={{
-                        name: "privilege",
-                        label: "User Role",
-                        list: variableList,
-                      }}
-                    />
-                  </Grid>
-                  <Grid item xs={4}>
+                  <Grid item md={4}>
                     <CustomTextfield
                       data={{ name: "password", label: "Password" }}
                       type={togglePassword ? "text" : "password"}
@@ -138,7 +126,45 @@ export default function CreateNewUser(props) {
                       }}
                     />
                   </Grid>
-                  <Grid item xs={12}>
+                  <Grid item xs={4}>
+                    <CustomTextfield
+                      data={{ name: "extNumber", label: "Extension Number" }}
+                      type="number"
+                    />
+                  </Grid>
+
+                  <Grid item md={4}>
+                    <CustomTextfield
+                      data={{ name: "lastName", label: "Last Name" }}
+                    />
+                  </Grid>
+                  <Grid item md={4}>
+                    <CustomTextfield
+                      data={{ name: "firstName", label: "First Name" }}
+                    />
+                  </Grid>
+                  <Grid item md={4}>
+                    <CustomMultiSelectCheck
+                      data={{
+                        name: "privilege",
+                        label: "User Role",
+                        list: variableList,
+                      }}
+                    />
+                  </Grid>
+                  <Grid item md={4}>
+                    <CustomTextfield
+                      data={{ name: "lastKana", label: "Last Kana Name" }}
+                    />
+                  </Grid>
+
+                  <Grid item md={4}>
+                    <CustomTextfield
+                      data={{ name: "firstKana", label: "First Kana Name" }}
+                    />
+                  </Grid>
+
+                  <Grid item md={12}>
                     <CustomMultiSelectCheck
                       data={{
                         name: "groupId",
@@ -147,7 +173,7 @@ export default function CreateNewUser(props) {
                       }}
                     />
                   </Grid>
-                  <Grid item xs={4}>
+                  <Grid item md={4}>
                     <Button
                       type="submit"
                       variant="contained"

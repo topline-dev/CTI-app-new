@@ -63,7 +63,7 @@ function App() {
         <Route element={<PrivateRoutes />}>
           <Route exact path="/home" element={<Home />} />
           <Route exact path="/new" element={<NewCustomerScreenIndex />} />
-          <Route exact path="/cust" element={<CustomerSearchScreenIndex />} />
+          <Route exact path="/customerSearch" element={<CustomerSearchScreenIndex />} />
           <Route exact path="/form" element={<CategoryForm />} />
           <Route exact path="/customizeCategory" element={<CustomizeCategory/>}/>
           <Route exact path="/newCustomizeCategory" element={<CreateNewCategory/>}/>
