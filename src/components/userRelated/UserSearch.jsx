@@ -98,16 +98,13 @@ export default function UserSearch(props) {
                         <CustomSelect
                           data={{
                             name: "parentGroup",
-                            label: "Parent Group",
+                            label: " Group",
                             list: list,
                           }}
                         />
                       </Grid>
-                      <Grid item xs={5}>
-                        <CustomTextfield
-                          data={{ name: "id", label: "User ID" }}
-                        />
-                      </Grid>
+                    
+                       
                       <Grid item xs={4}>
                         <CustomTextfield
                           data={{ name: "userName", label: "User Name" }}

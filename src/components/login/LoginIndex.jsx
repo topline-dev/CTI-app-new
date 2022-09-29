@@ -19,12 +19,16 @@ import { useNavigate } from "react-router";
 import LoginContext from "../../context/LoginContext";
 import logo from "../testFolder/logo.jpg";
 import * as Yup from "yup";
+import axiosClient from "../customerRelated/axios";
+import {Axiostest} from "../testFolder/Axiostest";
 
 export default function LoginIndex(props) {
   let navigate = useNavigate();
+  // let axtest = Axiostest();
+  // console.log(axtest);
 
   const a = useContext(LoginContext);
-  console.log(a.token, "token");
+  // console.log(a.token, "token");
 
   const [togglePassword, setTogglePassword] = useState(false);
 
@@ -35,24 +39,26 @@ export default function LoginIndex(props) {
   ];
 
   const initialValues = {
-    id: "",
-    password: "",
-    privilege: "",
+    userName: "",
+    userPassword: "",
+    // privilege: "",
   };
 
   const formValidation = Yup.object().shape({
-    id: Yup.string()
+    userName: Yup.string()
       .required("Required!")
       .min(2, "Too Short!")
       .max(10, "Too Long!"),
-    password: Yup.string().required("Required!"),
+    userPassword: Yup.string().required("Required!"),
   });
 
   const handleClick = async (values) => {
-    await new Promise((r) => setTimeout(r, 500));
-    console.log(values);
-    console.log(typeof(values.privilege),"tttt");
+    console.log(values,"ccc");
     //alert(JSON.stringify(values, null, 2));
+   
+    // const userResponse = await axiosClient.post('/authenticate', JSON.stringify(values));
+    const userResponse = await axiosClient.post('/authenticate', JSON.stringify(values));
+    console.log(userResponse);
     a.setToken((prev) => !prev);
     //navigate("/home");
   };
@@ -96,11 +102,11 @@ export default function LoginIndex(props) {
                     </Typography>
                   </Grid>
                   <Grid item xs={12}>
-                    <CustomTextfield data={{ name: "id", label: "User ID" }} />
+                    <CustomTextfield data={{ name: "userName", label: "User ID" }} />
                   </Grid>
                   <Grid item xs={12}>
                     <CustomTextfield
-                      data={{ name: "password", label: "Password" }}
+                      data={{ name: "userPassword", label: "Password" }}
                       type={togglePassword ? "text" : "password"}
                       InputProps={{
                         endAdornment: (
@@ -124,7 +130,7 @@ export default function LoginIndex(props) {
                       }}
                     />
                   </Grid>
-                  <Grid item xs={12}>
+                  {/* <Grid item xs={12}>
                     <CustomSelect
                       data={{
                         name: "privilege",
@@ -132,14 +138,14 @@ export default function LoginIndex(props) {
                         list: list,
                       }}
                     />
-                  </Grid>
+                  </Grid> */}
                   <Grid item xs={12}>
                     <Button
                       type="submit"
                       variant="contained"
                       size="large"
                       fullWidth
-                      //   onClick={handleClick}
+                      // onClick={(e)=>{handleClick(e)}}
                     >
                       Log In
                     </Button>

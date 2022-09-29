@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Grid,
 
@@ -20,35 +20,20 @@ import GroupMultiSelect from "../formikInputs/GroupMultiSelect";
 import * as Yup from "yup";
 
 import CustomMultiSelectCheck from "../formikInputs/CustomMultiSelectCheck";
-import { set } from "date-fns/esm";
 
-export default function CreateNewUser(props) {
+export default function UserDetail(props) {
   let navigate = useNavigate();
-  let group=[];
-  let privilegeAPI=0;
+  const id=2;
   const [togglePassword, setTogglePassword] = useState(false);
-  const [pp, setpp] = useState();
-
-  const list = [
+  const roleList = [
     { name: "Role 1", value: 1 },
     { name: "Role 2", value: 2 },
     { name: "Admin", value: 3 },
   ];
-  const variableList = [
-    { value: 100, name: "Oliver Hansen" },
-    { value: 101, name: "Van Henry" },
-    { value: 102, name: "Oliver Hansen" },
-    { value: 103, name: "Van Henry" },
-    { value: 104, name: "Oliver Hansen" },
-    { value: 105, name: "Van Henry" },
-  ];
-  if(typeof pp==="undefined"){
-    setpp(variableList);
-  }
-  
   const initialValues = {
-    userId: "",
-    userPassword: "",
+    id: "",
+    userName: "",
+    password: "",
     extNumber: "",
     lastName: "",
     firstName: "",
@@ -57,41 +42,20 @@ export default function CreateNewUser(props) {
     privilege: [],
     groupId: [],
   };
-
-  //   const formValidation = Yup.object().shape({
-  //     id: Yup.string()
-  //       .required("Required!")
-  //       .min(2, "Too Short!")
-  //       .max(10, "Too Long!"),
-  //     password: Yup.string().required("Required!"),
-  //   });
-
+  useEffect(() => {
+    async function getData() {
+      const response = await axiosClient.get(`/user/5555`);
+      if (response.status === 200) {
+        console.log(response.data);
+        };
+    }
+    getData();
+  }, []);
   const handleSubmit = async (values) => {
-    await new Promise((r) => setTimeout(r, 500));
-    
-    values.groupId.map((data,index)=>{
-      group[index]={groupId:data};
-    
-    }) 
-
-    values.privilege.sort();
-    values.privilege.reverse().map((data,index)=>{
-      privilegeAPI=privilegeAPI+(data*Math.pow(10,index));
-    })
-    values.privilege.reverse();
-
-    let APIvalues={...values,customerGroups:group,privilege:privilegeAPI}
-    delete APIvalues.groupId;
-    privilegeAPI=0;
-
-    alert(JSON.stringify(APIvalues, null, 2));
-    const custResponse = await axiosClient.post('/registerNewUser', JSON.stringify(APIvalues));
-    console.log(custResponse);
-    //navigate("/home");
   };
   return (
     <div>
-      <ButtonAppBar title="New User" />
+      <ButtonAppBar title="User Detail" />
       <Formik
         enableReinitialize={true}
         initialValues={initialValues}
@@ -108,7 +72,7 @@ export default function CreateNewUser(props) {
             }}
           >
             <Card elevation={4}>
-              <CardContent>
+            <CardContent>
                 <Grid container columnSpacing={1} rowSpacing={4}>
                   <Grid item md={4} xs={6}>
                     <CustomTextfield
@@ -169,7 +133,7 @@ export default function CreateNewUser(props) {
                       data={{
                         name: "privilege",
                         label: "User Role",
-                        list: list,
+                        list: roleList,
                       }}
                     />
                   </Grid>
