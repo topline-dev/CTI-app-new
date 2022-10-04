@@ -105,23 +105,18 @@ export default function UserSearch(props) {
                       </Grid>
                     
                        
-                      <Grid item xs={4}>
+                      <Grid item xs={5}>
                         <CustomTextfield
-                          data={{ name: "userName", label: "User Name" }}
+                          data={{ name: "userId", label: "User ID" }}
                         />
                       </Grid>
-                      <Grid item xs={4}>
-                        <CustomTextfield
-                          data={{ name: "loginId", label: "Login ID" }}
-                        />
-                      </Grid>
-                      <Grid item xs={4}>
+                     
+                      <Grid item xs={12}>
                         <CustomTextfield
                           data={{ name: "e", label: "extension number" }}
                           type="number"
                         />
                       </Grid>
-                      <Grid item xs={6}></Grid>
                       <Grid item xs={2}>
                         <Button
                           type="submit"

@@ -19,6 +19,7 @@ export default function Home() {
                 <Link to="/customerEdit">customer Edit</Link>
                 <Link to="/newUser">New User</Link>
                 <Link to="/userDetail">User Detail</Link>
+                <Link to="/userEdit">User Edit</Link>
                 <Link to="/userSearch">User Search</Link>
                 <Link to="/newCustomerGroup">New Customer Group</Link>
                 <Link to="/newCustomerProject">New Customer Project</Link>
