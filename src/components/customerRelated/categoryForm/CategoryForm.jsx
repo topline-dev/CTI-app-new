@@ -2,11 +2,17 @@ import React, { useState, useEffect } from 'react'
 import { Card, CardContent, Tabs, Tab, AppBar } from '@mui/material'
 import CategoryData from './CategoryData'
 import axiosClient from '../axios';
+import { AxiosFetch } from "../../AxiosFetch";
 
 
 function CategoryForm(props) {
+    const axiosFetch=AxiosFetch();
+
+
     const customerId = props.customerId;
     const mode = props.mode;
+    const groupId= props.groupId;
+ 
 
     const [tabValue, setValue] = useState(0);
     // const [error, setError] = useState(null);
@@ -18,7 +24,7 @@ function CategoryForm(props) {
         setisLoading(true);
         async function getData(){
             if (props.groupId && props.groupId > 0) {
-                const response = await axiosClient.get(`/category/${props.groupId}`);
+                const response = await axiosFetch.get(`/category/${groupId}`);
                 if(response.status === 200){
                     setCategoryArray(response.data);
                     setisLoading(false);

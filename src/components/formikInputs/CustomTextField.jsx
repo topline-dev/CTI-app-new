@@ -12,7 +12,7 @@ import { useField } from "formik";
 
 export default function CustomTextField(props) {
   // const mode=props.mode;
-  const readMode = props.mode ? true : false;
+  const readMode = props.mode ==="read" ? true : false;
 
   const textField = (props) => {
     const [field, meta, helpers] = useField(props.name);

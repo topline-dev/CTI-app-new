@@ -4,7 +4,7 @@ import CustomTextField from "../../formikInputs/CustomTextField";
 import CustomSelect from "../../formikInputs/CustomSelect";
 
 export default function CustForm(props) {
-  let readMode = props.mode === "read" ? true : false;
+  let readMode = props.mode === "read" ? "read" : "";
 
   return (
     <>
@@ -130,7 +130,7 @@ export default function CustForm(props) {
             <Grid item xs={6}>
               <CustomSelect
                 mode={readMode}
-                defaultValue={[1]}
+                
                 data={{
                   name: "custData.customerGroupId",
                   label: "Group",
@@ -145,7 +145,6 @@ export default function CustForm(props) {
             <Grid item xs={6}>
               <CustomSelect
                 mode={readMode}
-                defaultValue={[1]}
                 data={{
                   name: "project",
                   label: "Project",
@@ -160,7 +159,7 @@ export default function CustForm(props) {
             <Grid item xs={6}>
               <CustomTextField
                 mode={readMode}
-                value="3603"
+               
                 disabled
                 data={{
                   name: "custData.customerRegisterUserId",
@@ -171,7 +170,7 @@ export default function CustForm(props) {
             <Grid item xs={6}>
               <CustomTextField
                 mode={readMode}
-                value="0000"
+               
                 disabled
                 data={{
                   name: "customerModifyUserId",

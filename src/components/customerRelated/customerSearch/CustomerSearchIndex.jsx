@@ -8,9 +8,10 @@ import { Formik, Form, Field, useFormikContext } from "formik";
 import BasicSelect from "../../newcustomer/inputs/BasicSelect";
 import CustCategoryFormPlus from "./CustCategoryFormPlus";
 import axiosClient from "../axios";
+import { AxiosFetch } from "../../AxiosFetch";
 
 export default function CustomerSearchScreenIndex() {
-
+	const axiosFetch=AxiosFetch();
 	const initialValues = {
 		custData:{
 			customerGroupId:"1"
@@ -46,7 +47,7 @@ export default function CustomerSearchScreenIndex() {
 			categoryData: categoryDataArray
 		}
 
-		const custResponse = await axiosClient.post('/customerList', JSON.stringify(customerObject));
+		const custResponse = await axiosFetch.post('/customerList', JSON.stringify(customerObject));
 
 		if(custResponse.status = 200){
 			console.log(custResponse.data);

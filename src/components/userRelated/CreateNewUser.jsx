@@ -20,10 +20,12 @@ import GroupMultiSelect from "../formikInputs/GroupMultiSelect";
 import * as Yup from "yup";
 
 import CustomMultiSelectCheck from "../formikInputs/CustomMultiSelectCheck";
-import { set } from "date-fns/esm";
+import { AxiosFetch } from "../AxiosFetch";
 
 export default function CreateNewUser(props) {
   let navigate = useNavigate();
+  const axiosFetch=AxiosFetch();
+
   let group=[];
   let privilegeAPI=0;
   const [togglePassword, setTogglePassword] = useState(false);
@@ -49,7 +51,7 @@ export default function CreateNewUser(props) {
   const initialValues = {
     userId: "",
     userPassword: "",
-    extNumber: "",
+    extensionNumber: "",
     lastName: "",
     firstName: "",
     lastKana: "",
@@ -85,7 +87,7 @@ export default function CreateNewUser(props) {
     privilegeAPI=0;
 
     alert(JSON.stringify(APIvalues, null, 2));
-    const custResponse = await axiosClient.post('/registerNewUser', JSON.stringify(APIvalues));
+    const custResponse = await axiosFetch.post('/registerNewUser', JSON.stringify(APIvalues));
     console.log(custResponse);
     //navigate("/home");
   };
@@ -149,7 +151,7 @@ export default function CreateNewUser(props) {
                   </Grid>
                   <Grid item xs={6} md={4}>
                     <CustomTextfield
-                      data={{ name: "extNumber", label: "Extension Number" }}
+                      data={{ name: "extensionNumber", label: "Extension Number" }}
                       type="number"
                     />
                   </Grid>

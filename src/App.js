@@ -32,6 +32,8 @@ import UserSearch from './components/userRelated/UserSearch';
 import CreateNewCustomerGroup from './components/cutomerGroupRelated/CreateNewCustomerGroup';
 import CreateNewCustomerProject from './components/customerProjectRelated/CreateNewCustomerProject';
 import UserDetail from './components/userRelated/UserDetail';
+import UserEdit from './components/userRelated/UserEdit';
+import CustomerGroupTable from './components/cutomerGroupRelated/CustomerGroupTable';
 
 
 const themex = createTheme({
@@ -75,8 +77,10 @@ function App() {
           <Route exact path="/CustomerEdit" element={<CustomerEdit/>}/>
           <Route exact path="/newUser" element={<CreateNewUser/>}/>
           <Route exact path="/userDetail" element={<UserDetail/>}/>
+          <Route exact path="/userEdit" element={<UserEdit/>}/>
           <Route exact path="/userSearch" element={<UserSearch/>}/>
           <Route exact path="/newCustomerGroup" element={<CreateNewCustomerGroup/>}/>
+          <Route exact path="/customerGroupTable" element={<CustomerGroupTable/>}/>
           <Route exact path="/newCustomerProject" element={<CreateNewCustomerProject/>}/>
           <Route exact path="/testPage" element={<Test2/>}/>
         </Route>

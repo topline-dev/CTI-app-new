@@ -1,21 +1,14 @@
 import React, { useEffect } from "react";
-import {
-  Grid,
-
-  Box,
-  Button,
-  Card,
-  CardContent,
-} from "@mui/material";
+import { Grid, Box, Button, Card, CardContent } from "@mui/material";
 import ButtonAppBar from "../customerRelated/Appbar";
 import { Formik, Form } from "formik";
 import CustomTextfield from "../formikInputs/CustomTextField";
-import { InputAdornment } from "@mui/material";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
+
 import { useState } from "react";
-import { useNavigate } from "react-router";
-import axiosClient from "../customerRelated/axios";
+import { useLocation, useNavigate } from "react-router";
+
 import GroupMultiSelect from "../formikInputs/GroupMultiSelect";
+import { AxiosFetch } from "../AxiosFetch";
 
 import * as Yup from "yup";
 
@@ -23,37 +16,70 @@ import CustomMultiSelectCheck from "../formikInputs/CustomMultiSelectCheck";
 
 export default function UserDetail(props) {
   let navigate = useNavigate();
-  const id=2;
-  const [togglePassword, setTogglePassword] = useState(false);
+  const location=useLocation();
+  // console.log(location,"lllll");
+
+  const axiosFetch = AxiosFetch();
+
+  const id = location.state.userId ;
+  const [isLoading, setIsLoading] = useState(true);
+
+  let temp = [];
+  let temp2 = [];
+
   const roleList = [
     { name: "Role 1", value: 1 },
     { name: "Role 2", value: 2 },
     { name: "Admin", value: 3 },
   ];
-  const initialValues = {
-    id: "",
-    userName: "",
-    password: "",
-    extNumber: "",
-    lastName: "",
-    firstName: "",
-    lastKana: "",
-    firstKana: "",
-    privilege: [],
-    groupId: [],
-  };
+  const variableList = [
+    { value: 100, name: "Oliver Hansen" },
+    { value: 101, name: "Van Henry" },
+    { value: 102, name: "Oliver Hansen" },
+    { value: 103, name: "Van Henry" },
+    { value: 104, name: "Oliver Hansen" },
+    { value: 105, name: "Van Henry" },
+    { value: 2, name: "gg" },
+    { value: 3, name: "vv" },
+  ];
+  // const initialValues = {
+  //   userId: "",
+  //   extNumber: "",
+  //   lastName: "",
+  //   firstName: "",
+  //   lastKana: "",
+  //   firstKana: "",
+  //   privilege: [],
+  //   groupId: [],
+  // };
+
+  const [initialValues, setInitialValues] = useState();
+  console.log(initialValues,"vvvvv");
   useEffect(() => {
     async function getData() {
-      const response = await axiosClient.get(`/user/5555`);
+      const response = await axiosFetch.get(`/user/${id}`);
       if (response.status === 200) {
-        console.log(response.data);
-        };
+        //  console.log(response.data);
+        response.data.customerGroups.map((data, index) => {
+          temp[index] = data.groupId;
+        });
+        temp2 = Array.from(String(response.data.privilege), Number);
+        setInitialValues({ ...response.data, privilege: temp2, groupId: temp });
+       
+        setIsLoading(false);
+      }
     }
     getData();
   }, []);
-  const handleSubmit = async (values) => {
+
+  const handleSubmit = async (values) => 
+   { navigate("/userEdit", {
+      state: { from: "detail screen", data: initialValues },
+    });
   };
-  return (
+  return isLoading ? (
+    <div>Loading</div>
+  ) : (
     <div>
       <ButtonAppBar title="User Detail" />
       <Formik
@@ -72,60 +98,21 @@ export default function UserDetail(props) {
             }}
           >
             <Card elevation={4}>
-            <CardContent>
+              <CardContent>
                 <Grid container columnSpacing={1} rowSpacing={4}>
                   <Grid item md={4} xs={6}>
                     <CustomTextfield
                       data={{ name: "userId", label: "User ID" }}
+                      mode="read"
                       // type="number"
                     />
                   </Grid>
-                  {/* <Grid item md={4} xs={12}>
-                    <CustomTextfield
-                      data={{ name: "userName", label: "User Name" }}
-                    />
-                  </Grid> */}
-                  <Grid item md={4} xs={6}>
-                    <CustomTextfield
-                      data={{ name: "userPassword", label: "Password" }}
-                      type={togglePassword ? "text" : "password"}
-                      InputProps={{
-                        endAdornment: (
-                          <InputAdornment position="end">
-                            {" "}
-                            {togglePassword ? (
-                              <Visibility
-                                onClick={(e) => {
-                                  setTogglePassword(false);
-                                }}
-                              />
-                            ) : (
-                              <VisibilityOff
-                                onClick={(e) => {
-                                  setTogglePassword(true);
-                                }}
-                              />
-                            )}
-                          </InputAdornment>
-                        ),
-                      }}
-                    />
-                  </Grid>
+
                   <Grid item xs={6} md={4}>
                     <CustomTextfield
-                      data={{ name: "extNumber", label: "Extension Number" }}
+                      data={{ name: "extensionNumber", label: "Extension Number" }}
                       type="number"
-                    />
-                  </Grid>
-
-                  <Grid item md={4} xs={6}>
-                    <CustomTextfield
-                      data={{ name: "lastName", label: "Last Name" }}
-                    />
-                  </Grid>
-                  <Grid item md={4} xs={6}>
-                    <CustomTextfield
-                      data={{ name: "firstName", label: "First Name" }}
+                      mode="read"
                     />
                   </Grid>
                   <Grid item md={4} xs={6}>
@@ -135,33 +122,49 @@ export default function UserDetail(props) {
                         label: "User Role",
                         list: roleList,
                       }}
+                      mode="read"
                     />
                   </Grid>
                   <Grid item md={6} xs={6}>
                     <CustomTextfield
+                      data={{ name: "lastName", label: "Last Name" }}
+                      mode="read"
+                    />
+                  </Grid>
+                  <Grid item md={6} xs={6}>
+                    <CustomTextfield
+                      data={{ name: "firstName", label: "First Name" }}
+                      mode="read"
+                    />
+                  </Grid>
+
+                  <Grid item md={6} xs={6}>
+                    <CustomTextfield
                       data={{ name: "lastKana", label: "Last Kana Name" }}
+                      mode="read"
                     />
                   </Grid>
 
                   <Grid item md={6} xs={6}>
                     <CustomTextfield
                       data={{ name: "firstKana", label: "First Kana Name" }}
+                      mode="read"
                     />
                   </Grid>
 
                   {/* <Grid item md={12}>
                     <CustomMultiSelectCheck
                       data={{
-                        name: "groupIddd",
+                        name: "groupId",
                         label: "Select Group",
-                        list: pp,
+                        list: variableList,
                       }}
                     />
                   </Grid> */}
                   <Grid item md={12} xs={12}>
-                    <GroupMultiSelect name="groupId"/>
+                    <GroupMultiSelect name="groupId" mode="read" />
                   </Grid>
-                  
+
                   <Grid item md={4} xs={12}>
                     <Button
                       type="submit"
@@ -169,12 +172,7 @@ export default function UserDetail(props) {
                       size="large"
                       fullWidth
                     >
-                      Save
-                    </Button>
-                  </Grid>
-                  <Grid item xs={4}>
-                    <Button variant="contained" size="large" fullWidth>
-                      Save and New
+                      Edit
                     </Button>
                   </Grid>
                   <Grid item xs={4}>
@@ -184,6 +182,7 @@ export default function UserDetail(props) {
                       color="error"
                       size="large"
                       fullWidth
+                      onClick={()=>{navigate(-1)}}
                     >
                       Cancel
                     </Button>

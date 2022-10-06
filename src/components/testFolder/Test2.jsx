@@ -13,17 +13,27 @@ import { useLocation } from "react-router";
 import { useContext } from "react";
 import LoginContext from "../../context/LoginContext";
 import logo from "./logo.jpg";
+import { Axiostest } from "./Axiostest";
+import axiosClient from "../customerRelated/axios";
 
 export default function Test2() {
   const a=useContext(LoginContext);
   //console.log(a,"context");
 
   const location = useLocation();
-  console.log(location,"location state of test page");
+  //console.log(location,"location state of test page");
 
-useEffect(()=>{
-  a.setToken(true);
-},[])
+  const axiosFetch=Axiostest();
+
+  useEffect(() => {
+    async function getData() {
+      const response = await axiosFetch.get(`/group`);
+      if (response.status === 200) {
+        console.log(response,"responsee");
+      }
+    }
+    getData();
+  }, []);
 
 
   const [toggle_password,settoggle_password]=useState(false);

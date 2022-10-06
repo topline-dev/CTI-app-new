@@ -1,28 +1,21 @@
-import React, { useContext } from "react";
-import {
-  Grid,
-  Typography,
-  Box,
-  Button,
-  Link,
-  Card,
-  CardContent,
-} from "@mui/material";
+import React, { useState } from "react";
+import { Grid, Box, Button, Card, CardContent } from "@mui/material";
 import ButtonAppBar from "../customerRelated/Appbar";
 import { Formik, Form } from "formik";
 import CustomTextfield from "../formikInputs/CustomTextField";
 import CustomSelect from "../formikInputs/CustomSelect";
-import { InputAdornment } from "@mui/material";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { useState } from "react";
 import { useNavigate } from "react-router";
-import LoginContext from "../../context/LoginContext";
-import logo from "../testFolder/logo.jpg";
-import * as Yup from "yup";
 import UserSearchTable from "./UserSearchTable";
+import { AxiosFetch } from "../AxiosFetch";
+import axiosClient from "../customerRelated/axios";
+import GroupSelect from "../formikInputs/GroupSelect";
 
 export default function UserSearch(props) {
   let navigate = useNavigate();
+  const axiosFetch= AxiosFetch();
+  const[userRows,setUserRows]=useState([]);
+
+
   const tempRows = [
     { id: 1, lastName: "Snow", firstName: "Jon", age: 35 },
     { id: 2, lastName: "Lannister", firstName: "Cersei", age: 42 },
@@ -35,11 +28,6 @@ export default function UserSearch(props) {
     { id: 9, lastName: "Roxie", firstName: "Harvey", age: 65 },
   ];
 
-  const a = useContext(LoginContext);
-  console.log(a.token, "token");
-
-  const [togglePassword, setTogglePassword] = useState(false);
-
   const list = [
     { name: "Role 1", value: 1 },
     { name: "Role 2", value: 2 },
@@ -47,28 +35,56 @@ export default function UserSearch(props) {
   ];
 
   const initialValues = {
-    id: "",
-    password: "",
-    privilege: "",
+    userId: "",
     groupId: "",
-    userName: "",
-    firstKana: "",
+    firstName: "",
+    lastName: "",
+    extensionNumber: "",
   };
 
-  const formValidation = Yup.object().shape({
-    id: Yup.string()
-      .required("Required!")
-      .min(2, "Too Short!")
-      .max(10, "Too Long!"),
-    password: Yup.string().required("Required!"),
-  });
+  // const formValidation = Yup.object().shape({
+  //   id: Yup.string()
+  //     .required("Required!")
+  //     .min(2, "Too Short!")
+  //     .max(10, "Too Long!"),
+  //   password: Yup.string().required("Required!"),
+  // });
 
   const handleSubmit = async (values) => {
-    await new Promise((r) => setTimeout(r, 500));
+
     console.log(values);
-    console.log(typeof values.privilege, "tttt");
-    //alert(JSON.stringify(values, null, 2));
-    a.setToken((prev) => !prev);
+    let apiValues = {...values,customerGroups:[{groupId:values.groupId}]}
+    delete apiValues.groupId;
+    console.log(apiValues);
+    // let tt={
+    //   "userId":"",
+    //   "firstName":"",
+    //   "lastName":"",
+    //   "extensionNumber":"",
+    //   "customerGroups":[
+    //     {
+    //       "groupId":2
+    //     }
+    //   ]
+    
+    // }
+    const Response = await axiosFetch.post('/userList', JSON.stringify(apiValues));
+    console.log(Response);
+    let temp=[];
+    Response.data.map((data,index)=>{
+      temp[index]={
+        id:index+1,
+        userId: data.userId,
+        lastName:data.lastName,
+        firstName: data.firstName,
+        privilege: data.privilege,
+      }
+    });
+    console.log(temp,"temppppp");
+    setUserRows(temp);
+
+
+
     //navigate("/home");
   };
   return (
@@ -77,14 +93,14 @@ export default function UserSearch(props) {
       <Formik
         enableReinitialize={true}
         initialValues={initialValues}
-        validationSchema={formValidation}
+        // validationSchema={formValidation}
         onSubmit={(e) => handleSubmit(e)}
       >
         <Form>
           <Box
             sx={{
               alignItems: "center",
-              px: "10%",
+              px: "5%",
               py: "2%",
               // background: "red",
             }}
@@ -94,35 +110,37 @@ export default function UserSearch(props) {
                 <Card elevation={4}>
                   <CardContent>
                     <Grid container columnSpacing={1} rowSpacing={2}>
-                      <Grid item xs={7}>
-                        <CustomSelect
-                          data={{
-                            name: "parentGroup",
-                            label: " Group",
-                            list: list,
-                          }}
-                        />
-                      </Grid>
-                    
-                       
-                      <Grid item xs={4}>
+                      <Grid item xs={6}>
                         <CustomTextfield
-                          data={{ name: "userName", label: "User Name" }}
-                        />
-                      </Grid>
-                      <Grid item xs={4}>
-                        <CustomTextfield
-                          data={{ name: "loginId", label: "Login ID" }}
-                        />
-                      </Grid>
-                      <Grid item xs={4}>
-                        <CustomTextfield
-                          data={{ name: "e", label: "extension number" }}
+                          data={{ name: "userId", label: "User ID" }}
                           type="number"
                         />
                       </Grid>
-                      <Grid item xs={6}></Grid>
-                      <Grid item xs={2}>
+
+                      <Grid item xs={6}>
+                        <CustomTextfield
+                          data={{
+                            name: "extensionNumber",
+                            label: "extension number",
+                          }}
+                          type="number"
+                        />
+                      </Grid>
+                      <Grid item xs={6}>
+                        <CustomTextfield
+                          data={{ name: "lastName", label: "Last Name" }}
+                        />
+                      </Grid>
+                      <Grid item xs={6}>
+                        <CustomTextfield
+                          data={{ name: "firstName", label: "First Name" }}
+                        />
+                      </Grid>
+                      <Grid item xs={12} md={12}>
+                        <GroupSelect name="groupId"/>
+                      </Grid>
+
+                      <Grid item xs={4}>
                         <Button
                           type="submit"
                           variant="contained"
@@ -132,13 +150,13 @@ export default function UserSearch(props) {
                           Search
                         </Button>
                       </Grid>
-                      <Grid item xs={2}>
+                      <Grid item xs={4}>
                         <Button variant="contained" size="large" fullWidth>
                           Output
                         </Button>
                       </Grid>
-                      <Grid item xs={2}>
-                        <Button variant="contained" size="large" fullWidth>
+                      <Grid item xs={4}>
+                        <Button variant="contained" size="large" fullWidth onClick={()=>navigate("/newUser")}>
                           Create New
                         </Button>
                       </Grid>
@@ -149,7 +167,7 @@ export default function UserSearch(props) {
               <Grid item xs={12}>
                 <Card elevation={4}>
                   <CardContent>
-                    <UserSearchTable rows={tempRows} />
+                    <UserSearchTable rows={userRows} />
                   </CardContent>
                 </Card>
               </Grid>

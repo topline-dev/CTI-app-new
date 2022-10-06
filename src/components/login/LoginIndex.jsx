@@ -11,7 +11,6 @@ import {
 import ButtonAppBar from "../customerRelated/Appbar";
 import { Formik, Form } from "formik";
 import CustomTextfield from "../formikInputs/CustomTextField";
-import CustomSelect from "../formikInputs/CustomSelect";
 import { InputAdornment } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useState } from "react";
@@ -20,15 +19,17 @@ import LoginContext from "../../context/LoginContext";
 import logo from "../testFolder/logo.jpg";
 import * as Yup from "yup";
 import axiosClient from "../customerRelated/axios";
-import {Axiostest} from "../testFolder/Axiostest";
+import CustomSelect from "../formikInputs/CustomSelect";
+import { AxiosFetch } from "../AxiosFetch";
 
 export default function LoginIndex(props) {
   let navigate = useNavigate();
+  const axiosFetch= AxiosFetch();
   // let axtest = Axiostest();
   // console.log(axtest);
 
   const a = useContext(LoginContext);
-  // console.log(a.token, "token");
+  console.log(a);
 
   const [togglePassword, setTogglePassword] = useState(false);
 
@@ -41,7 +42,7 @@ export default function LoginIndex(props) {
   const initialValues = {
     userName: "",
     userPassword: "",
-    // privilege: "",
+    reqPrivilege: 3,
   };
 
   const formValidation = Yup.object().shape({
@@ -53,14 +54,14 @@ export default function LoginIndex(props) {
   });
 
   const handleClick = async (values) => {
-    console.log(values,"ccc");
-    //alert(JSON.stringify(values, null, 2));
-   
-    // const userResponse = await axiosClient.post('/authenticate', JSON.stringify(values));
-    const userResponse = await axiosClient.post('/authenticate', JSON.stringify(values));
+    console.log(values,"vvvv");
+    const userResponse = await axiosFetch.post('/authenticate', JSON.stringify(values));
     console.log(userResponse);
-    a.setToken((prev) => !prev);
-    //navigate("/home");
+    // a.setJwtToken(userResponse.data.jwtToken);
+    a.setToken(true);
+    sessionStorage.setItem("token",true)
+    localStorage.setItem("jwtToken",userResponse.data.jwtToken)
+    navigate("/home");
   };
   return (
     <div>
@@ -69,12 +70,6 @@ export default function LoginIndex(props) {
         enableReinitialize={true}
         initialValues={initialValues}
         validationSchema={formValidation}
-        // onSubmit={async (values) => {
-        //   await new Promise((r) => setTimeout(r, 500));
-        //   console.log(values);
-        //   //handleSubmit(values);
-        //   alert(JSON.stringify(values, null, 2));
-        // }}
         onSubmit={(e) => handleClick(e)}
       >
         <Form>
@@ -130,15 +125,15 @@ export default function LoginIndex(props) {
                       }}
                     />
                   </Grid>
-                  {/* <Grid item xs={12}>
+                  <Grid item xs={12}>
                     <CustomSelect
                       data={{
-                        name: "privilege",
+                        name: "reqPrivilege",
                         label: "Select role",
                         list: list,
                       }}
                     />
-                  </Grid> */}
+                  </Grid>
                   <Grid item xs={12}>
                     <Button
                       type="submit"

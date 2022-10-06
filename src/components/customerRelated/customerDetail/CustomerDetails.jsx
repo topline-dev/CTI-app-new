@@ -7,20 +7,20 @@ import CustForm from "../custForm/CustForm";
 import { Formik, Form } from "formik";
 import CategoryForm from "../categoryForm/CategoryForm";
 import { useNavigate } from "react-router";
-import { Link, useParams } from "react-router-dom";
-import axiosClient from "../axios";
+import { AxiosFetch } from "../../AxiosFetch";
 
 export default function CustomerDetails() {
-	const navigate=useNavigate();
+  const navigate = useNavigate();
+  const axiosFetch=AxiosFetch();
   // const { customerId } = useParams();
-  const customerId = 1;
+  const customerId = 3;
   const [isLoading, setIsLoading] = useState(true);
   const [customerData, setCustomerData] = useState();
   let categoryobj = {};
   let initialValues = {};
   useEffect(() => {
     async function getData() {
-      const response = await axiosClient.get(`/customers/${customerId}`);
+      const response = await axiosFetch.get(`/customers/${customerId}`);
       if (response.status === 200) {
         setCustomerData(response.data);
         setIsLoading(false);
@@ -33,20 +33,27 @@ export default function CustomerDetails() {
     customerData.categoryData.map((data) => {
       categoryobj[data.itemId] = data.value;
     });
+    let custDataT = {
+      ...customerData,
+      customerGroup: customerData.customerGroup.groupId,
+    };
+	delete custDataT.categoryData;
     initialValues = {
-      custData: customerData,
+      custData: custDataT,
       categoryData: categoryobj,
     };
+    // 	initialValues={...initialValues,custData}
   }
   const handleEditClick = () => {
-	  console.log(navigate,"nnnn");
-	  navigate("/testPage",{state:{testdata:initialValues}})
+    console.log(navigate, "nnnn");
+    navigate("/testPage", { state: { testdata: initialValues } });
   };
 
   return isLoading ? (
     <div>Loading</div>
   ) : (
     <>
+      {console.log(customerData, initialValues, "llll")}
       <ButtonAppBar title="Customer Detail" customerDetail="true" />
       {/* <TemporaryDrawer /> */}
       <Formik
@@ -69,7 +76,7 @@ export default function CustomerDetails() {
               <CategoryForm
                 mode="read"
                 customerId={customerId}
-                groupId={customerData.customerGroupId}
+                groupId={initialValues.custData.customerGroup}
               />
               <br />
               <Stack direction="row" spacing={2}>
