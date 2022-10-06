@@ -5,7 +5,7 @@ import { Formik, Form } from "formik";
 import CustomTextfield from "../formikInputs/CustomTextField";
 
 import { useState } from "react";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 
 import GroupMultiSelect from "../formikInputs/GroupMultiSelect";
 import { AxiosFetch } from "../AxiosFetch";
@@ -16,9 +16,12 @@ import CustomMultiSelectCheck from "../formikInputs/CustomMultiSelectCheck";
 
 export default function UserDetail(props) {
   let navigate = useNavigate();
+  const location=useLocation();
+  // console.log(location,"lllll");
+
   const axiosFetch = AxiosFetch();
 
-  const id = "000";
+  const id = location.state.userId ;
   const [isLoading, setIsLoading] = useState(true);
 
   let temp = [];
@@ -51,25 +54,26 @@ export default function UserDetail(props) {
   // };
 
   const [initialValues, setInitialValues] = useState();
-
+  console.log(initialValues,"vvvvv");
   useEffect(() => {
     async function getData() {
       const response = await axiosFetch.get(`/user/${id}`);
       if (response.status === 200) {
-        // console.log(response.data);
+        //  console.log(response.data);
         response.data.customerGroups.map((data, index) => {
           temp[index] = data.groupId;
         });
         temp2 = Array.from(String(response.data.privilege), Number);
         setInitialValues({ ...response.data, privilege: temp2, groupId: temp });
+       
         setIsLoading(false);
       }
     }
     getData();
   }, []);
 
-  const handleSubmit = async (values) => {
-    navigate("/userEdit", {
+  const handleSubmit = async (values) => 
+   { navigate("/userEdit", {
       state: { from: "detail screen", data: initialValues },
     });
   };
@@ -106,7 +110,7 @@ export default function UserDetail(props) {
 
                   <Grid item xs={6} md={4}>
                     <CustomTextfield
-                      data={{ name: "extNumber", label: "Extension Number" }}
+                      data={{ name: "extensionNumber", label: "Extension Number" }}
                       type="number"
                       mode="read"
                     />
@@ -158,7 +162,7 @@ export default function UserDetail(props) {
                     />
                   </Grid> */}
                   <Grid item md={12} xs={12}>
-                    <GroupMultiSelect name="groupId" />
+                    <GroupMultiSelect name="groupId" mode="read" />
                   </Grid>
 
                   <Grid item md={4} xs={12}>
@@ -178,6 +182,7 @@ export default function UserDetail(props) {
                       color="error"
                       size="large"
                       fullWidth
+                      onClick={()=>{navigate(-1)}}
                     >
                       Cancel
                     </Button>

@@ -27,7 +27,7 @@ export default function Test2() {
 
   useEffect(() => {
     async function getData() {
-      const response = await axiosFetch.get(`/categoryItems`);
+      const response = await axiosFetch.get(`/group`);
       if (response.status === 200) {
         console.log(response,"responsee");
       }

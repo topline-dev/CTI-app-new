@@ -51,7 +51,7 @@ export default function CreateNewUser(props) {
   const initialValues = {
     userId: "",
     userPassword: "",
-    extNumber: "",
+    extensionNumber: "",
     lastName: "",
     firstName: "",
     lastKana: "",
@@ -151,7 +151,7 @@ export default function CreateNewUser(props) {
                   </Grid>
                   <Grid item xs={6} md={4}>
                     <CustomTextfield
-                      data={{ name: "extNumber", label: "Extension Number" }}
+                      data={{ name: "extensionNumber", label: "Extension Number" }}
                       type="number"
                     />
                   </Grid>

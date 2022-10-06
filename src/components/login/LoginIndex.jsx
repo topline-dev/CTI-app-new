@@ -19,9 +19,12 @@ import LoginContext from "../../context/LoginContext";
 import logo from "../testFolder/logo.jpg";
 import * as Yup from "yup";
 import axiosClient from "../customerRelated/axios";
+import CustomSelect from "../formikInputs/CustomSelect";
+import { AxiosFetch } from "../AxiosFetch";
 
 export default function LoginIndex(props) {
   let navigate = useNavigate();
+  const axiosFetch= AxiosFetch();
   // let axtest = Axiostest();
   // console.log(axtest);
 
@@ -39,7 +42,7 @@ export default function LoginIndex(props) {
   const initialValues = {
     userName: "",
     userPassword: "",
-    // privilege: "",
+    reqPrivilege: 3,
   };
 
   const formValidation = Yup.object().shape({
@@ -51,8 +54,8 @@ export default function LoginIndex(props) {
   });
 
   const handleClick = async (values) => {
-   
-    const userResponse = await axiosClient.post('/authenticate', JSON.stringify(values));
+    console.log(values,"vvvv");
+    const userResponse = await axiosFetch.post('/authenticate', JSON.stringify(values));
     console.log(userResponse);
     // a.setJwtToken(userResponse.data.jwtToken);
     a.setToken(true);
@@ -122,15 +125,15 @@ export default function LoginIndex(props) {
                       }}
                     />
                   </Grid>
-                  {/* <Grid item xs={12}>
+                  <Grid item xs={12}>
                     <CustomSelect
                       data={{
-                        name: "privilege",
+                        name: "reqPrivilege",
                         label: "Select role",
                         list: list,
                       }}
                     />
-                  </Grid> */}
+                  </Grid>
                   <Grid item xs={12}>
                     <Button
                       type="submit"

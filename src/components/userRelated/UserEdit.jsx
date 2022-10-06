@@ -31,7 +31,6 @@ const initialValues=location.state.data;
   let privilegeAPI=0;
   const [togglePassword, setTogglePassword] = useState(false);
 
-
   const list = [
     { name: "Role 1", value: 1 },
     { name: "Role 2", value: 2 },
@@ -68,8 +67,8 @@ const initialValues=location.state.data;
   //   });
 
   const handleSubmit = async (values) => {
-    await new Promise((r) => setTimeout(r, 500));
-    
+    // await new Promise((r) => setTimeout(r, 500));
+    console.log(values);
     values.groupId.map((data,index)=>{
       group[index]={groupId:data};
     
@@ -80,12 +79,21 @@ const initialValues=location.state.data;
     })
     values.privilege.reverse();
 
-    let APIvalues={...values,customerGroups:group,privilege:privilegeAPI}
+    // let APIvalues={...values,customerGroups:group,privilege:privilegeAPI}
+    let APIvalues={
+        firstName:values.firstName,
+        lastName:values.lastName,
+        extensionNumber:values.extensionNumber,
+        firstKana:values.firstKana,
+        lastKana:values.lastKana,
+        customerGroups:group,
+        privilege:privilegeAPI,
+    }
     delete APIvalues.groupId;
     privilegeAPI=0;
 
     alert(JSON.stringify(APIvalues, null, 2));
-    const custResponse = await axiosFetch.post('/registerNewUser', JSON.stringify(APIvalues));
+    const custResponse = await axiosFetch.put(`/user/${values.userId}`, JSON.stringify(APIvalues));
     // console.log(custResponse);
     //navigate("/home");
   };
@@ -113,7 +121,6 @@ const initialValues=location.state.data;
                   <Grid item md={4} xs={6}>
                     <CustomTextfield
                       data={{ name: "userId", label: "User ID" }}
-                      type="number"
                       mode="read"
                     />
                   </Grid>
@@ -145,7 +152,7 @@ const initialValues=location.state.data;
                   </Grid> */}
                   <Grid item xs={6} md={4}>
                     <CustomTextfield
-                      data={{ name: "extNumber", label: "Extension Number" }}
+                      data={{ name: "extensionNumber", label: "Extension Number" }}
                       type="number"
                     />
                   </Grid>
@@ -210,6 +217,7 @@ const initialValues=location.state.data;
                       sx={{ backgroundColor: "error.light" }}
                       color="error"
                       size="large"
+                      onClick={()=>{navigate(-1)}}
                       fullWidth
                     >
                       Cancel
