@@ -1,32 +1,33 @@
-import React, { useContext } from "react";
+import React  from "react";
 import { Grid, Box, Button, Card, CardContent } from "@mui/material";
 import ButtonAppBar from "../customerRelated/Appbar";
 import { Formik, Form } from "formik";
 import CustomTextfield from "../formikInputs/CustomTextField";
 import CustomSelect from "../formikInputs/CustomSelect";
-import { useState } from "react";
-import { useNavigate } from "react-router";
-import * as Yup from "yup";
-import axiosClient from "../customerRelated/axios";
 
-export default function CreateNewCustomerGroup(props) {
+import { useLocation, useNavigate } from "react-router";
+import * as Yup from "yup";
+
+import { AxiosFetch } from "../AxiosFetch";
+
+export default function EditCustomerGroup(props) {
   let navigate = useNavigate();
+  const location=useLocation();
+    const axiosFetch=AxiosFetch();
+
+const initialValues=location.state.data;
 
   const list = [
     { name: "Role 1", value: 1 },
     { name: "Role 2", value: 2 },
-    { name: "Admin", value: 101010 },
+    { name: "Admin", value: 3 },
   ];
   const statusList = [
     { name: "active", value: 1 },
     { name: "inactive", value: 2 },
   ];
 
-  const initialValues = {
-    parentGroup: "",
-    groupName: "",
-    status: 1,
-  };
+
 
   //   const formValidation = Yup.object().shape({
   //     id: Yup.string()
@@ -37,16 +38,15 @@ export default function CreateNewCustomerGroup(props) {
   //   });
 
   const handleSubmit = async (values) => {
-    await new Promise((r) => setTimeout(r, 500));
     console.log(values);
-    alert(JSON.stringify(values, null, 2));
-    const custResponse = await axiosClient.post('/group', JSON.stringify(values));
-    console.log(custResponse);
-    //navigate("/home");
+    const response= await axiosFetch.put(`group/${initialValues.groupId}`,values)
+    console.log(response);
+    // navigate("/editCustomerGroup",{state:{data:initialValues}})
+
   };
   return (
     <div>
-      <ButtonAppBar title="New Customer Group" />
+      <ButtonAppBar title="Customer Group Edit" />
       <Formik
         enableReinitialize={true}
         initialValues={initialValues}
@@ -65,6 +65,24 @@ export default function CreateNewCustomerGroup(props) {
             <Card elevation={4}>
               <CardContent>
                 <Grid container columnSpacing={1} rowSpacing={4}>
+                <Grid item xs={12}>
+                    <CustomTextfield
+                      data={{ name: "groupDisplayName", label: "Group Display Name" }}
+                      
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <CustomTextfield
+                      data={{ name: "groupId", label: "Group ID" }}
+                      mode="read"
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <CustomTextfield
+                      data={{ name: "groupName", label: "Group Name" }}
+                      
+                    />
+                  </Grid>
                   <Grid item xs={12}>
                     <CustomSelect
                       data={{
@@ -72,13 +90,16 @@ export default function CreateNewCustomerGroup(props) {
                         label: "Select Parent Group",
                         list: list,
                       }}
+                     
                     />
                   </Grid>
                   <Grid item xs={12}>
                     <CustomTextfield
-                      data={{ name: "groupName", label: "Group Name" }}
+                      data={{ name: "registerUserId", label: "Register User ID" }}
+                      mode="read"
                     />
                   </Grid>
+                  
                   <Grid item xs={12}>
                     <CustomSelect
                       data={{
@@ -87,7 +108,7 @@ export default function CreateNewCustomerGroup(props) {
                         list: statusList,
                         
                       }}
-                      mode="read"
+                     
                     />
                   </Grid>
 
@@ -108,8 +129,8 @@ export default function CreateNewCustomerGroup(props) {
                       sx={{ backgroundColor: "error.light" }}
                       color="error"
                       size="large"
-                      onClick={()=>{navigate(-1)}}
                       fullWidth
+                      onClick={()=>{navigate(-1)}}
                     >
                       Cancel
                     </Button>
@@ -123,3 +144,4 @@ export default function CreateNewCustomerGroup(props) {
     </div>
   );
 }
+
