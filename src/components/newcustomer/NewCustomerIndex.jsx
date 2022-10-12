@@ -67,26 +67,26 @@ export default function NewCustomerScreenIndex() {
 
 	}
   
-  const formValidation = Yup.object().shape({
-    custData: Yup.object().shape({
-      customerFirstName: Yup.string()
-        .min(2, "Too Short!")
-        .max(15, "Too Long!")
-        .required("Required!"),
-		customerLastName: Yup.string()
-        .min(2, "Too Short!")
-        .max(15, "Too Long!")
-        .required("Required!"),
-		customerEmail: Yup.string().email('Must be a valid email').required('email required')
-    }),
-  });
+  // const formValidation = Yup.object().shape({
+  //   custData: Yup.object().shape({
+  //     customerFirstName: Yup.string()
+  //       .min(2, "Too Short!")
+  //       .max(15, "Too Long!")
+  //       .required("Required!"),
+	// 	customerLastName: Yup.string()
+  //       .min(2, "Too Short!")
+  //       .max(15, "Too Long!")
+  //       .required("Required!"),
+	// 	customerEmail: Yup.string().email('Must be a valid email').required('email required')
+  //   }),
+  // });
   return (
     <>
       <ButtonAppBar title="New Customer" />
       <TemporaryDrawer />
       <Formik
         initialValues={initialValues}
-        validationSchema={formValidation}
+        // validationSchema={formValidation}
         onSubmit={async (values) => {
           await new Promise((r) => setTimeout(r, 500));
           handleSubmit(values);
