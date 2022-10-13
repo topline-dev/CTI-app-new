@@ -8,13 +8,16 @@ import CustForm from "./custForm/CustForm";
 import CategoryForm from "./categoryForm/CategoryForm";
 
 import { Formik, Form, useFormikContext } from "formik";
-import axiosClient from "./axios";
+// import axiosClient from "./axios";
+import { AxiosFetch } from "../AxiosFetch";
 
 import * as Yup from "yup";
 import { useNavigate } from "react-router";
 
 
 function NewCustomer() {
+
+	const axiosFetch = AxiosFetch();
 
 	const navigate = useNavigate();
 
@@ -40,7 +43,7 @@ function NewCustomer() {
 		const { categoryData, custData } = values;
 		console.log(custData);
 
-		const custResponse = await axiosClient.post('/customers', JSON.stringify(custData));
+		const custResponse = await axiosFetch.post('/customers', JSON.stringify(custData));
 
 		const customerId = custResponse.data.customerId;
 
@@ -56,7 +59,7 @@ function NewCustomer() {
 				}
 			})
 			let categoryData2 = JSON.stringify(categoryData1);
-			const categoryResponse = await axiosClient.post('/categoryData', categoryData2);
+			const categoryResponse = await axiosFetch.post('/categoryData', categoryData2);
 			console.log(categoryResponse);
 		}
 		console.log(custResponse);

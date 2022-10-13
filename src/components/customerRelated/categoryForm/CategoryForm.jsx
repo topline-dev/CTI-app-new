@@ -1,19 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import { Card, CardContent, Tabs, Tab, AppBar } from '@mui/material'
 import CategoryData from './CategoryData'
-import axiosClient from '../axios';
 import { AxiosFetch } from "../../AxiosFetch";
 
 
 function CategoryForm(props) {
     const axiosFetch=AxiosFetch();
 
-
     const customerId = props.customerId;
     const mode = props.mode;
     const groupId= props.groupId;
  
-
     const [tabValue, setValue] = useState(0);
     // const [error, setError] = useState(null);
     const [isLoading, setisLoading] = useState(true);

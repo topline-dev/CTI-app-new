@@ -34,6 +34,7 @@ import CreateNewCustomerProject from './components/customerProjectRelated/Create
 import UserDetail from './components/userRelated/UserDetail';
 import UserEdit from './components/userRelated/UserEdit';
 import CustomerGroupTable from './components/cutomerGroupRelated/CustomerGroupTable';
+import Import from './components/import/Import';
 
 
 const themex = createTheme({
@@ -83,6 +84,7 @@ function App() {
           <Route exact path="/customerGroupTable" element={<CustomerGroupTable/>}/>
           <Route exact path="/newCustomerProject" element={<CreateNewCustomerProject/>}/>
           <Route exact path="/testPage" element={<Test2/>}/>
+          <Route exact path="/import" element={<Import/>}/>
         </Route>
         <Route path="*" element={<ButtonAppBar title="Error! Page not found" />} />
 

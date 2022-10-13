@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Grid } from '@mui/material'
-import axiosClient from '../axios';
+import { AxiosFetch } from "../../AxiosFetch";
 import CustomTextField from '../../formikInputs/CustomTextField';
 
 
@@ -12,10 +12,13 @@ function CategoryData(props) {
 	// const customerId = props.customerId;
 
 	const [categoryItems, setCategoryItems] = useState([]);
+
+	const axiosFetch=AxiosFetch();
+
 	//console.log(categoryItems);
 	useEffect(() => {
 		async function getData() {
-			const response = await axiosClient.get(`/categoryItems/${props.categoryId}`);
+			const response = await axiosFetch.get(`/categoryItems/${props.categoryId}`);
 			if (response.status === 200) {
 				setCategoryItems(response.data);
 			}
