@@ -2,6 +2,7 @@ import './App.css';
 import React from 'react';
 import { ThemeProvider, colors } from '@mui/material';
 import { createTheme } from '@mui/material';
+import 'bootstrap/dist/css/bootstrap.css';
 // import ReactDOM from 'react-dom/client';
 import NewCustomerScreenIndex from './components/newcustomer/NewCustomerIndex';
 import CustomizeCategory from "./components/customizeCategory/CustomizeCategory";
