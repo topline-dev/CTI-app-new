@@ -16,10 +16,19 @@ function Display(props) {
         { value: "", name: "" },
         { value: "customerFirstName", name: "Customer First Name" },
         { value: "customerLastName", name: "Customer Last Name" },
+        { value: "customerLastRuby", name: "customer Last Ruby" },
+        { value: "customerFirstRuby", name: "customer First Ruby" },
+        { value: "customerZipCode", name: "customer Zip Code" },
+        { value: "customerEmail", name: "customer Email" },
+        { value: "customerFirstUserId", name: "customer First User Id" },
+        { value: "customerSecondUserId", name: "customer Second User Id" },
+        { value: "customerMemo1", name: "customer Memo 1" },
+        { value: "customerMemo2", name: "customer Memo 2" },
         { value: "customerAddress1", name: "Customer Address 1" },
         { value: "customerAddress2", name: "Customer Address 2" },
         { value: "customerAddress3", name: "Customer Address 3" },
-        { value: "customerAddress4", name: "Customer Address 4" }
+        { value: "customerAddress4", name: "Customer Address 4" },
+        
     ];
 
     const [optionList, setOptionList] = useState(initialValues);
