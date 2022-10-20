@@ -4,7 +4,7 @@ import Papa from "papaparse";
 import Display from './Display';
 import ButtonAppBar from '../customerRelated/Appbar';
 import { Box, Button, Card, CardContent, Grid } from '@mui/material';
-import { CheckBox } from '@mui/icons-material';
+import { CheckBox, Kayaking } from '@mui/icons-material';
 import Options from './Options';
 import { Formik, Form } from "formik";
 
@@ -44,6 +44,7 @@ const Import = () => {
             const csv = Papa.parse(target.result, { header: false });
             // const columns = Object.keys(parsedData[0]);
             setFileData(csv.data);
+            console.log(csv.data);
         };
         reader.readAsText(file);
     };
@@ -52,20 +53,20 @@ const Import = () => {
         console.log(values);
         const mappedValues = values.Column;
         var finalList = [];
-        fileData.map((fileData1, index)=>{
-            var Customer = {categoryData:[]};
-            fileData1.map((val, i)=>{
-                if(mappedValues[i] && mappedValues[i].charAt(0)=='c'){
-                    Customer[mappedValues[i]]=val;
+        fileData.map((fileData1, index) => {
+            var Customer = { categoryData: [] };
+            fileData1.map((val, i) => {
+                if (mappedValues[i] && mappedValues[i].charAt(0) == 'c') {
+                    Customer[mappedValues[i]] = val;
                 }
-                else{
-                    if(mappedValues[i]){
+                else {
+                    if (mappedValues[i]) {
                         var it = mappedValues[i].split('_')[1];
-                        Customer.categoryData.push({itemId:it, value:val})
+                        Customer.categoryData.push({ itemId: it, value: val })
                     }
                 }
             })
-            Customer.customerGroup = {groupId:values.groupId};
+            Customer.customerGroup = { groupId: values.groupId };
             finalList.push(Customer);
         })
         console.log(finalList);
@@ -84,6 +85,7 @@ const Import = () => {
                 <Form>
                     <Box
                         sx={{
+                            width: "100%",
                             alignItems: "center",
                             px: "5%",
                             py: "2%",
@@ -107,17 +109,20 @@ const Import = () => {
                                     </CardContent>
                                 </Card>
                             </Grid>
-                            <Grid item xs={12}>
-                                <Card elevation={4}>
-                                    <CardContent>
-                                        <div>
-                                            {fileData ? <Display data={fileData} /> : "Load a file to see content"}
-                                        </div>
-                                    </CardContent>
-                                </Card>
-                            </Grid>
                         </Grid>
-
+                    </Box>
+                    <Box
+                        sx={{
+                            width: "100%",
+                            alignItems: "center",
+                            px: "5%",
+                            py: "2%",
+                            // background: "red",
+                        }}
+                    >
+                        <div>
+                            {fileData ? <Display data={fileData} /> : "Load a file to see content"}
+                        </div>
                     </Box>
                 </Form>
             </Formik>

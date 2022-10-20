@@ -13,13 +13,13 @@ function Display(props) {
     const [groupId, setgroupId] = useState(0);
 
     const initialValues = [
-        {value:"", name:""},
-        {value:"customerFirstName", name:"Customer First Name"},
-        {value:"customerLastName", name:"Customer Last Name"},
-        {value:"customerAddress1", name:"Customer Address 1"},
-        {value:"customerAddress2", name:"Customer Address 2"},
-        {value:"customerAddress3", name:"Customer Address 3"},
-        {value:"customerAddress4", name:"Customer Address 4"}
+        { value: "", name: "" },
+        { value: "customerFirstName", name: "Customer First Name" },
+        { value: "customerLastName", name: "Customer Last Name" },
+        { value: "customerAddress1", name: "Customer Address 1" },
+        { value: "customerAddress2", name: "Customer Address 2" },
+        { value: "customerAddress3", name: "Customer Address 3" },
+        { value: "customerAddress4", name: "Customer Address 4" }
     ];
 
     const [optionList, setOptionList] = useState(initialValues);
@@ -36,22 +36,22 @@ function Display(props) {
     useEffect(() => {
         async function getOptionList() {
             if (groupId) {
-                const response = await axiosFetch.get(`/categoryItems/6`)
-                if(response.status = 200){
+                const response = await axiosFetch.get(`/categoryItemsByGroupId/${groupId}`)
+                if (response.status = 200) {
                     let temp = [];
-                    response.data.map((data)=>{
+                    response.data.map((data) => {
                         temp.push({
-                            value:data.category.categoryId + "_" + data.itemId,
-                            name:data.category.categoryName + " -> " + data.itemName
+                            value: data.category.categoryId + "_" + data.itemId,
+                            name: data.category.categoryName + " -> " + data.itemName
                         })
                     })
                     setOptionList(initialValues.concat(temp));
                     console.log(optionList);
                 }
-                else{
+                else {
                     console.log("Response status not 200 in Display Component Import");
                 }
-                
+
             }
         }
         getOptionList();
@@ -64,17 +64,20 @@ function Display(props) {
             <table className='table'>
                 <thead>
                     <tr>
-                        {data.map((item, index) => (
-                            <th scope="col" key={index + "TH"}>
-                                <CustomSelect data={{
-                                    name: `Column.${index}`,
-                                    label: "Select Item",
-                                    list: optionList
-                                }}
-                                    defaultValue={""}
-                                    required></CustomSelect>
-                            </th>
-                        ))}
+                        {   
+                            data[0].map((item1, index1) => (
+                                <th scope="col" key={index1 + "TH"}>
+                                    <CustomSelect data={{
+                                        name: `Column.${index1}`,
+                                        label: "Select Item",
+                                        list: optionList
+                                    }}
+                                        defaultValue={""}
+                                        required></CustomSelect>
+                                </th>
+
+                            ))
+                        }
                     </tr>
                 </thead>
                 <tbody>
