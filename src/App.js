@@ -36,6 +36,10 @@ import UserDetail from './components/userRelated/UserDetail';
 import UserEdit from './components/userRelated/UserEdit';
 import CustomerGroupTable from './components/cutomerGroupRelated/CustomerGroupTable';
 import Import from './components/import/Import';
+import CustomerGroupDetail from './components/cutomerGroupRelated/CustomerGroupDetail';
+import EditCustomerGroup from './components/cutomerGroupRelated/EditCustomerGroup';
+import NewCustomer from './components/customerRelated/NewCustomer';
+
 
 
 const themex = createTheme({
@@ -67,7 +71,7 @@ function App() {
         {/* <Route exact path="/testPage" element={<Test2/>}/> */}
         <Route element={<PrivateRoutes />}>
           <Route exact path="/home" element={<Home />} />
-          <Route exact path="/new" element={<NewCustomerScreenIndex />} />
+          <Route exact path="/newCustomer" element={<NewCustomer/>} />
           <Route exact path="/customerSearch" element={<CustomerSearchScreenIndex />} />
           <Route exact path="/form" element={<CategoryForm />} />
           <Route exact path="/customizeCategory" element={<CustomizeCategory/>}/>
@@ -75,7 +79,7 @@ function App() {
           <Route exact path="/newCategoryItem" element={<CreateNewItem/>}/>
           <Route exact path="/customizeCategoryDetail" element={<CustomizeCategoryDetail/>}/>
           <Route exact path="/customerDistribution" element={<CustomerGroupDistribution/>}/>
-          <Route exact path="/CustomerDetails" element={<CustomerDetails/>}/>
+          <Route exact path="/customerDetail" element={<CustomerDetails/>}/>
           <Route exact path="/CustomerEdit" element={<CustomerEdit/>}/>
           <Route exact path="/newUser" element={<CreateNewUser/>}/>
           <Route exact path="/userDetail" element={<UserDetail/>}/>
@@ -83,6 +87,8 @@ function App() {
           <Route exact path="/userSearch" element={<UserSearch/>}/>
           <Route exact path="/newCustomerGroup" element={<CreateNewCustomerGroup/>}/>
           <Route exact path="/customerGroupTable" element={<CustomerGroupTable/>}/>
+          <Route exact path="/customerGroupDetail" element={<CustomerGroupDetail/>}/>
+          <Route exact path="/editCustomerGroup" element={<EditCustomerGroup/>}/>
           <Route exact path="/newCustomerProject" element={<CreateNewCustomerProject/>}/>
           <Route exact path="/testPage" element={<Test2/>}/>
           <Route exact path="/import" element={<Import/>}/>

@@ -6,54 +6,41 @@ import ButtonAppBar from "../Appbar";
 import CustForm from "../custForm/CustForm";
 import { Formik, Form } from "formik";
 import CategoryForm from "../categoryForm/CategoryForm";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { AxiosFetch } from "../../AxiosFetch";
 
 export default function CustomerDetails() {
   const navigate = useNavigate();
   const axiosFetch=AxiosFetch();
+  const location=useLocation();
   // const { customerId } = useParams();
-  const customerId = 3;
+  const customerId = location.state.customerId ;
+  // const customerId = 1;
   const [isLoading, setIsLoading] = useState(true);
-  const [customerData, setCustomerData] = useState();
+  const [initialValues, setInitialValues] = useState();
   let categoryobj = {};
-  let initialValues = {};
+  // let initialValues = {};
   useEffect(() => {
     async function getData() {
       const response = await axiosFetch.get(`/customers/${customerId}`);
       if (response.status === 200) {
-        setCustomerData(response.data);
+        console.log(response,"cust detail response");
+       response.data.categoryData.map((data) => {
+              categoryobj[data.itemId] = data.value;
+            });
+        setInitialValues({...response.data,categoryData:categoryobj});
         setIsLoading(false);
       }
     }
     getData();
   }, []);
 
-  if (typeof customerData !== "undefined") {
-    customerData.categoryData.map((data) => {
-      categoryobj[data.itemId] = data.value;
-    });
-    let custDataT = {
-      ...customerData,
-      customerGroup: customerData.customerGroup.groupId,
-    };
-	delete custDataT.categoryData;
-    initialValues = {
-      custData: custDataT,
-      categoryData: categoryobj,
-    };
-    // 	initialValues={...initialValues,custData}
-  }
-  const handleEditClick = () => {
-    console.log(navigate, "nnnn");
-    navigate("/testPage", { state: { testdata: initialValues } });
-  };
 
   return isLoading ? (
     <div>Loading</div>
   ) : (
     <>
-      {console.log(customerData, initialValues, "llll")}
+      {console.log( initialValues, "llll")}
       <ButtonAppBar title="Customer Detail" customerDetail="true" />
       {/* <TemporaryDrawer /> */}
       <Formik
@@ -75,18 +62,29 @@ export default function CustomerDetails() {
             <Grid item xs={12} md={5.5}>
               <CategoryForm
                 mode="read"
-                customerId={customerId}
-                groupId={initialValues.custData.customerGroup}
+                groupId={initialValues.customerGroup.groupId}
               />
               <br />
               <Stack direction="row" spacing={2}>
                 <Button
-                  onClick={handleEditClick}
+                  onClick={()=>{navigate("/customerEdit", { state: { data: initialValues } });}}
                   variant="contained"
                   size="large"
                   fullWidth
                 >
                   Edit
+                </Button>
+                <Button
+                  variant="contained"
+                  sx={{ backgroundColor: "error.light" }}
+                  color="error"
+                  size="large"
+                  onClick={() => {
+                    navigate(-1);
+                  }}
+                  fullWidth
+                >
+                  Cancel
                 </Button>
               </Stack>
             </Grid>

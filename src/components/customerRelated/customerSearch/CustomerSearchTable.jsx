@@ -2,10 +2,21 @@ import * as React from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { Button } from "@mui/material";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axiosClient from "../axios";
 
-const cw = 100;
+
+
+async function handleDelete(customerId){
+	const response = await axiosClient.delete(`/customers/${customerId}`);
+	if(response.status === 200){
+		alert("Customer Deleted");
+	}
+}
+
+export default function CustomerSearchTable(props) {
+	const navigate=useNavigate();
+	const cw = 100;
 // const tt = new Date().toLocaleString().replace(",", "");
 const columns = [
 	{ field: "customerId", headerName: "ID", width: 40 },
@@ -41,8 +52,10 @@ const columns = [
 			const onClick = (e) => {
 
 				e.stopPropagation(); // don't select this row after clicking
+				console.log(params.row,"ppppp");
+          navigate("/customerDetail",{state:{customerId:params.row.customerId}});
 			};
-			return <Button as={Link} to={`/customer/${params.row.customerId}`} variant="text" color="secondary" onClick={onClick}>Edit</Button>;
+			return <Button size="small" variant="contained" color="primary" onClick={onClick}>Edit</Button>;
 		},
 	},
 	{
@@ -59,15 +72,6 @@ const columns = [
 		width: 90,
 	},
 ];
-
-async function handleDelete(customerId){
-	const response = await axiosClient.delete(`/customers/${customerId}`);
-	if(response.status === 200){
-		alert("Customer Deleted");
-	}
-}
-
-export default function CustomerSearchTable(props) {
 	const rows = props.rows;
 	// const rows = props.rows;
 

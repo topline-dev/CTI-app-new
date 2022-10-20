@@ -2,13 +2,15 @@ import React, { useState, useEffect } from 'react'
 import { Grid } from '@mui/material'
 import { AxiosFetch } from "../../AxiosFetch";
 import CustomTextField from '../../formikInputs/CustomTextField';
+import { AxiosFetch } from '../../AxiosFetch';
 
 
 
 
 function CategoryData(props) {
 
-	const readMode = props.mode ? true : false;
+	const axiosFetch=AxiosFetch();
+	const mode = props.mode ;
 	// const customerId = props.customerId;
 
 	const [categoryItems, setCategoryItems] = useState([]);
@@ -31,22 +33,22 @@ function CategoryData(props) {
 		switch (item.itemType) {
 			case "text":
 				{
-					return <CustomTextField mode={readMode} data={{ name: `categoryData.${item.itemId}`, label: item.itemName }} />;
+					return <CustomTextField mode={mode} data={{ name: `categoryData.${item.itemId}`, label: item.itemName }} />;
 					
 				}
 				
 			case "date":
 				{
-					return <CustomTextField mode={readMode} data={{ name: `categoryData.${item.itemId}`, label: item.itemName }} type="date"/>;
+					return <CustomTextField mode={mode} data={{ name: `categoryData.${item.itemId}`, label: item.itemName }} type="date"/>;
 					// <CustomDateTime data={item} mode={mode} customerId={customerId}/>
 				}
 				case "datetime":
 				{
-					return <CustomTextField mode={readMode} data={{ name: `categoryData.${item.itemId}`, label: item.itemName }} type="datetime-local"/>;
+					return <CustomTextField mode={mode} data={{ name: `categoryData.${item.itemId}`, label: item.itemName }} type="datetime-local"/>;
 				}
 				// case "select":
 				// {
-				// 	return <CustomTextField mode={readMode} data={{ name: `categoryData.${item.itemId}`, label: item.itemName,list: }} type="datetime-local"/>;
+				// 	return <CustomTextField mode={mode} data={{ name: `categoryData.${item.itemId}`, label: item.itemName,list: }} type="datetime-local"/>;
 				// }
 				
 				
@@ -57,8 +59,8 @@ function CategoryData(props) {
 		}
 	}
 
-	const items = categoryItems.map((item) =>
-		<Grid item xs={6}>{renderItem(item)}</Grid>)
+	const items = categoryItems.map((item,index) =>
+		<Grid item xs={6} key={index}>{renderItem(item)}</Grid>)
 
 	return (
 		<Grid container columnSpacing={1} rowSpacing={1} >

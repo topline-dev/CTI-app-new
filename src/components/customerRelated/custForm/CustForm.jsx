@@ -2,9 +2,11 @@ import React from "react";
 import { Card, Grid, Typography, CardContent } from "@mui/material";
 import CustomTextField from "../../formikInputs/CustomTextField";
 import CustomSelect from "../../formikInputs/CustomSelect";
+import GroupSelect from "../../formikInputs/GroupSelect";
 
 export default function CustForm(props) {
   let readMode = props.mode === "read" ? "read" : "";
+  
 
   return (
     <>
@@ -23,24 +25,45 @@ export default function CustForm(props) {
             <Grid item xs={4}>
               <CustomTextField
                 mode={readMode}
-                data={{ name: "custData.customerLastName", label: "Last Name" }}
+                data={{ name: "customerLastName", label: "Last Name" }}
               />
             </Grid>
             <Grid item xs={4}>
               <CustomTextField
                 mode={readMode}
                 data={{
-                  name: "custData.customerFirstName",
+                  name: "customerFirstName",
                   label: "First Name",
                 }}
               />
             </Grid>
             <Grid item xs={4}>
-              {/* <CustomSelect
+              <CustomTextField
+                mode={readMode}
+                data={{ name: "customerAge", label: "Age" }}
+              />
+            </Grid>
+           
+            <Grid item xs={4}>
+              <CustomTextField
+                mode={readMode}
+                data={{ name: "customerLastRuby", label: "Last Ruby" }}
+              />
+            </Grid>
+            <Grid item xs={4}>
+              <CustomTextField
+                mode={readMode}
+                data={{
+                  name: "customerFirstRuby",
+                  label: "First Ruby",
+                }}
+              />
+            </Grid>
+            <Grid item xs={4}>
+              <CustomSelect
 								mode={readMode}
-								defaultValue={["Male"]}
 								data={{
-									name: "custData.customerSex",
+									name: "customerSex",
 									label: "Sex",
 									list:
 										[
@@ -48,91 +71,103 @@ export default function CustForm(props) {
 											{ value: "Female", name: "Female" },
 											{ value: "Other", name: "Other" }
 										]
-								}} /> */}
+								}} />
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={7}>
               <CustomTextField
                 mode={readMode}
-                data={{ name: "custData.customerLastRuby", label: "Last Ruby" }}
+                type="email"
+                data={{ name: "customerEmail", label: "Email" }}
               />
             </Grid>
-            <Grid item xs={4}>
-              <CustomTextField
-                mode={readMode}
-                data={{
-                  name: "custData.customerFirstRuby",
-                  label: "First Ruby",
-                }}
-              />
-            </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={5}>
               <CustomTextField
                 mode={readMode}
                 type="date"
                 InputLabelProps={{ shrink: true }}
-                data={{ name: "custData.customerBirthday", label: "Birthday" }}
+                data={{ name: "customerBirthday", label: "Birthday" }}
               />
             </Grid>
-            <Grid item xs={6}>
+            {/* <Grid item xs={6}>
               <CustomTextField
                 mode={readMode}
                 type="number"
                 data={{ name: "telephone", label: "Telephone" }}
               />
-            </Grid>
-            <Grid item xs={6}>
-              <CustomTextField
-                mode={readMode}
-                type="email"
-                data={{ name: "custData.customerEmail", label: "Email" }}
-              />
-            </Grid>
+            </Grid> */}
+            
             <Grid item xs={7}>
               <CustomTextField
                 mode={readMode}
-                data={{ name: "custData.customerAddress1", label: "Address 1" }}
+                data={{ name: "customerAddress1", label: "Address 1" }}
               />
             </Grid>
             <Grid item xs={5}>
               <CustomTextField
                 mode={readMode}
                 type="number"
-                data={{ name: "custData.customerZipCode", label: "ZipCode" }}
+                data={{ name: "customerZipCode", label: "ZipCode" }}
               />
             </Grid>
             <Grid item xs={6}>
               <CustomTextField
                 mode={readMode}
-                data={{ name: "custData.customerAddress2", label: "Address 2" }}
+                data={{ name: "customerAddress2", label: "Address 2" }}
               />
             </Grid>
             <Grid item xs={6}>
               <CustomTextField
                 mode={readMode}
-                data={{ name: "custData.customerAddress3", label: "Address 3" }}
+                data={{ name: "customerAddress3", label: "Address 3" }}
               />
             </Grid>
             <Grid item xs={7}>
               <CustomTextField
                 mode={readMode}
-                data={{ name: "custData.customerAddress4", label: "Address 4" }}
+                data={{ name: "customerAddress4", label: "Address 4" }}
               />
             </Grid>
             <Grid item xs={5}>
               <CustomTextField
                 mode={readMode}
                 data={{
-                  name: "custData.customerBusinessType",
+                  name: "customerBusinessType",
                   label: "Profession",
                 }}
               />
             </Grid>
+           
             <Grid item xs={6}>
+              <CustomTextField
+                mode={readMode}
+                data={{ name: "customerFirstUserId", label: " First User Id" }}
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <CustomTextField
+                mode={readMode}
+                data={{ name: "customerSecondUserId", label: " Second User Id" }}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <GroupSelect
+               mode={readMode}
+               name= "customerGroup.groupId"
+               />
+            </Grid>
+            
+            {/* <Grid item xs={7}>
+              <CustomTextField
+                mode={readMode}
+                data={{ name: "customerGroup.groupId", label: "Address 4" }}
+              />
+            </Grid> */}
+            {/* <Grid item xs={6}>
               <CustomSelect
                 mode={readMode}
                 
                 data={{
-                  name: "custData.customerGroupId",
+                  name: "customerGroupId",
                   label: "Group",
                   list: [
                     { value: 1, name: "Getter" },
@@ -141,8 +176,8 @@ export default function CustForm(props) {
                   ],
                 }}
               />
-            </Grid>
-            <Grid item xs={6}>
+            </Grid> */}
+            {/* <Grid item xs={6}>
               <CustomSelect
                 mode={readMode}
                 data={{
@@ -155,14 +190,14 @@ export default function CustForm(props) {
                   ],
                 }}
               />
-            </Grid>
+            </Grid> */}
             <Grid item xs={6}>
               <CustomTextField
                 mode={readMode}
                
                 disabled
                 data={{
-                  name: "custData.customerRegisterUserId",
+                  name: "customerRegisterUserId",
                   label: "Author",
                 }}
               />
@@ -183,7 +218,7 @@ export default function CustForm(props) {
                 mode={readMode}
                 multiline
                 rows={3}
-                data={{ name: "custData.customerMemo1", label: "Memo 1" }}
+                data={{ name: "customerMemo1", label: "Memo 1" }}
               />
             </Grid>
             <Grid item xs={6}>
@@ -191,7 +226,7 @@ export default function CustForm(props) {
                 mode={readMode}
                 multiline
                 rows={3}
-                data={{ name: "custData.customerMemo2", label: "Memo 2" }}
+                data={{ name: "customerMemo2", label: "Memo 2" }}
               />
             </Grid>
           </Grid>
