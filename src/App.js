@@ -2,6 +2,7 @@ import './App.css';
 import React from 'react';
 import { ThemeProvider, colors } from '@mui/material';
 import { createTheme } from '@mui/material';
+import 'bootstrap/dist/css/bootstrap.css';
 // import ReactDOM from 'react-dom/client';
 import NewCustomerScreenIndex from './components/newcustomer/NewCustomerIndex';
 import CustomizeCategory from "./components/customizeCategory/CustomizeCategory";
@@ -34,9 +35,11 @@ import CreateNewCustomerProject from './components/customerProjectRelated/Create
 import UserDetail from './components/userRelated/UserDetail';
 import UserEdit from './components/userRelated/UserEdit';
 import CustomerGroupTable from './components/cutomerGroupRelated/CustomerGroupTable';
+import Import from './components/import/Import';
 import CustomerGroupDetail from './components/cutomerGroupRelated/CustomerGroupDetail';
 import EditCustomerGroup from './components/cutomerGroupRelated/EditCustomerGroup';
 import NewCustomer from './components/customerRelated/NewCustomer';
+
 
 
 const themex = createTheme({
@@ -88,6 +91,7 @@ function App() {
           <Route exact path="/editCustomerGroup" element={<EditCustomerGroup/>}/>
           <Route exact path="/newCustomerProject" element={<CreateNewCustomerProject/>}/>
           <Route exact path="/testPage" element={<Test2/>}/>
+          <Route exact path="/import" element={<Import/>}/>
         </Route>
         <Route path="*" element={<ButtonAppBar title="Error! Page not found" />} />
 

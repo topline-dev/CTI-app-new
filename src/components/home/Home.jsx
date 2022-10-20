@@ -28,6 +28,7 @@ export default function Home() {
                 <Link to="/newCustomerProject">New Customer Project</Link>
                 <Link to="/testPage" state={{ from: "occupation" }}>Test Page</Link>
                 <Link to="/">Login Page</Link>
+                <Link to="/import">Import Management</Link>
             </Stack>
         </>
     )

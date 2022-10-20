@@ -8,7 +8,8 @@ import CustForm from "./custForm/CustForm";
 import CategoryForm from "./categoryForm/CategoryForm";
 
 import { Formik, Form, useFormikContext } from "formik";
-import axiosClient from "./axios";
+// import axiosClient from "./axios";
+import { AxiosFetch } from "../AxiosFetch";
 
 import * as Yup from "yup";
 import { useNavigate } from "react-router";
@@ -16,7 +17,9 @@ import { AxiosFetch } from "../AxiosFetch";
 
 
 function NewCustomer() {
-	
+
+	const axiosFetch = AxiosFetch();
+
 	const navigate = useNavigate();
 	const axiosFetch=AxiosFetch();
 
