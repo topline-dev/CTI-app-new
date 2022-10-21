@@ -18,8 +18,6 @@ import { AxiosFetch } from "../AxiosFetch";
 
 function NewCustomer() {
 
-	const axiosFetch = AxiosFetch();
-
 	const navigate = useNavigate();
 	const axiosFetch=AxiosFetch();
 
