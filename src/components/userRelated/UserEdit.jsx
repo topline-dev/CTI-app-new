@@ -27,8 +27,8 @@ export default function UserEdit(props) {
 const location=useLocation();
 const initialValues=location.state.data;
 
-  let group=[];
-  let privilegeAPI=0;
+  var group=[];
+  var privilegeAPI=0;
   const [togglePassword, setTogglePassword] = useState(false);
 
   const list = [
@@ -80,7 +80,7 @@ const initialValues=location.state.data;
     values.privilege.reverse();
 
     // let APIvalues={...values,customerGroups:group,privilege:privilegeAPI}
-    let APIvalues={
+    var APIvalues={
         firstName:values.firstName,
         lastName:values.lastName,
         extensionNumber:values.extensionNumber,

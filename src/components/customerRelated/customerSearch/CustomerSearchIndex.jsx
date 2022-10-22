@@ -18,19 +18,20 @@ import CustCategoryFormPlus from "./CustCategoryFormPlus";
 import axiosClient from "../axios";
 import { AxiosFetch } from "../../AxiosFetch";
 import { useNavigate } from "react-router";
+import ProjectSelect from "../../formikInputs/ProjectSelect";
 
 export default function CustomerSearchScreenIndex() {
   const axiosFetch = AxiosFetch();
   const navigate = useNavigate();
   const initialValues = {
     custData: {
-      customerGroupId: "1",
+      customerGroupId: "2",
     },
     phoneNumber: "",
     project: [],
   };
 
-  const [groupId, setgroupId] = useState(1);
+  const [groupId, setgroupId] = useState();
   const [custInformation, setcustInformation] = useState([]);
 
   async function handleSearch(values) {
@@ -123,6 +124,9 @@ export default function CustomerSearchScreenIndex() {
                         component={customSelect}
                         label="Customer Group"
                       />
+                    </Box>
+                    <Box>
+                     <ProjectSelect name="project"/>
                     </Box>
                     <Box>
                       {/* <Field

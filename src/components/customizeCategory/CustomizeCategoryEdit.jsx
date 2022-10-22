@@ -1,15 +1,36 @@
-import { Box, Button, Card, CardContent, Grid, Typography } from "@mui/material";
+import { Box, Button, Card, CardContent, Grid } from "@mui/material";
 import { Form, Formik } from "formik";
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 import { AxiosFetch } from "../AxiosFetch";
 import ButtonAppBar from "../customerRelated/Appbar";
-import CategoryData from "../customerRelated/categoryForm/CategoryData";
 import CustomSelect from "../formikInputs/CustomSelect";
 import CustomTextField from "../formikInputs/CustomTextField";
 import GroupSelect from "../formikInputs/GroupSelect";
+import CategoryItemTable from "./customizeItemsRelated/CategoryItemTable";
 
-export default function CustomizeCategoryDetail(props) {
+export default function CustomizeCategoryEdit(props) {
+  let navigate = useNavigate();
+  const axiosFetch = AxiosFetch();
+  const location = useLocation();
+  const data = location.state.data;
+  const categoryId=data.categoryId;
+  const initialValues = data;
+    console.log(location, "locationn");
+
+  //   const initialValues = {
+  //     categoryName: data.categoryName || "",
+  //     categoryId: data.categoryId || "",
+  //     customerGroup: {
+  //       groupId: data.customerGroup.groupId || "",
+  //     },
+  //     visible: data.visible || false,
+  //     multipleValue: data.multipleValue || false,
+  //     categoryOrder: data.categoryOrder || "",
+  //     registerUserId: data.registerUserId || "",
+  //   };
+
   //   const formValidation = Yup.object().shape({
   //     id: Yup.string()
   //       .required("Required!")
@@ -18,38 +39,22 @@ export default function CustomizeCategoryDetail(props) {
   //     password: Yup.string().required("Required!"),
   //   });
 
-  let navigate = useNavigate();
-  const axiosFetch = AxiosFetch();
-  const location = useLocation();
-  const categoryId = location.state.categoryId;
-  const [isLoading, setIsLoading] = useState(true);
-
-  const [initialValues, setInitialValues] = useState();
-  useEffect(() => {
-    async function getData() {
-      const response = await axiosFetch.get(`/categoryById/${categoryId}`);
-      console.log(response);
-      if (response.status === 200) {
-        //  console.log(response.data,"rrrr");
-        setInitialValues(response.data);
-        setIsLoading(false);
-      }
-    }
-    getData();
-  }, []);
-
   const handleSubmit = async (values) => {
     console.log(values);
-    //   alert(JSON.stringify(values, null, 2));
-    navigate("/customizeCategoryEdit", {
-      state: { data: initialValues },
+    // alert(JSON.stringify(values, null, 2));
+    const Response = await axiosFetch.put(
+      `/category/${data.categoryId}`,
+      JSON.stringify(values)
+    );
+    // console.log(Response);
+
+    navigate("/customizeCategoryDetail", {
+      state: { categoryId: data.categoryId },
     });
   };
-  return isLoading ? (
-    <div>Loading</div>
-  ) : (
+  return (
     <div>
-      <ButtonAppBar title="Customize Category Detail" />
+      <ButtonAppBar title="Customize Category Edit" />
       <Formik
         enableReinitialize={true}
         initialValues={initialValues}
@@ -71,7 +76,6 @@ export default function CustomizeCategoryDetail(props) {
                   <Grid item xs={8}>
                     <CustomTextField
                       data={{ name: "categoryName", label: "Category Name" }}
-                      mode="read"
                     />
                   </Grid>
                   <Grid item xs={4}>
@@ -81,7 +85,7 @@ export default function CustomizeCategoryDetail(props) {
                     />
                   </Grid>
                   <Grid item xs={12}>
-                    <GroupSelect name="customerGroup.groupId" mode="read" />
+                    <GroupSelect name="customerGroup.groupId" />
                   </Grid>
                   <Grid item xs={4}>
                     <CustomSelect
@@ -93,7 +97,6 @@ export default function CustomizeCategoryDetail(props) {
                           { name: "hidden", value: false },
                         ],
                       }}
-                      mode="read"
                     />
                   </Grid>
                   <Grid item xs={4}>
@@ -106,7 +109,6 @@ export default function CustomizeCategoryDetail(props) {
                           { name: "no", value: false },
                         ],
                       }}
-                      mode="read"
                     />
                   </Grid>
                   <Grid item xs={4}>
@@ -118,18 +120,17 @@ export default function CustomizeCategoryDetail(props) {
                       mode="read"
                     />
                   </Grid>
-                  <Grid item xs={6}>
+                  <Grid item md={6} xs={12}>
                     <Button
                       type="submit"
                       variant="contained"
                       size="large"
                       fullWidth
                     >
-                      Edit
+                      Save
                     </Button>
                   </Grid>
-
-                  <Grid item xs={6}>
+                  <Grid item md={6} xs={12}>
                     <Button
                       variant="contained"
                       sx={{ backgroundColor: "error.light" }}
@@ -146,13 +147,10 @@ export default function CustomizeCategoryDetail(props) {
                 </Grid>
               </CardContent>
             </Card>
-            <br />
+            <br/>
             <Card elevation={4}>
               <CardContent>
-                <Typography variant="h5" gutterBottom align="center">
-                 Category Preview
-                </Typography>
-                <CategoryData categoryId={categoryId} />
+                <CategoryItemTable data={data}/>
               </CardContent>
             </Card>
           </Box>

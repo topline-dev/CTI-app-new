@@ -6,7 +6,6 @@ import { createTheme } from '@mui/material';
 import NewCustomerScreenIndex from './components/newcustomer/NewCustomerIndex';
 import CustomizeCategory from "./components/customizeCategory/CustomizeCategory";
 import CreateNewCategory from './components/customizeCategory/CreateNewCategory';
-import CreateNewItem from "./components/customizeCategory/CreateNewItem";
 import CustomizeCategoryDetail from './components/customizeCategory/CustomizeCategoryDetail';
 import CustomerGroupDistribution from "./components/customerRelated/customerSearch/customerDistribution/CustomerGroupDistribution"
 import CategoryForm from './components/customerRelated/categoryForm/CategoryForm';
@@ -37,6 +36,13 @@ import CustomerGroupTable from './components/cutomerGroupRelated/CustomerGroupTa
 import CustomerGroupDetail from './components/cutomerGroupRelated/CustomerGroupDetail';
 import EditCustomerGroup from './components/cutomerGroupRelated/EditCustomerGroup';
 import NewCustomer from './components/customerRelated/NewCustomer';
+import CustomizeCategoryTable from './components/customizeCategory/CustomizeCategoryTable';
+import CustomizeCategoryEdit from './components/customizeCategory/CustomizeCategoryEdit';
+import CategoryItemTable from './components/customizeCategory/customizeItemsRelated/CategoryItemTable';
+import CreateNewItem from './components/customizeCategory/customizeItemsRelated/CreateNewItem';
+import CategoryItemDetail from './components/customizeCategory/customizeItemsRelated/CategoryItemDetail';
+import CustomerProjecTable from './components/customerProjectRelated/CustomerProjectTable';
+import CustomerProjectDetail from './components/customerProjectRelated/CustomerProjectDetail';
 
 
 const themex = createTheme({
@@ -72,9 +78,13 @@ function App() {
           <Route exact path="/customerSearch" element={<CustomerSearchScreenIndex />} />
           <Route exact path="/form" element={<CategoryForm />} />
           <Route exact path="/customizeCategory" element={<CustomizeCategory/>}/>
+          <Route exact path="/customizeCategoryTable" element={<CustomizeCategoryTable/>}/>
           <Route exact path="/newCustomizeCategory" element={<CreateNewCategory/>}/>
           <Route exact path="/newCategoryItem" element={<CreateNewItem/>}/>
+          <Route exact path="/categoryItemTable" element={<CategoryItemTable/>}/>
+          <Route exact path="/categoryItemDetail" element={<CategoryItemDetail/>}/>
           <Route exact path="/customizeCategoryDetail" element={<CustomizeCategoryDetail/>}/>
+          <Route exact path="/customizeCategoryEdit" element={<CustomizeCategoryEdit/>}/>
           <Route exact path="/customerDistribution" element={<CustomerGroupDistribution/>}/>
           <Route exact path="/customerDetail" element={<CustomerDetails/>}/>
           <Route exact path="/CustomerEdit" element={<CustomerEdit/>}/>
@@ -87,6 +97,11 @@ function App() {
           <Route exact path="/customerGroupDetail" element={<CustomerGroupDetail/>}/>
           <Route exact path="/editCustomerGroup" element={<EditCustomerGroup/>}/>
           <Route exact path="/newCustomerProject" element={<CreateNewCustomerProject/>}/>
+          <Route exact path="/customerProjectTable" element={<CustomerProjecTable/>}/>
+          <Route exact path="/customerProjectDetail" element={<CustomerProjectDetail/>}/>
+
+
+
           <Route exact path="/testPage" element={<Test2/>}/>
         </Route>
         <Route path="*" element={<ButtonAppBar title="Error! Page not found" />} />
