@@ -18,15 +18,12 @@ import { useNavigate } from "react-router";
 import LoginContext from "../../context/LoginContext";
 import logo from "../testFolder/logo.jpg";
 import * as Yup from "yup";
-import axiosClient from "../customerRelated/axios";
 import CustomSelect from "../formikInputs/CustomSelect";
 import { AxiosFetch } from "../AxiosFetch";
 
 export default function LoginIndex(props) {
   let navigate = useNavigate();
   const axiosFetch= AxiosFetch();
-  // let axtest = Axiostest();
-  // console.log(axtest);
 
   const a = useContext(LoginContext);
   console.log(a);
