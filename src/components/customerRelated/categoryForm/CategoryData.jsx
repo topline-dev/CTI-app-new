@@ -64,7 +64,7 @@ function CategoryData(props) {
       }
       case "select": {
         var list = [];
-		console.log(item,"iii");
+		// console.log(item,"iii");
         item.itemOptions.map((data, index) => {
           list[index] = {
             value: data.itemOptionValue,
@@ -79,6 +79,7 @@ function CategoryData(props) {
               label: item.itemName,
               list: list,
             }}
+            mode={mode}
           />
         ) 
       }
@@ -98,6 +99,7 @@ function CategoryData(props) {
               label: item.itemName,
               list: list,
             }}
+            mode={mode}
           />
         );
       }
@@ -105,7 +107,9 @@ function CategoryData(props) {
         return (
           <CustomCheckbox
             data={{ name: `categoryData.${item.itemId}`, label: item.itemName }}
+            mode={mode}
           />
+          
         );
       }
       // Add all cases here for the category options.
@@ -121,7 +125,7 @@ function CategoryData(props) {
     <Grid item xs={6} key={index}>
       {renderItem(item)}
     </Grid>
-  ) : <></>
+  ) : <div key={index}></div>
 
 });
 

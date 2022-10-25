@@ -157,10 +157,10 @@ export default function CustForm(props) {
                />
             </Grid>
             <Grid item xs={6}>
-              <ProjectSelect
+              {/* <ProjectSelect
                mode={readMode}
                name= "customerProject"
-               />
+               /> */}
             </Grid>
             
             {/* <Grid item xs={7}>

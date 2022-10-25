@@ -9,6 +9,7 @@ import CategoryForm from "../customerRelated/categoryForm/CategoryForm";
 import { useLocation, useNavigate } from "react-router";
 import { AxiosFetch } from "../AxiosFetch";
 import { useState } from "react";
+import { set } from "date-fns";
 
 export default function CustomerEdit() {
   let navigate = useNavigate();
@@ -16,35 +17,62 @@ export default function CustomerEdit() {
 
   const location = useLocation();
   const initialValues = location.state.data;
-  console.log(initialValues,"edit screen");
+  // console.log(initialValues, "edit screen initial Values");
 
   // const groupId=initialValues.customerGroup.groupId;
-  const [groupId,setGroupId]=useState(initialValues.customerGroup.groupId);
-  let catObj=[];
-
+  const [groupId, setGroupId] = useState(initialValues.customerGroup.groupId);
+  let catObj = [];
+  async function getDataCategory(props) {
+    const response = await axiosFetch.get(`/categoryItemsByGroupId/${props}`);
+    //console.log(response, "rrrr");
+    return await response.data;
+  }
 
   const FormObserver = () => {
-    const { values } = useFormikContext();
+    const { values, setFieldValue } = useFormikContext();
+    // console.log(values, "live form values");
     useEffect(() => {
       setGroupId(values.customerGroup.groupId);
+      getDataCategory(values.customerGroup.groupId).then((x) => {
+        var test = {};
+        x.map((data, index) => {
+          test[data.itemId] = "";
+        });
+        // console.log(test,"tttt",initialValues.customerGroup.groupId,values.customerGroup.groupId);
+        if (
+          initialValues.customerGroup.groupId !==
+          values.customerGroup.groupId
+        ) {
+          setFieldValue("categoryData", test);
+          // console.log("yesssss");
+        }
+        else{
+          setFieldValue("categoryData", initialValues.categoryData);
+        }
+      });
     }, [values.customerGroup.groupId]);
     return null;
   };
 
   const handleSubmit = async (values) => {
-      Object.entries(values.categoryData).map(([key, value], index) =>
-      {
-          // console.log("Key" + key + "::>" + "Value" + value)
-          catObj[index]={itemId:key,value:value}
-      })
-      let APIvalues={...values,categoryData:catObj,customerGroup:{groupId:values.customerGroup.groupId}}
-      console.log(APIvalues,"API values");
-    
-    const custResponse = await axiosFetch.put(`/customers/${values.customerId}`,APIvalues);
-    console.log(custResponse);
-    //navigate("/home");
-  };
+    Object.entries(values.categoryData).map(([key, value], index) => {
+      // console.log("Key" + key + "::>" + "Value" + value)
+      catObj[index] = { itemId: key, value: value };
+    });
+    let APIvalues = {
+      ...values,
+      categoryData: catObj,
+      customerGroup: { groupId: values.customerGroup.groupId },
+    };
+    console.log(APIvalues, "API values");
 
+    const custResponse = await axiosFetch.put(
+      `/customers/${values.customerId}`,
+      APIvalues
+    );
+    console.log(custResponse);
+    // navigate(-1);
+  };
   // console.log(initialValues,"iiiii");
   return (
     <>
@@ -57,7 +85,7 @@ export default function CustomerEdit() {
         onSubmit={(e) => handleSubmit(e)}
       >
         <Form>
-        <FormObserver />
+          <FormObserver />
           <Grid container spacing={2} justifyContent={"center"}>
             <Grid item xs={12} md={5.5}>
               <CustForm />

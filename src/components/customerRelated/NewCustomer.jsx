@@ -13,13 +13,14 @@ import axiosClient from "./axios";
 import * as Yup from "yup";
 import { useNavigate } from "react-router";
 import { AxiosFetch } from "../AxiosFetch";
+import { set } from "date-fns/esm";
 
 export default function NewCustomer() {
   const navigate = useNavigate();
   const axiosFetch = AxiosFetch();
 
   const template = {
-    customerGroup: {},
+    customerGroup: {groupId:1},
     customerListId: "",
     customerLastName: "",
     customerFirstName: "",
@@ -49,104 +50,43 @@ export default function NewCustomer() {
     customerTableName: "",
     customerFields: "",
     customerAge: "",
-    categoryData: [],
-	customerProject:'',
+    categoryData: {},
+    customerProject: "",
     date: "",
   };
+
   const [initialValues, setInitialvalues] = useState(template);
-  const[isloading,setIsloading]=useState(false);
-
-  // const initialValues = {
-
-  // 		customerGroup:{
-  // 			groupId:""
-  // 		},
-  // 		customerLastName:"",
-  // 		customerFirstName:"",
-  // 		customerLastRuby:"",
-  // 		customerFirstRuby:"",
-  // 		customerAddress1:"",
-  // 		customerAddress2:"",
-  // 		customerAddress3:"",
-  // 		customerAddress4:"",
-  // 		customerEmail:"",
-  // 		customerSex:"",
-  // 		customerFirstUserId:"",
-  // 		customerSecondUserId:"",
-  // 		customerMemo1:"",
-  // 		customerMemo2:"",
-  // 		customerBusinessType:"",
-  // 		customerTableName:"",
-  // 		customerFields:"",
-  // 		customerAge:"",
-  // 		categoryData:{},
-  // };
+  const [isloading, setIsloading] = useState(false);
 
   const [groupId, setGroupId] = useState();
   let catObj = [];
-  // const [submitAction, setsubmitAction] = useState("");
+
+  async function getDataCategory(props) {
+    const response = await axiosFetch.get(`/categoryItemsByGroupId/${props}`);
+    //console.log(response, "rrrr");
+	return await response.data;
+  }
 
   const FormObserver = () => {
-    const { values } = useFormikContext();
+    const { values,setFieldValue } = useFormikContext();
+    //console.log(values, "vall");
     useEffect(() => {
       setGroupId(values.customerGroup.groupId);
-	  async function getData() {
-		      const response = await axiosFetch.get(`/customers/${1}`);
-			//   console.log(response,"rrrr");
-		      if (response.status === 200) {
-		        console.log(response, "cust new response");
-		        // setIsLoading(false);
-		      }
-		    }
-		    getData();
+	 getDataCategory(values.customerGroup.groupId ).then(x => { 
+		var test={};
+		x.map((data,index)=>{
+			test[data.itemId]='';
+		})
+		//console.log(test,"tessss");
+		setFieldValue('categoryData',test);	
+	});
     }, [values.customerGroup.groupId]);
     return null;
   };
-//   useEffect(() => {
-//     async function getData() {
-//       const response = await axiosFetch.get(`/customers/${1}`);
-// 	  console.log(response,"rrrr");
-//       if (response.status === 200) {
-//         console.log(response, "cust new response");
-//         // setIsLoading(false);
-//       }
-//     }
-//     getData();
-//   }, []);
-  // async function handleSubmit(values) {
-  // 	// console.log(values);
-  // 	const { categoryData, custData } = values;
-  // 	console.log(custData);
 
-  // 	const custResponse = await axiosFetch.post('/customers', JSON.stringify(custData));
+  
 
-  // 	const customerId = custResponse.data.customerId;
 
-  // 	if (categoryData) {
-  // 		let categoryData1 = [];
-  // 		categoryData.forEach((item, index) => {
-  // 			if (item) {
-  // 				let Objj = new Object;
-  // 				Objj.itemId = index;
-  // 				Objj.customer =  {customerId:customerId};
-  // 				Objj.value = item;
-  // 				categoryData1.push(Objj);
-  // 			}
-  // 		})
-  // 		let categoryData2 = JSON.stringify(categoryData1);
-  // 		const categoryResponse = await axiosFetch.post('/categoryData', categoryData2);
-  // 		console.log(categoryResponse);
-  // 	}
-  // 	console.log(custResponse);
-  // 	if (custResponse.status = 200) {
-  // 		alert(`Customer ${customerId} saved successfully`);
-  // 		navigate(`/customer/${customerId}`);
-  // 	}
-  // 	else {
-  // 		alert("Something went wrong");
-  // 	}
-
-  // }
   const handleSubmit = async (values) => {
     console.log(values, "vvvv");
     Object.entries(values.categoryData).map(([key, value], index) => {
@@ -159,7 +99,6 @@ export default function NewCustomer() {
       customerGroup: { groupId: values.customerGroup.groupId },
     };
     console.log(APIvalues, "API values");
-
     const custResponse = await axiosFetch.post(`/customers`, APIvalues);
     console.log(custResponse);
     // navigate("/home");
@@ -186,6 +125,7 @@ export default function NewCustomer() {
       <ButtonAppBar title="New Customer" />
       {/* <TemporaryDrawer /> */}
       <Formik
+        enableReinitialize={true}
         initialValues={initialValues}
         // validationSchema={formValidation}
         // onSubmit={async (values) => {
@@ -257,5 +197,37 @@ export default function NewCustomer() {
     </>
   );
 }
+// async function handleSubmit(values) {
+// 	// console.log(values);
+// 	const { categoryData, custData } = values;
+// 	console.log(custData);
 
+// 	const custResponse = await axiosFetch.post('/customers', JSON.stringify(custData));
 
+// 	const customerId = custResponse.data.customerId;
+
+// 	if (categoryData) {
+// 		let categoryData1 = [];
+// 		categoryData.forEach((item, index) => {
+// 			if (item) {
+// 				let Objj = new Object;
+// 				Objj.itemId = index;
+// 				Objj.customer =  {customerId:customerId};
+// 				Objj.value = item;
+// 				categoryData1.push(Objj);
+// 			}
+// 		})
+// 		let categoryData2 = JSON.stringify(categoryData1);
+// 		const categoryResponse = await axiosFetch.post('/categoryData', categoryData2);
+// 		console.log(categoryResponse);
+// 	}
+// 	console.log(custResponse);
+// 	if (custResponse.status = 200) {
+// 		alert(`Customer ${customerId} saved successfully`);
+// 		navigate(`/customer/${customerId}`);
+// 	}
+// 	else {
+// 		alert("Something went wrong");
+// 	}
+
+// }
