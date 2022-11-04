@@ -5,7 +5,7 @@ import ButtonAppBar from "../Appbar";
 // import TemporaryDrawer from "../newcustomer/SideNav";
 import CustForm from "../custForm/CustForm";
 import { Formik, Form } from "formik";
-import CategoryForm from "../categoryForm/CategoryForm";
+import CustomerDetailCategory from "./Call Log/CustomerDetailCategory";
 import { useLocation, useNavigate } from "react-router";
 import { AxiosFetch } from "../../AxiosFetch";
 
@@ -55,12 +55,12 @@ export default function CustomerDetails() {
         }}
       >
         <Form>
-          <Grid container spacing={2} justifyContent={"center"}>
-            <Grid item xs={12} md={5.5}>
+          <Grid container spacing={1} margin={0.2} justifyContent={"center"}>
+            <Grid item xs={12} md={4.5}>
               <CustForm mode="read" />
             </Grid>
-            <Grid item xs={12} md={5.5}>
-              <CategoryForm
+            <Grid item xs={12} md={7.3}>
+              <CustomerDetailCategory
                 mode="read"
                 groupId={initialValues.customerGroup.groupId}
               />
