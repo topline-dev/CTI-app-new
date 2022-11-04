@@ -8,7 +8,6 @@ import CustForm from "./custForm/CustForm";
 import CategoryForm from "./categoryForm/CategoryForm";
 
 import { Formik, Form, useFormikContext } from "formik";
-import axiosClient from "./axios";
 
 import * as Yup from "yup";
 import { useNavigate } from "react-router";
@@ -76,6 +75,7 @@ export default function NewCustomer() {
 		var test={};
 		x.map((data,index)=>{
 			test[data.itemId]='';
+
 		})
 		//console.log(test,"tessss");
 		setFieldValue('categoryData',test);	
