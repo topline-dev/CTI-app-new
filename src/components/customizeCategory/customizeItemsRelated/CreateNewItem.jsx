@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 import { Field, Form, Formik, useFormikContext } from "formik";
-import ChipInput from "material-ui-chip-input";
+// import ChipInput from "material-ui-chip-input";
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router";
@@ -78,7 +78,7 @@ export default function CreateNewItem() {
 
     return (
       <>
-        <ChipInput
+        {/* <ChipInput
           fullWidth
           variant="outlined"
           label={props.label}
@@ -87,7 +87,7 @@ export default function CreateNewItem() {
           onAdd={(chip) => handleAddChip(chip)}
           onDelete={(chip, index) => handleDeleteChip(chip, index)}
           {...props}
-        />
+        /> */}
       </>
     );
   };
