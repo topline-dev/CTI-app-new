@@ -1,39 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Grid, Box, Button, Card, CardContent } from "@mui/material";
 import ButtonAppBar from "../customerRelated/Appbar";
-import { Formik, Form } from "formik";
+import { Formik, Form, useFormikContext } from "formik";
 import CustomTextfield from "../formikInputs/CustomTextField";
-import CustomSelect from "../formikInputs/CustomSelect";
-import axiosClient from "../customerRelated/axios";
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import GroupSelect from "../formikInputs/GroupSelect";
+import { AxiosFetch } from "../AxiosFetch";
 
 export default function CreateNewCustomerProject(props) {
   let navigate = useNavigate();
+  const axiosFetch=AxiosFetch();
 
-  const list = [
-    { name: "Role 1", value: 1 },
-    { name: "Role 2", value: 2 },
-    { name: "Admin", value: 3 },
-  ];
-  const statusList = [
-    { name: "active", value: 1 },
-    { name: "inactive", value: 2 },
-  ];
-
-  // const variableList = [
-  //   { value: 100, name: "Oliver Hansen" },
-  //   { value: 101, name: "Van Henry" },
-  //   { value: 102, name: "Oliver Hansen" },
-  //   { value: 103, name: "Van Henry" },
-  //   { value: 104, name: "Oliver Hansen" },
-  //   { value: 105, name: "Van Henry" },
-  // ];
-
+  const [saveAndNew,setSaveAndNew]=useState(false);
+  let submitAction;
+ 
   const initialValues = {
     name: "",
     groupId: "",
-    status: 1,
+    flag:"",
+    registerUserId:"9999"
   };
 
   //   const formValidation = Yup.object().shape({
@@ -45,12 +31,18 @@ export default function CreateNewCustomerProject(props) {
   //   });
 
   const handleSubmit = async (values) => {
-    await new Promise((r) => setTimeout(r, 500));
     console.log(values);
-    const custResponse = await axiosClient.post('/project', JSON.stringify(values));
-    console.log(custResponse);
-    //navigate("/home");
+    const Response = await axiosFetch.post('/project', JSON.stringify(values));
+    console.log(Response);
+    navigate("/customerProjectTable");
   };
+  const handleSubmitAndNew = async (values) => {
+    // console.log(values,"nnnn");
+    const Response = await axiosFetch.post('/project', JSON.stringify(values));
+    console.log(Response);
+    window.location.reload();
+  };
+
   return (
     <div>
       <ButtonAppBar title="New Customer Project" />
@@ -58,13 +50,19 @@ export default function CreateNewCustomerProject(props) {
         enableReinitialize={true}
         initialValues={initialValues}
         // validationSchema={formValidation}
-        onSubmit={(e) => handleSubmit(e)}
+        onSubmit={(values) => {
+          if (submitAction === "SaveAndNew") {
+            handleSubmitAndNew(values);
+          } else {
+            handleSubmit(values);
+          }
+        }}
       >
         <Form>
           <Box
             sx={{
               alignItems: "center",
-              px: "25%",
+              px: "15%",
               py: "5%",
               // background: "red",
             }}
@@ -77,45 +75,56 @@ export default function CreateNewCustomerProject(props) {
                       data={{ name: "name", label: "Project Name" }}
                     />
                   </Grid>
-                  <Grid item xs={12}>
-                    <CustomSelect
-                      data={{
-                        name: "groupId",
-                        label: "Group Name",
-                        list: list,
-                      }}
-                    />
-                  </Grid>
-
-                  <Grid item xs={12}>
-                    <CustomSelect
-                      data={{
-                        name: "status",
-                        label: "Status",
-                        list: statusList,
-                      }}
+                  {/* <Grid item xs={2}>
+                    <CustomTextfield
+                      data={{ name: "id", label: "Project ID" }}
                       mode="read"
                     />
+                  </Grid> */}
+                  <Grid item xs={6}>
+                    <GroupSelect name="groupId" label="Select Group"/>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <CustomTextfield
+                      data={{ name: "flag", label: "Flag" }}
+                    />
                   </Grid>
 
-                  <Grid item xs={6}>
+                  <Grid item xs={4}>
                     <Button
                       type="submit"
                       variant="contained"
                       size="large"
                       fullWidth
+                      onClick={()=>{
+                        submitAction="Save"
+                      }}
                     >
                       Save
                     </Button>
                   </Grid>
+                  <Grid item xs={4}>
+                    <Button
+                      type="save"
+                      variant="contained"
+                      size="large"
+                      onClick={()=>{
+                        submitAction="SaveAndNew"
+                      }}
+                      fullWidth
+                    >
+                      Save And New
+                    </Button>
+                  </Grid>
 
-                  <Grid item xs={6}>
+                  <Grid item xs={4}>
                     <Button
                       variant="contained"
                       sx={{ backgroundColor: "error.light" }}
                       color="error"
                       size="large"
                       fullWidth
+                      onClick={()=>{navigate(-1)}}
                     >
                       Cancel
                     </Button>

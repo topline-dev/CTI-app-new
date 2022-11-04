@@ -20,7 +20,7 @@ export default function CustomMultiSelect(props) {
   const defaultValue = props.defaultValue || [];
 
   const mode = props.mode;
-  let readMode;
+  var readMode;
   if (mode === "read") {
     readMode = true;
   } else {

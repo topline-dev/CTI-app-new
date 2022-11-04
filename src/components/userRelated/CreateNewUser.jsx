@@ -26,8 +26,8 @@ export default function CreateNewUser(props) {
   let navigate = useNavigate();
   const axiosFetch=AxiosFetch();
 
-  let group=[];
-  let privilegeAPI=0;
+  var group=[];
+  var privilegeAPI=0;
   const [togglePassword, setTogglePassword] = useState(false);
   const [pp, setpp] = useState();
 
@@ -82,7 +82,7 @@ export default function CreateNewUser(props) {
     })
     values.privilege.reverse();
 
-    let APIvalues={...values,customerGroups:group,privilege:privilegeAPI}
+    var APIvalues={...values,customerGroups:group,privilege:privilegeAPI}
     delete APIvalues.groupId;
     privilegeAPI=0;
 

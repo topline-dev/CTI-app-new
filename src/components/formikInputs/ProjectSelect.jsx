@@ -3,21 +3,21 @@ import { AxiosFetch } from "../AxiosFetch";
 import CustomSelect from "./CustomSelect";
 import { useState, useEffect } from "react";
 
-export default function GroupSelect(props) {
+export default function ProjectSelect(props) {
   const axiosFetch = AxiosFetch();
-  const [groupList, setGroupList] = useState([]);
+  const [projectList, setProjectList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  var group = [];
+  var project = [];
 
   useEffect(() => {
     async function getData() {
-      const response = await axiosFetch.get(`/group`);
+      const response = await axiosFetch.get(`/project`);
       if (response.status === 200) {
         response.data.map((data, index) => {
-          group[index] = { name: data.groupDisplayName, value: data.groupId };
+          project[index] = { name: data.name, value: data.id };
         });
-        setGroupList(group);
+        setProjectList(project);
         setIsLoading(false);
       }
     }
@@ -32,8 +32,8 @@ export default function GroupSelect(props) {
         <CustomSelect
           data={{
             name: props.name,
-            label: "Select Group",
-            list: groupList,
+            label: "Select Project",
+            list: projectList,
           }}
           mode={props.mode}
         />

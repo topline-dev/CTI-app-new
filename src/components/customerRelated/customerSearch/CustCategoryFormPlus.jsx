@@ -4,9 +4,11 @@ import CategoryData from '../categoryForm/CategoryData';
 import axios from 'axios';
 import CustFormLite from "./CustFormLite";
 import axiosClient from '../axios';
+import { AxiosFetch } from '../../AxiosFetch';
 
 function CustCategoryFormPlus(props) {
     const [tabValue, setValue] = useState(0);
+    const axiosFetch = AxiosFetch();
 
     // const [error, setError] = useState(null);
     // const [isLoaded, setIsLoaded] = useState(false);
@@ -52,7 +54,7 @@ function CustCategoryFormPlus(props) {
     useEffect(() => {
         async function getdata() {
             if (props.groupId && props.groupId > 0) {
-                const response = await axiosClient.get(`/category/${props.groupId}`);
+                const response = await axiosFetch.get(`/category/${props.groupId}`);
                 if (response.status === 200)
                     setCategoryArray(response.data);
             }

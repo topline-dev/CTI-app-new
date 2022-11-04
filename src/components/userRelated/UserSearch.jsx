@@ -53,7 +53,7 @@ export default function UserSearch(props) {
   const handleSubmit = async (values) => {
 
     console.log(values);
-    let apiValues = {...values,customerGroups:[{groupId:values.groupId}]}
+    var apiValues = {...values,customerGroups:[{groupId:values.groupId}]}
     delete apiValues.groupId;
     console.log(apiValues);
     // let tt={
@@ -70,7 +70,7 @@ export default function UserSearch(props) {
     // }
     const Response = await axiosFetch.post('/userList', JSON.stringify(apiValues));
     console.log(Response);
-    let temp=[];
+    var temp=[];
     Response.data.map((data,index)=>{
       temp[index]={
         id:index+1,

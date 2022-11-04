@@ -13,8 +13,9 @@ export default function Home() {
                 <Link to="/customerSearch">Customer Search Screen</Link>
                 <Link to="/userSearch">User Search</Link>
                 <Link to="/customerGroupTable">Customer Group Table</Link>
-                <Link to="/customizeCategory">customize category</Link>
-                <Link to="/newCategoryitem">New Category Item</Link>
+                <Link to="/customizeCategoryTable">Customize Category table</Link>
+                <Link to="/customerProjectTable">Customer Project Table</Link>
+                {/* <Link to="/newCategoryitem">New Category Item</Link> */}
                 {/* <Link to="/customerDistribution">customer distribution</Link> */}
                 {/* <Link to="/customerEdit">customer Edit</Link>
                 <Link to="/customerDetail">customer details</Link> */}
@@ -25,7 +26,7 @@ export default function Home() {
                 
                 {/* <Link to="/newCustomerGroup">New Customer Group</Link> */}
                 
-                <Link to="/newCustomerProject">New Customer Project</Link>
+                {/* <Link to="/newCustomerProject">New Customer Project</Link> */}
                 <Link to="/testPage" state={{ from: "occupation" }}>Test Page</Link>
                 <Link to="/">Login Page</Link>
                 <Link to="/import">Import Management</Link>

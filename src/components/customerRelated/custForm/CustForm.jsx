@@ -3,6 +3,7 @@ import { Card, Grid, Typography, CardContent } from "@mui/material";
 import CustomTextField from "../../formikInputs/CustomTextField";
 import CustomSelect from "../../formikInputs/CustomSelect";
 import GroupSelect from "../../formikInputs/GroupSelect";
+import ProjectSelect from "../../formikInputs/ProjectSelect";
 
 export default function CustForm(props) {
   let readMode = props.mode === "read" ? "read" : "";
@@ -149,11 +150,17 @@ export default function CustForm(props) {
                 data={{ name: "customerSecondUserId", label: " Second User Id" }}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={6}>
               <GroupSelect
                mode={readMode}
                name= "customerGroup.groupId"
                />
+            </Grid>
+            <Grid item xs={6}>
+              {/* <ProjectSelect
+               mode={readMode}
+               name= "customerProject"
+               /> */}
             </Grid>
             
             {/* <Grid item xs={7}>
