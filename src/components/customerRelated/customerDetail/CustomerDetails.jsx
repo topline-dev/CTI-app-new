@@ -14,7 +14,7 @@ export default function CustomerDetails() {
   const axiosFetch=AxiosFetch();
   const location=useLocation();
   // const { customerId } = useParams();
-  const customerId = location.state.customerId ;
+  const customerId = location.state.customerId;
   // const customerId = 1;
   const [isLoading, setIsLoading] = useState(true);
   const [initialValues, setInitialValues] = useState();

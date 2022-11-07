@@ -15,6 +15,7 @@ export default function Home() {
                 <Link to="/customerGroupTable">Customer Group Table</Link>
                 <Link to="/customizeCategoryTable">Customize Category table</Link>
                 <Link to="/customerProjectTable">Customer Project Table</Link>
+                <Link to="/callLogSettings">Call Log Settings</Link>
                 {/* <Link to="/newCategoryitem">New Category Item</Link> */}
                 {/* <Link to="/customerDistribution">customer distribution</Link> */}
                 {/* <Link to="/customerEdit">customer Edit</Link>

@@ -45,6 +45,7 @@ import CreateNewItem from './components/customizeCategory/customizeItemsRelated/
 import CategoryItemDetail from './components/customizeCategory/customizeItemsRelated/CategoryItemDetail';
 import CustomerProjecTable from './components/customerProjectRelated/CustomerProjectTable';
 import CustomerProjectDetail from './components/customerProjectRelated/CustomerProjectDetail';
+import CallLogIndex from './components/callLogSettings/CallLogIndex';
 
 
 
@@ -102,6 +103,7 @@ function App() {
           <Route exact path="/newCustomerProject" element={<CreateNewCustomerProject/>}/>
           <Route exact path="/customerProjectTable" element={<CustomerProjecTable/>}/>
           <Route exact path="/customerProjectDetail" element={<CustomerProjectDetail/>}/>
+          <Route exact path="/callLogSettings" element={<CallLogIndex/>}/>
 
 
 
