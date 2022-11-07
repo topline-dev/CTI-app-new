@@ -8,6 +8,18 @@ import EditCallGroupModal from "./EditCallGroupModal";
 
 export default function CallGroup() {
 
+  useEffect(() => {
+    async function getData() {
+      const response = await axiosFetch.get(`/callLogGroup`);
+      if (response.status === 200) {
+        // console.log(response,"cust detail response");
+        setRows(response.data);
+        setIsLoading(false);
+      }
+    }
+    getData();
+  }, []);
+
   const [openModal, setOpenModal] = useState(false);
 
   const [modalData, setModalData] = useState();
@@ -68,6 +80,7 @@ export default function CallGroup() {
             variant="contained"
             color="error"
             onClick={onClick}
+            disabled
           >
             Delete
           </Button>
@@ -75,26 +88,6 @@ export default function CallGroup() {
       },
     },
   ];
-  useEffect(() => {
-    async function getData() {
-      // const response = await axiosFetch.get(`/group`);
-      // if (response.status === 200) {
-      //   console.log(response.data);
-      //   setRows(response.data);
-      //   setIsLoading(false);
-      // }
-
-      setRows([
-        { id: 1, name: "Group 1" },
-        { id: 2, name: "Group 2" },
-        { id: 3, name: "Group 3" },
-        { id: 4, name: "Group 4" }
-      ])
-      setIsLoading(false);
-
-    }
-    getData();
-  }, []);
 
   return isLoading ? (
     <div>Loading</div>
@@ -133,7 +126,6 @@ export default function CallGroup() {
                     columns={columns}
                     pageSize={20}
                     rowsPerPageOptions={[5]}
-                    // checkboxSelection
                   />
                 </div>
               </CardContent>

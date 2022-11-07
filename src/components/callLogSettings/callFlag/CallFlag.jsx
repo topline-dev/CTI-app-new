@@ -8,6 +8,19 @@ import EditCallFlagModal from "./EditCallFlagModal";
 
 export default function CallFlag() {
 
+
+  useEffect(() => {
+    async function getData() {
+      const response = await axiosFetch.get(`/callFlag`);
+      if (response.status === 200) {
+        setRows(response.data);
+        setIsLoading(false);
+      }
+    }
+    getData();
+  }, []);
+
+
   const [openModal, setOpenModal] = useState(false);
 
   const [modalData, setModalData] = useState();
@@ -28,9 +41,10 @@ export default function CallFlag() {
       flex: 1,
     },
     {
-      field: "groupname",
+      field: "callLogGroup.name",
       headerName: "Call Group Name",
       flex: 1,
+      valueGetter: (params) => {return params.row.callLogGroup ? params.row.callLogGroup.name : ""}
     },
     {
       field: "edit",

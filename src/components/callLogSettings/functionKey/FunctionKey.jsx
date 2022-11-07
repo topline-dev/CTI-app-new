@@ -8,6 +8,18 @@ import FunctionKeyModal from "./FunctionKeyModal";
 
 export default function FunctionKey() {
 
+    // useEffect(() => {
+    //     async function getData() {
+    //       const response = await axiosFetch.get(`/callFlag`);
+    //       if (response.status === 200) {
+    //         setRows(response.data);
+    //         setIsLoading(false);
+    //       }
+    //     }
+    //     getData();
+    //   }, []);
+    
+
     const [openModal, setOpenModal] = useState(false);
 
     const [modalData, setModalData] = useState();

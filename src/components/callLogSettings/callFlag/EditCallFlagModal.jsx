@@ -6,8 +6,9 @@ import Modal from '@mui/material/Modal';
 import { Grid, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import CustomTextField from '../../formikInputs/CustomTextField';
 import CustomSelect from '../../formikInputs/CustomSelect';
-import { useFormikContext } from 'formik';
+import { Form, Formik, useFormikContext } from 'formik';
 import { AxiosFetch } from '../../AxiosFetch';
+import CallGroupSelect from '../helper/CallGroupSelect'
 
 const style = {
     position: 'absolute',
@@ -22,71 +23,75 @@ const style = {
 
 export default function EditCallFlagModal({ openModal, handleModalChange, data }) {
 
+    //initialValues = {id:1, name:"flag", callloggroup.id:""}
+    const initialValues = data;
+
     const axiosFetch = AxiosFetch();
 
-    // const HandleCreateTicket1 = () => {
-    //     const { values } = useFormikContext();
-    //     useEffect(() => {
-    //         const submitTicketAPI = async (CallLog) => {
-    //             CallLog.user = {userId:"admin"}
-    //             CallLog.customer = {customerId:1}
-    //             const response = await axiosFetch.post(`/ticket`, CallLog)
-    //         }
-    //         if(values.CallLog){
-    //             submitTicketAPI(values.CallLog)
-    //         }
-
-    //     }, [values.submitTicket])
-
-    //     return null;
-
-    // }
-
-    const handleCreateTicket = () => {
-        window.alert("Request completed");
+    const handleSubmit = async (values) => {
+        if (values && !values.id) {
+            const response = await axiosFetch.post('/callFlag', { name: values.name, callLogGroup: { id: values.callLogGroup.id }, registerUserId: "3603" });
+            if (response.status === 200) {
+                window.alert("Saved Successfully");
+            }
+            else {
+                window.alert("Error encountered");
+            }
+        }
+        else {
+            const response = await axiosFetch.put(`/callFlag/${values.id}`, { name: values.name, callLogGroup: { id: values.callLogGroup.id }, modifyUserId: "3603" });
+            if (response.status === 200) {
+                window.alert("Group updated Successfully");
+            }
+            else {
+                window.alert("Error encountered");
+            }
+        }
         handleModalChange();
     }
+
+
     return (
         <div>
-            {/* <HandleCreateTicket1/> */}
             <Modal
                 open={openModal}
                 onClose={handleModalChange}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
-                <Box sx={style}>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Call Log Flag
-                    </Typography>
-                    <Grid container spacing={1} justifyContent={"center"} id="modal=modal-description">
-                        <Grid item xs={3}>
-                            <TextField id="id" label="Id" variant="outlined" value={data ? data.id : ""} disabled />
-                        </Grid>
-                        <Grid item xs={3}>
-                            <TextField id="name" label="Name" variant="outlined" value={data ? data.name : ""} />
-                        </Grid>
-                        <Grid item xs={3}>
-                            {/* <TextField id="id" label="Group Name" variant="outlined" value={data ? data.groupname : ""} /> */}
-                            {/* <InputLabel id="groupname-label">Group</InputLabel> */}
-                            <Select
-                                // labelId="groupname-label"
-                                id="groupname"
-                                value={data ? data.groupname : "Group 1"}
-                                label="Grou"
-                                // onChange={handleChange}
-                                fullWidth
-                            >
-                                <MenuItem value={"Group 1"}>Group 1</MenuItem>
-                                <MenuItem value={"Group 2"}>Group 2</MenuItem>
-                                <MenuItem value={"Group 3"}>Group 3</MenuItem>
-                            </Select>
-                        </Grid>
-                        <Grid item xs={3}>
-                            <Button id="submitTicket" name="submitTicket" size="large" variant="contained" fullWidth onClick={handleCreateTicket}>Save</Button>
-                        </Grid>
-                    </Grid>
-                </Box>
+                <Formik
+                    enableReinitialize={true}
+                    initialValues={initialValues}
+                    // validationSchema={formValidation}
+                    onSubmit={(values) => {
+                        handleSubmit(values)
+                    }}
+                >
+                    <Form>
+                        <Box sx={style}>
+                            <Typography id="modal-modal-title" variant="h6" component="h2">
+                                Call Log Flag
+                            </Typography>
+                            <Grid container spacing={1} justifyContent={"center"} id="modal=modal-description">
+                                <Grid item xs={3}>
+                                    <CustomTextField mode="read" data={{ name: "id", label: "Flag ID" }} disabled />
+                                </Grid>
+                                <Grid item xs={3}>
+                                    <CustomTextField data={{ name: "name", label: "Flag Name" }} />
+                                </Grid>
+                                <Grid item xs={3}>
+                                    <CallGroupSelect
+                                        // mode={readMode}
+                                        name="callLogGroup.id"
+                                    />
+                                </Grid>
+                                <Grid item xs={3}>
+                                <Button type="submit" size="large" variant="contained" fullWidth>Save</Button>
+                                </Grid>
+                            </Grid>
+                        </Box>
+                    </Form>
+                </Formik>
             </Modal>
         </div>
     );

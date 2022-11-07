@@ -4,11 +4,24 @@ import { DataGrid } from "@mui/x-data-grid";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { AxiosFetch } from "../AxiosFetch";
-// import EditCallFlagModal from "./EditCallFlagModal";
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import { Form, Formik } from "formik";
+import CustomTextField from '../formikInputs/CustomTextField'
 
 export default function Title() {
+
+  useEffect(() => {
+    async function getData() {
+      const response = await axiosFetch.get(`/title`);
+      if (response.status === 200) {
+        // console.log(response,"cust detail response");
+        setRows(response.data);
+        setIsLoading(false);
+      }
+    }
+    getData();
+  }, []);
 
   const [openModal, setOpenModal] = useState(false);
 
@@ -37,7 +50,6 @@ export default function Title() {
       renderCell: (params) => {
         const onClick = (e) => {
           e.stopPropagation(); // don't select this row after clicking
-          console.log(params.row, "ppppp");
           setModalData({ id: params.row.id, name: params.row.name });
           handleModalChange();
           // navigate("/customerGroupDetail", { state: { data: params.row } });
@@ -77,32 +89,12 @@ export default function Title() {
       },
     },
   ];
-  useEffect(() => {
-    async function getData() {
-      // const response = await axiosFetch.get(`/group`);
-      // if (response.status === 200) {
-      //   console.log(response.data);
-      //   setRows(response.data);
-      //   setIsLoading(false);
-      // }
-
-      setRows([
-        { id: 1, name: "Title 1" },
-        { id: 2, name: "Title 2"},
-        { id: 3, name: "Title 3"},
-        { id: 4, name: "Title 4"}
-      ])
-      setIsLoading(false);
-
-    }
-    getData();
-  }, []);
 
   return isLoading ? (
-    <div>Loading</div>
+    <div>Waiting For Backend API to be created</div>
   ) : (
     <>
-      <EditCallFlagModal openModal={openModal} handleModalChange={handleModalChange} data={modalData} />
+      <EditModal openModal={openModal} handleModalChange={handleModalChange} data={modalData} />
       <Box
         sx={{
           alignItems: "center",
@@ -135,7 +127,6 @@ export default function Title() {
                     columns={columns}
                     pageSize={20}
                     rowsPerPageOptions={[5]}
-                    // checkboxSelection
                   />
                 </div>
               </CardContent>
@@ -148,68 +139,81 @@ export default function Title() {
 }
 
 const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 900,
-    bgcolor: 'background.paper',
-    boxShadow: 24,
-    p: 4,
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 900,
+  bgcolor: 'background.paper',
+  boxShadow: 24,
+  p: 4,
 };
 
-function EditCallFlagModal({ openModal, handleModalChange, data }) {
+function EditModal({ openModal, handleModalChange, data }) {
 
-    const axiosFetch = AxiosFetch();
+  const initialValues = data;
 
-    // const HandleCreateTicket1 = () => {
-    //     const { values } = useFormikContext();
-    //     useEffect(() => {
-    //         const submitTicketAPI = async (CallLog) => {
-    //             CallLog.user = {userId:"admin"}
-    //             CallLog.customer = {customerId:1}
-    //             const response = await axiosFetch.post(`/ticket`, CallLog)
-    //         }
-    //         if(values.CallLog){
-    //             submitTicketAPI(values.CallLog)
-    //         }
+  const axiosFetch = AxiosFetch();
 
-    //     }, [values.submitTicket])
 
-    //     return null;
-
-    // }
-
-    const handleCreateTicket = () => {
-        window.alert("Request completed");
-        handleModalChange();
+  const handleSubmit = async (values) => {
+    if (values && !values.id) {
+      const response = await axiosFetch.post('/callLogGroup', { name: values.name, registerUserId: "3603" });
+      if (response.status === 200) {
+        window.alert("Saved Successfully");
+      }
+      else {
+        window.alert("Error encountered");
+      }
     }
-    return (
-        <div>
-            {/* <HandleCreateTicket1/> */}
-            <Modal
-                open={openModal}
-                onClose={handleModalChange}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >
-                <Box sx={style}>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Call Log Title
-                    </Typography>
-                    <Grid container spacing={1} justifyContent={"center"} id="modal=modal-description">
-                        <Grid item xs={4}>
-                            <TextField id="id" label="Id" variant="outlined" value={data ? data.id : ""} disabled />
-                        </Grid>
-                        <Grid item xs={4}>
-                            <TextField id="name" label="Title" variant="outlined" value={data ? data.name : ""} />
-                        </Grid>
-                        <Grid item xs={4}>
-                            <Button id="submitTicket" name="submitTicket" size="large" variant="contained" fullWidth onClick={handleCreateTicket}>Save</Button>
-                        </Grid>
-                    </Grid>
-                </Box>
-            </Modal>
-        </div>
-    );
+    else {
+      const response = await axiosFetch.put(`/callLogGroup/${values.id}`, { name: values.name, modifyUserId: "3703" });
+      if (response.status === 200) {
+        window.alert("Group updated Successfully");
+      }
+      else {
+        window.alert("Error encountered");
+      }
+    }
+    handleModalChange();
+  }
+
+  return (
+      <Modal
+      open={openModal}
+      onClose={handleModalChange}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+  >
+      <Formik
+          enableReinitialize={true}
+          initialValues={initialValues}
+          // validationSchema={formValidation}
+          onSubmit={(values) => {
+              handleSubmit(values)
+          }}
+      >
+          <Form>
+
+              <Box sx={style}>
+                  <Typography id="modal-modal-title" variant="h6" component="h2">
+                      Call Log Title
+                  </Typography>
+                  <Grid container spacing={1} justifyContent={"center"} id="modal=modal-description">
+                      <Grid item xs={4}>
+                          <CustomTextField mode="read" data={{ name: "id", label: "Title" }} disabled/>
+                      </Grid>
+                      <Grid item xs={4}>
+                          <CustomTextField data={{ name: "name", label: "Title" }} />
+                      </Grid>
+                      <Grid item xs={4}>
+                      <Button type="submit" size="large" variant="contained" fullWidth>Save</Button>
+                      </Grid>
+                  </Grid>
+              </Box>
+          </Form>
+      </Formik>
+  </Modal>
+
+  );
 }
