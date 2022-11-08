@@ -16,6 +16,9 @@ export default function CallGroup() {
         setRows(response.data);
         setIsLoading(false);
       }
+      else{
+        console.log("Hello");
+      }
     }
     getData();
   }, []);
