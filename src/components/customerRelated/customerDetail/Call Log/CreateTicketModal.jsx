@@ -24,6 +24,30 @@ export default function CreateTicketModal({ openModal, handleModalChange }) {
 
     const axiosFetch = AxiosFetch();
 
+    const initialValues = {};
+
+    const handleSubmit = async (values) => {
+        if(values && !values.id){
+            const response = await axiosFetch.post('/callLogGroup', {name:values.name, registerUserId:"3603"});
+            if(response.status === 200){
+                window.alert("Saved Successfully");
+            }
+            else{
+                window.alert("Error encountered");
+            }
+        }
+        else{
+            const response = await axiosFetch.put(`/callLogGroup/${values.id}`, {name:values.name, modifyUserId:"3703"});
+            if(response.status === 200){
+                window.alert("Group updated Successfully");
+            }
+            else{
+                window.alert("Error encountered");
+            }
+        }
+        handleModalChange();
+    }
+
     // const HandleCreateTicket1 = () => {
     //     const { values } = useFormikContext();
     //     useEffect(() => {
