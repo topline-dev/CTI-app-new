@@ -8,18 +8,19 @@ import { Box } from '@mui/system';
 function CustomerDetailButton() {
   return (
     <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-            
-    <Button key="back" sx={{ color: '#fff' }}>
-      <ArrowBackIosNewIcon/>
-    </Button>
-    <Button key="back2" sx={{ color: '#fff' }}>
-      <ArrowForwardIosIcon/>
-    </Button>
-    <Button key="back3" variant="contained" sx={{ color: '#fff' }}>
-      Edit
-    </Button>
-  
-</Box>
+      
+
+      <Button key="back" sx={{ color: '#fff' }}>
+        <ArrowBackIosNewIcon />
+      </Button>
+      <Button key="back2" sx={{ color: '#fff' }}>
+        <ArrowForwardIosIcon />
+      </Button>
+      <Button key="back3" variant="contained" sx={{ color: '#fff' }}>
+        Edit
+      </Button>
+
+    </Box>
   )
 }
 

@@ -3,22 +3,44 @@ import { Box } from "@mui/system";
 import { DataGrid } from "@mui/x-data-grid";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import Alert from "../../Alert";
 import { AxiosFetch } from "../../AxiosFetch";
 import FunctionKeyModal from "./FunctionKeyModal";
 
 export default function FunctionKey() {
 
-    // useEffect(() => {
-    //     async function getData() {
-    //       const response = await axiosFetch.get(`/callFlag`);
-    //       if (response.status === 200) {
-    //         setRows(response.data);
-    //         setIsLoading(false);
-    //       }
-    //     }
-    //     getData();
-    //   }, []);
-    
+    //Alert
+    const [alert, setAlert] = useState({ open: false, type: "success", message: "Success" });
+    const handleAlert = () => {
+        setAlert(!alert);
+    }
+
+    async function refreshList() {
+        const response = await axiosFetch.get(`/functionKey`);
+        if (response.status === 200) {
+            setRows(response.data);
+            setIsLoading(false);
+        }
+        else{
+            setAlert({ open: true, message: "Something went wrong", type: "error" });
+        }
+    }
+
+    useEffect(() => {
+        async function getData() {
+            const response = await axiosFetch.get(`/functionKey`);
+            if (response.status === 200) {
+                console.log(response.data);
+                setRows(response.data);
+                setIsLoading(false);
+            }
+            else{
+                setAlert({ open: true, message: "Something went wrong", type: "error" });
+            }
+        }
+        getData();
+    }, []);
+
 
     const [openModal, setOpenModal] = useState(false);
 
@@ -40,14 +62,16 @@ export default function FunctionKey() {
             flex: 1,
         },
         {
-            field: "groupname",
+            field: "callLogGroup.name",
             headerName: "Call Group",
             flex: 1,
+            valueGetter: (params) => {return params.row.callLogGroup ? params.row.callLogGroup.name : ""}
         },
         {
-            field: "flag",
+            field: "callFlag.name",
             headerName: "Call Flag",
             flex: 1,
+            valueGetter: (params) => {return params.row.callFlag ? params.row.callFlag.name : ""}
         },
         {
             field: "edit",
@@ -57,10 +81,17 @@ export default function FunctionKey() {
             renderCell: (params) => {
                 const onClick = (e) => {
                     e.stopPropagation(); // don't select this row after clicking
-                    console.log(params.row, "ppppp");
-                    setModalData({ id: params.row.id, name: params.row.name, groupname: params.row.groupname });
+                    setModalData({ 
+                        id: params.row.id, 
+                        name: params.row.name, 
+                        callLogGroup:{
+                            id:params.row.callLogGroup ? params.row.callLogGroup.id : ""
+                        },
+                        callFlag:{
+                            id:params.row.callFlag ? params.row.callFlag.id : ""
+                        }
+                    });
                     handleModalChange();
-                    // navigate("/customerGroupDetail", { state: { data: params.row } });
                 };
                 return (
                     <Button
@@ -97,33 +128,13 @@ export default function FunctionKey() {
             },
         },
     ];
-    useEffect(() => {
-        async function getData() {
-            // const response = await axiosFetch.get(`/group`);
-            // if (response.status === 200) {
-            //   console.log(response.data);
-            //   setRows(response.data);
-            //   setIsLoading(false);
-            // }
-
-            setRows([
-                { id: 1, name: "F3", groupname: "Group 1", flag: "Flag 1" },
-                { id: 2, name: "F6", groupname: "Group 2", flag: "Flag 3" },
-                { id: 3, name: "F7", groupname: "Group 2", flag: "Flag 2" },
-                { id: 4, name: "F8", groupname: "Group 3", flag: "Flag 4" },
-                { id: 5, name: "F9", groupname: "Group 3", flag: "Flag 5" }
-            ])
-            setIsLoading(false);
-
-        }
-        getData();
-    }, []);
 
     return isLoading ? (
         <div>Loading</div>
     ) : (
         <>
-            <FunctionKeyModal openModal={openModal} handleModalChange={handleModalChange} data={modalData} />
+        <Alert data={alert} handleAlert={handleAlert}/>
+            <FunctionKeyModal openModal={openModal} handleModalChange={handleModalChange} data={modalData} setAlert={setAlert} refreshList={refreshList}/>
             <Box
                 sx={{
                     alignItems: "center",
@@ -139,7 +150,7 @@ export default function FunctionKey() {
                             size="large"
                             fullWidth
                             onClick={() => {
-                                setModalData({});
+                                setModalData({ name: "", callLogGroup: {}, callFlag: {} });
                                 handleModalChange();
                             }}
                         >
@@ -156,7 +167,6 @@ export default function FunctionKey() {
                                         columns={columns}
                                         pageSize={20}
                                         rowsPerPageOptions={[5]}
-                                        checkboxSelection
                                     />
                                 </div>
                             </CardContent>

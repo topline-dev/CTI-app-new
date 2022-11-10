@@ -3,10 +3,9 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import { Grid, TextField } from '@mui/material';
+import { Grid } from '@mui/material';
 import CustomTextField from '../../formikInputs/CustomTextField';
-import CustomSelect from '../../formikInputs/CustomSelect';
-import { Form, Formik, useFormikContext } from 'formik';
+import { Form, Formik } from 'formik';
 import { AxiosFetch } from '../../AxiosFetch';
 
 const style = {
@@ -20,7 +19,7 @@ const style = {
     p: 4,
 };
 
-export default function EditCallGroupModal({ openModal, handleModalChange, data }) {
+export default function EditCallGroupModal({ openModal, handleModalChange, data , setAlert, refreshList}) {
 
     //initialValues = { id:1, name:"name" }
     const initialValues = data;
@@ -28,62 +27,63 @@ export default function EditCallGroupModal({ openModal, handleModalChange, data 
     const axiosFetch = AxiosFetch();
 
     const handleSubmit = async (values) => {
-        if(values && !values.id){
-            const response = await axiosFetch.post('/callLogGroup', {name:values.name, registerUserId:"3603"});
-            if(response.status === 200){
-                window.alert("Saved Successfully");
+        if (values && !values.id) {
+            const response = await axiosFetch.post('/callLogGroup', { name: values.name, registerUserId: "3603" });
+            if (response.status === 200) {
+                setAlert({open:true, message:"Call Group Saved", type: "success"});
             }
-            else{
-                window.alert("Error encountered");
+            else {
+                setAlert({open:true, message:"Something went wrong", type: "error"});
             }
         }
-        else{
-            const response = await axiosFetch.put(`/callLogGroup/${values.id}`, {name:values.name, modifyUserId:"3703"});
-            if(response.status === 200){
-                window.alert("Group updated Successfully");
+        else {
+            const response = await axiosFetch.put(`/callLogGroup/${values.id}`, { name: values.name, modifyUserId: "3703" });
+            if (response.status === 200) {
+                setAlert({open:true, message:"Call Group Updated", type: "success"});
             }
-            else{
-                window.alert("Error encountered");
+            else {
+                setAlert({open:true, message:"Error!", type: "error"});
             }
         }
         handleModalChange();
+        refreshList();
     }
 
     return (
-            <Modal
-                open={openModal}
-                onClose={handleModalChange}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
+        <Modal
+            open={openModal}
+            onClose={handleModalChange}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+        >
+            <Formik
+                enableReinitialize={true}
+                initialValues={initialValues}
+                // validationSchema={formValidation}
+                onSubmit={(values) => {
+                    handleSubmit(values)
+                }}
             >
-                <Formik
-                    enableReinitialize={true}
-                    initialValues={initialValues}
-                    // validationSchema={formValidation}
-                    onSubmit={(values) => {
-                        handleSubmit(values)
-                    }}
-                >
-                    <Form>
+                <Form>
 
-                        <Box sx={style}>
-                            <Typography id="modal-modal-title" variant="h6" component="h2">
-                                Call Log Group
-                            </Typography>
-                            <Grid container spacing={1} justifyContent={"center"} id="modal=modal-description">
-                                <Grid item xs={4}>
-                                    <CustomTextField mode="read" data={{ name: "id", label: "Group ID" }} disabled/>
-                                </Grid>
-                                <Grid item xs={4}>
-                                    <CustomTextField data={{ name: "name", label: "Group Name" }} />
-                                </Grid>
-                                <Grid item xs={4}>
-                                <Button type="submit" size="large" variant="contained" fullWidth>Save</Button>
-                                </Grid>
+                    <Box sx={style}>
+                        <Typography id="modal-modal-title" variant="h6" component="h2">
+                            Call Log Group
+                        </Typography>
+                        <Grid container spacing={1} justifyContent={"center"} id="modal=modal-description">
+                            <Grid item xs={4}>
+                                <CustomTextField mode="read" data={{ name: "id", label: "Group ID" }} disabled />
                             </Grid>
-                        </Box>
-                    </Form>
-                </Formik>
-            </Modal>
+                            <Grid item xs={4}>
+                                <CustomTextField data={{ name: "name", label: "Group Name" }} />
+                            </Grid>
+                            <Grid item xs={4}>
+                                <Button type="submit" size="large" variant="contained" fullWidth>Save</Button>
+                            </Grid>
+                        </Grid>
+                    </Box>
+                </Form>
+            </Formik>
+        </Modal>
     );
 }

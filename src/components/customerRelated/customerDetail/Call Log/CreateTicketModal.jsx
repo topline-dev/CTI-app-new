@@ -6,8 +6,14 @@ import Modal from '@mui/material/Modal';
 import { Grid } from '@mui/material';
 import CustomTextField from '../../../formikInputs/CustomTextField';
 import CustomSelect from '../../../formikInputs/CustomSelect';
-import { useFormikContext } from 'formik';
+import { Form, Formik, useFormikContext } from 'formik';
 import { AxiosFetch } from '../../../AxiosFetch';
+import { useLocation } from "react-router";
+import CallGroupSelect from './helper/CallGroupSelect';
+import CallFlagSelect from './helper/CallFlagSelect';
+import TitleSelect from './helper/TitleSelect';
+import PhaseSelect from './helper/PhaseSelect';
+import CallerSelect from './helper/CallerSelect';
 
 const style = {
     position: 'absolute',
@@ -24,143 +30,97 @@ export default function CreateTicketModal({ openModal, handleModalChange }) {
 
     const axiosFetch = AxiosFetch();
 
-    const initialValues = {};
+    const [callGroup, setCallGroup] = useState();
+
+    const location = useLocation();
+    const customerId = location.state.customerId;
+
+    const initialValues = {
+        title:"",
+        phase:"",
+        caller:"",
+        callLogGroup:{},
+        callFlag:{},
+        user:{userId:"admin"},
+        customer:{customerId:customerId}
+    };
 
     const handleSubmit = async (values) => {
-        if(values && !values.id){
-            const response = await axiosFetch.post('/callLogGroup', {name:values.name, registerUserId:"3603"});
-            if(response.status === 200){
+        if (values) {
+            console.log(values);
+            const response = await axiosFetch.post('/ticket', values );
+            if (response.status === 200) {
                 window.alert("Saved Successfully");
             }
-            else{
-                window.alert("Error encountered");
-            }
-        }
-        else{
-            const response = await axiosFetch.put(`/callLogGroup/${values.id}`, {name:values.name, modifyUserId:"3703"});
-            if(response.status === 200){
-                window.alert("Group updated Successfully");
-            }
-            else{
+            else {
                 window.alert("Error encountered");
             }
         }
         handleModalChange();
     }
 
-    // const HandleCreateTicket1 = () => {
-    //     const { values } = useFormikContext();
-    //     useEffect(() => {
-    //         const submitTicketAPI = async (CallLog) => {
-    //             CallLog.user = {userId:"admin"}
-    //             CallLog.customer = {customerId:1}
-    //             const response = await axiosFetch.post(`/ticket`, CallLog)
-    //         }
-    //         if(values.CallLog){
-    //             submitTicketAPI(values.CallLog)
-    //         }
-            
-    //     }, [values.submitTicket])
+    const FormObserver = () => {
+		const { values } = useFormikContext();
+		useEffect(() => {
+			setCallGroup(values.callLogGroup.id || "");
+		}, [values.callLogGroup.id]);
+		return null;
+	};
 
-    //     return null;
-
-    // }
-
-    const handleCreateTicket = () => {
-        window.alert("Created ticket with ticket ID 12");
-        handleModalChange();
-    }
     return (
         <div>
-            {/* <HandleCreateTicket1/> */}
             <Modal
                 open={openModal}
                 onClose={handleModalChange}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
-                <Box sx={style}>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Create New Ticket
-                    </Typography>
-                    <Grid container spacing={1} justifyContent={"center"} id="modal=modal-description">
-                        <Grid item xs={4}>
-                            <CustomSelect
-                                data={{
-                                    name: "CallLog.title",
-                                    label: "Title",
-                                    list: [
-                                        { value: 1, name: "Title 1" },
-                                        { value: 2, name: "Title 2" },
-                                        { value: 3, name: "Title 3" },
-                                        { value: 4, name: "Title 4" }
-                                    ]
-                                }}
-                            />
-                        </Grid>
-                        <Grid item xs={4}>
-                            <CustomSelect
-                                data={{
-                                    name: "CallLog.phase",
-                                    label: "Phase",
-                                    list: [
-                                        { value: 1, name: "Phase 1" },
-                                        { value: 2, name: "Phase 2" },
-                                        { value: 3, name: "Phase 3" },
-                                        { value: 4, name: "Phase 4" }
-                                    ]
-                                }}
-                            />
-                        </Grid>
-                        <Grid item xs={4}>
-                            <CustomSelect
-                                data={{
-                                    name: "CallLog.caller",
-                                    label: "Caller",
-                                    list: [
-                                        { value: 1, name: "Caller 1" },
-                                        { value: 2, name: "Caller 2" },
-                                        { value: 3, name: "Caller 3" },
-                                        { value: 4, name: "Caller 4" }
-                                    ]
-                                }}
-                            />
-                        </Grid>
-                        <Grid item xs={4}>
-                            <CustomSelect
-                                data={{
-                                    name: "CallLog.callLogGroup.id",
-                                    label: "Call Group",
-                                    list: [
-                                        { value: 1, name: "Call Group 1" },
-                                        { value: 2, name: "Call Group 2" },
-                                        { value: 3, name: "Call Group 3" },
-                                        { value: 4, name: "Call Group 4" }
-                                    ]
-                                }}
-                            />
-                        </Grid>
-                        <Grid item xs={4}><CustomSelect
-                            data={{
-                                name: "CallLog.callFlag.id",
-                                label: "Call Flag",
-                                list: [
-                                    { value: 1, name: "Call Flag 1" },
-                                    { value: 2, name: "Call Flag 2" },
-                                    { value: 3, name: "Call Flag 3" },
-                                    { value: 4, name: "Call Flag 4" }
-                                ]
-                            }}
-                        />
-                        </Grid>
-                        <Grid item xs={4}>
-                            <Button id="submitTicket" name="submitTicket" size="large" variant="contained" fullWidth onClick={handleCreateTicket}>Create</Button>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <CustomTextField data={{ name: "memo", label: "Memo" }} multiline rows={5} fullWidth />
-                        </Grid>
-                    </Grid>
-                </Box>
+                <Formik
+                    enableReinitialize={true}
+                    initialValues={initialValues}
+                    // validationSchema={formValidation}
+                    onSubmit={(values) => {
+                        handleSubmit(values)
+                    }}
+                >
+                    <Form>
+                        <FormObserver/>
+                        <Box sx={style}>
+                            <Typography id="modal-modal-title" variant="h6" component="h2">
+                                Create New Ticket
+                            </Typography>
+                            <Grid container spacing={1} justifyContent={"center"} id="modal=modal-description">
+                                <Grid item xs={4}>
+                                    <TitleSelect name="title"/>
+                                </Grid>
+                                <Grid item xs={4}>
+                                <PhaseSelect name="phase"/>
+                                </Grid>
+                                <Grid item xs={4}>
+                                <CallerSelect name="caller"/>
+                                </Grid>
+                                <Grid item xs={4}>
+                                <CallGroupSelect
+                                        // mode={readMode}
+                                        name="callLogGroup.id"
+                                    />
+                                </Grid>
+                                <Grid item xs={4}>
+                                    <CallFlagSelect
+                                        name="callFlag.id"
+                                        callGroup={callGroup}
+                                    />
+                                </Grid>
+                                <Grid item xs={4}>
+                                    <Button type="submit" size="large" variant="contained" fullWidth>Save</Button>
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <CustomTextField data={{ name: "memo", label: "Memo" }} multiline rows={5} fullWidth />
+                                </Grid>
+                            </Grid>
+                        </Box>
+                    </Form>
+                </Formik>
             </Modal>
         </div>
     );

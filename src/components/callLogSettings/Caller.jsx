@@ -8,8 +8,28 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { Form, Formik } from "formik";
 import CustomTextField from '../formikInputs/CustomTextField'
+import Alert from "../Alert";
+
 
 export default function Caller() {
+
+  //Alert
+  const [alert, setAlert] = useState({open:false, type:"success", message:"Success"});
+  const handleAlert = () => {
+    setAlert(!alert);
+  }
+
+  async function refreshList() {
+    const response = await axiosFetch.get(`/caller`);
+    if (response.status === 200) {
+      // console.log(response,"cust detail response");
+      setRows(response.data);
+      setIsLoading(false);
+    }
+    else{
+      console.log("Hello");
+    }
+  }
 
   useEffect(() => {
     async function getData() {
@@ -91,10 +111,11 @@ export default function Caller() {
   ];
 
   return isLoading ? (
-    <div>Waiting For Backend API to be created</div>
+    <div>Loading</div>
   ) : (
     <>
-      <EditModal openModal={openModal} handleModalChange={handleModalChange} data={modalData} />
+    <Alert data={alert} handleAlert={handleAlert}/>
+      <EditModal openModal={openModal} handleModalChange={handleModalChange} data={modalData} setAlert={setAlert} refreshList={refreshList}/>
       <Box
         sx={{
           alignItems: "center",
@@ -149,7 +170,7 @@ const style = {
   p: 4,
 };
 
-function EditModal({ openModal, handleModalChange, data }) {
+function EditModal({ openModal, handleModalChange, data, setAlert, refreshList }) {
 
   const initialValues = data;
 
@@ -158,24 +179,25 @@ function EditModal({ openModal, handleModalChange, data }) {
 
   const handleSubmit = async (values) => {
     if (values && !values.id) {
-      const response = await axiosFetch.post('/callLogGroup', { name: values.name, registerUserId: "3603" });
+      const response = await axiosFetch.post('/caller', { name: values.name, registerUserId: "3603" });
       if (response.status === 200) {
-        window.alert("Saved Successfully");
+        setAlert({open:true, message:"Caller Saved", type: "success"});
       }
       else {
-        window.alert("Error encountered");
+        setAlert({open:true, message:"Something went wrong", type: "error"});
       }
     }
     else {
-      const response = await axiosFetch.put(`/callLogGroup/${values.id}`, { name: values.name, modifyUserId: "3703" });
+      const response = await axiosFetch.put(`/caller/${values.id}`, { name: values.name, modifyUserId: "3703" });
       if (response.status === 200) {
-        window.alert("Group updated Successfully");
+        setAlert({open:true, message:"Caller Updated", type: "success"});
       }
       else {
-        window.alert("Error encountered");
+        setAlert({open:true, message:"Error!", type: "error"});
       }
     }
     handleModalChange();
+    refreshList();
   }
 
   return (

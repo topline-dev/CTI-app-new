@@ -4,9 +4,28 @@ import { DataGrid } from "@mui/x-data-grid";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { AxiosFetch } from "../../AxiosFetch";
+import Alert from "../../Alert";
 import EditCallGroupModal from "./EditCallGroupModal";
 
 export default function CallGroup() {
+
+  //Alert
+  const [alert, setAlert] = useState({open:false, type:"success", message:"Success"});
+  const handleAlert = () => {
+    setAlert(!alert);
+  }
+
+  async function refreshList() {
+    const response = await axiosFetch.get(`/callLogGroup`);
+    if (response.status === 200) {
+      // console.log(response,"cust detail response");
+      setRows(response.data);
+      setIsLoading(false);
+    }
+    else{
+      console.log("Hello");
+    }
+  }
 
   useEffect(() => {
     async function getData() {
@@ -50,10 +69,8 @@ export default function CallGroup() {
       renderCell: (params) => {
         const onClick = (e) => {
           e.stopPropagation(); // don't select this row after clicking
-          console.log(params.row, "ppppp");
           setModalData({ id: params.row.id, name: params.row.name });
           handleModalChange();
-          // navigate("/customerGroupDetail", { state: { data: params.row } });
         };
         return (
           <Button
@@ -96,7 +113,8 @@ export default function CallGroup() {
     <div>Loading</div>
   ) : (
     <>
-      <EditCallGroupModal openModal={openModal} handleModalChange={handleModalChange} data={modalData} />
+    <Alert data={alert} handleAlert={handleAlert}/>
+      <EditCallGroupModal openModal={openModal} handleModalChange={handleModalChange} data={modalData} setAlert={setAlert} refreshList={refreshList}/>
       <Box
         sx={{
           alignItems: "center",

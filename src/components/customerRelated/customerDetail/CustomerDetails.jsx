@@ -11,24 +11,21 @@ import { AxiosFetch } from "../../AxiosFetch";
 
 export default function CustomerDetails() {
   const navigate = useNavigate();
-  const axiosFetch=AxiosFetch();
-  const location=useLocation();
-  // const { customerId } = useParams();
+  const axiosFetch = AxiosFetch();
+  const location = useLocation();
   const customerId = location.state.customerId;
-  // const customerId = 1;
   const [isLoading, setIsLoading] = useState(true);
   const [initialValues, setInitialValues] = useState();
   let categoryobj = {};
-  // let initialValues = {};
   useEffect(() => {
     async function getData() {
       const response = await axiosFetch.get(`/customers/${customerId}`);
       if (response.status === 200) {
-        console.log(response,"cust detail response");
-       response.data.categoryData.map((data) => {
-              categoryobj[data.itemId] = data.value;
-            });
-        setInitialValues({...response.data,categoryData:categoryobj});
+        console.log(response, "cust detail response");
+        response.data.categoryData.map((data) => {
+          categoryobj[data.itemId] = data.value;
+        });
+        setInitialValues({ ...response.data, categoryData: categoryobj });
         setIsLoading(false);
       }
     }
@@ -40,7 +37,7 @@ export default function CustomerDetails() {
     <div>Loading</div>
   ) : (
     <>
-      {console.log( initialValues, "llll")}
+      {console.log(initialValues, "llll")}
       <ButtonAppBar title="Customer Detail" customerDetail="true" />
       {/* <TemporaryDrawer /> */}
       <Formik
@@ -67,7 +64,7 @@ export default function CustomerDetails() {
               <br />
               <Stack direction="row" spacing={2}>
                 <Button
-                  onClick={()=>{navigate("/customerEdit", { state: { data: initialValues } });}}
+                  onClick={() => { navigate("/customerEdit", { state: { data: initialValues } }); }}
                   variant="contained"
                   size="large"
                   fullWidth

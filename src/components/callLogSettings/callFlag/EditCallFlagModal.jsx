@@ -3,10 +3,9 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import { Grid, InputLabel, MenuItem, Select, TextField } from '@mui/material';
+import { Grid } from '@mui/material';
 import CustomTextField from '../../formikInputs/CustomTextField';
-import CustomSelect from '../../formikInputs/CustomSelect';
-import { Form, Formik, useFormikContext } from 'formik';
+import { Form, Formik } from 'formik';
 import { AxiosFetch } from '../../AxiosFetch';
 import CallGroupSelect from '../helper/CallGroupSelect'
 
@@ -21,7 +20,7 @@ const style = {
     p: 4,
 };
 
-export default function EditCallFlagModal({ openModal, handleModalChange, data }) {
+export default function EditCallFlagModal({ openModal, handleModalChange, data, setAlert, refreshList }) {
 
     //initialValues = {id:1, name:"flag", callloggroup.id:""}
     const initialValues = data;
@@ -32,22 +31,23 @@ export default function EditCallFlagModal({ openModal, handleModalChange, data }
         if (values && !values.id) {
             const response = await axiosFetch.post('/callFlag', { name: values.name, callLogGroup: { id: values.callLogGroup.id }, registerUserId: "3603" });
             if (response.status === 200) {
-                window.alert("Saved Successfully");
+                setAlert({open:true, message:"Call Flag Saved", type: "success"});
             }
             else {
-                window.alert("Error encountered");
+                setAlert({open:true, message:"Something went wrong", type: "error"});
             }
         }
         else {
             const response = await axiosFetch.put(`/callFlag/${values.id}`, { name: values.name, callLogGroup: { id: values.callLogGroup.id }, modifyUserId: "3603" });
             if (response.status === 200) {
-                window.alert("Group updated Successfully");
+                setAlert({open:true, message:"Call Group Updated", type: "success"});
             }
             else {
-                window.alert("Error encountered");
+                setAlert({open:true, message:"Error!", type: "error"});
             }
         }
         handleModalChange();
+        refreshList();
     }
 
 

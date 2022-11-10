@@ -5,15 +5,53 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { AxiosFetch } from "../../AxiosFetch";
 import EditCallFlagModal from "./EditCallFlagModal";
+import Alert from "../../Alert";
+
 
 export default function CallFlag() {
 
+  //Alert
+  const [alert, setAlert] = useState({open:false, type:"success", message:"Success"});
+  const handleAlert = () => {
+    setAlert(!alert);
+  }
 
+  async function refreshList() {
+    const response = await axiosFetch.get(`/callLogGroup`);
+    var data1=[];
+    if (response.status === 200) {
+      response.data.map((element) => {
+        if(element.callFlag){
+          element.callFlag.map((element1)=>{
+            data1.push({
+              id:element1.id,
+              name:element1.name,
+              groupName:element.name,
+            })
+          })
+        }
+      })
+      setRows(data1);
+      setIsLoading(false);
+    }
+  }
   useEffect(() => {
     async function getData() {
-      const response = await axiosFetch.get(`/callFlag`);
+      const response = await axiosFetch.get(`/callLogGroup`);
+      var data1=[];
       if (response.status === 200) {
-        setRows(response.data);
+        response.data.map((element) => {
+          if(element.callFlag){
+            element.callFlag.map((element1)=>{
+              data1.push({
+                id:element1.id,
+                name:element1.name,
+                groupName:element.name,
+              })
+            })
+          }
+        })
+        setRows(data1);
         setIsLoading(false);
       }
     }
@@ -41,10 +79,10 @@ export default function CallFlag() {
       flex: 1,
     },
     {
-      field: "callLogGroup.name",
+      field: "groupName",
       headerName: "Call Group Name",
       flex: 1,
-      valueGetter: (params) => {return params.row.callLogGroup ? params.row.callLogGroup.name : ""}
+      // valueGetter: (params) => {return params.row.callLogGroup ? params.row.callLogGroup.name : ""}
     },
     {
       field: "edit",
@@ -57,7 +95,6 @@ export default function CallFlag() {
           console.log(params.row, "ppppp");
           setModalData({ id: params.row.id, name: params.row.name, groupname:params.row.groupname });
           handleModalChange();
-          // navigate("/customerGroupDetail", { state: { data: params.row } });
         };
         return (
           <Button
@@ -94,32 +131,13 @@ export default function CallFlag() {
       },
     },
   ];
-  useEffect(() => {
-    async function getData() {
-      // const response = await axiosFetch.get(`/group`);
-      // if (response.status === 200) {
-      //   console.log(response.data);
-      //   setRows(response.data);
-      //   setIsLoading(false);
-      // }
-
-      setRows([
-        { id: 1, name: "Flag 1", groupname: "Group 1" },
-        { id: 2, name: "Flag 2", groupname: "Group 2" },
-        { id: 3, name: "Flag 3", groupname: "Group 2" },
-        { id: 4, name: "Flag 4", groupname: "Group 3"}
-      ])
-      setIsLoading(false);
-
-    }
-    getData();
-  }, []);
 
   return isLoading ? (
     <div>Loading</div>
   ) : (
     <>
-      <EditCallFlagModal openModal={openModal} handleModalChange={handleModalChange} data={modalData} />
+    <Alert data={alert} handleAlert={handleAlert}/>
+      <EditCallFlagModal openModal={openModal} handleModalChange={handleModalChange} data={modalData} setAlert={setAlert} refreshList={refreshList} />
       <Box
         sx={{
           alignItems: "center",

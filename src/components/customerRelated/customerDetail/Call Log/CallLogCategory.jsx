@@ -15,9 +15,12 @@ function CallLogCategory() {
     return (
         <Grid container spacing={1} marginTop={1} justifyContent={"center"}>
             <CreateTicketModal openModal={openModal} handleModalChange={handleModalChange} />
-            <Grid item xs={9} ></Grid>
-            <Grid item xs={3} >
+            <Grid item xs={7} ></Grid>
+            <Grid item xs={2.5} >
                 <Button variant="contained" fullWidth onClick={handleModalChange}>New Ticket</Button>
+            </Grid>
+            <Grid item xs={2.5} >
+                <Button variant="contained" fullWidth>Add Call Log</Button>
             </Grid>
             <Grid item xs={12}><CallLogTable /></Grid>
         </Grid>
